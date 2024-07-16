@@ -20,24 +20,52 @@ body {
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none;
+    color: inherit;
+}
+
+.game-box:hover {
+    transform: translateY(-5px);
 }
 
 /* Image within box */
 .game-box img {
     width: 100%;
     display: block;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
 }
 
 /* Overlay text */
 .overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
     background-color: rgba(0, 0, 0, 0.7); /* Adjust transparency as needed */
     color: white;
     font-size: 1.5rem;
     text-align: center;
     padding: 10px;
+    border-radius: 0 0 10px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.game-box:hover .overlay {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Button style */
+.button {
+    background-color: #3498db;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: auto;
+    border: none;
+    border-radius: 0 0 10px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #2980b9;
 }
