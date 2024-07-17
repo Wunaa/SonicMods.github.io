@@ -2,13 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const bgMusic = document.getElementById('bgMusic');
     bgMusic.volume = 0.5; // Set volume to 50%
 
-    // Optional: If you want to start playing the music automatically
-    // bgMusic.play();
-
     // Function to show music modal
     function showMusicModal() {
         const musicModal = document.getElementById('musicModal');
-        musicModal.style.display = 'block';
+        musicModal.style.display = 'flex';
         setTimeout(() => {
             musicModal.classList.add('show-modal');
         }, 50); // Delay for smoother animation
@@ -72,11 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <a href="${latestRelease.html_url}" target="_blank" class="download-button">Download</a>
                     `;
 
-                    // Clear previous download list items
                     const downloadList = document.getElementById('download-list');
                     downloadList.innerHTML = '';
 
-                    // Add previous releases to download list
                     data.slice(1).forEach(release => {
                         const li = document.createElement('li');
                         li.innerHTML = `
@@ -101,40 +96,42 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch release information initially
     fetchReleaseInfo();
 
-    // Fetch update log information
-    const updateList = document.getElementById('update-list');
-    fetch('https://api.github.com/repos/Wunaa/DefinitiveShadow/releases')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Clear previous update log items
-            updateList.innerHTML = '';
-
-            // Add update log entries
-            data.forEach(release => {
+    // Function to fetch update log information
+    const fetchUpdateLog = () => {
+        const updateList = document.getElementById('update-list');
+        fetch('https://api.github.com/repos/Wunaa/DefinitiveShadow/releases')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                updateList.innerHTML = '';
+                data.forEach(release => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <strong>${release.name}</strong>
+                        <p>${release.body}</p>
+                    `;
+                    updateList.appendChild(li);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching update log information:', error);
                 const li = document.createElement('li');
-                li.innerHTML = `
-                    <strong>${release.name}</strong>
-                    <p>${release.body}</p>
-                `;
+                li.textContent = 'Error fetching update information.';
                 updateList.appendChild(li);
             });
-        })
-        .catch(error => {
-            console.error('Error fetching update log information:', error);
-            const li = document.createElement('li');
-            li.textContent = 'Error fetching update information.';
-            updateList.appendChild(li);
-        });
+    };
+
+    // Fetch update log information initially
+    fetchUpdateLog();
 
     // Toggle visibility of previous releases list
     const viewPreviousReleasesButton = document.getElementById('view-previous-releases');
     const downloadList = document.getElementById('download-list');
-    
+
     viewPreviousReleasesButton.addEventListener('click', () => {
         if (downloadList.style.display === 'none') {
             downloadList.style.display = 'block';
@@ -143,3 +140,25 @@ document.addEventListener('DOMContentLoaded', () => {
             downloadList.style.display = 'none';
             viewPreviousReleasesButton.textContent = 'View Previous Releases';
         }
+    });
+
+    // Show or hide sections based on navigation
+    function showSection(sectionId) {
+        const sections = document.querySelectorAll('.content-section');
+        sections.forEach(section => {
+            if (section.id === sectionId) {
+                section.classList.add('active');
+            } else {
+                section.classList.remove('active');
+            }
+        });
+    }
+
+    // Check local storage for music preference
+    const playMusic = localStorage.getItem('playMusic');
+    if (playMusic === 'true') {
+        bgMusic.play();
+    } else {
+        showMusicModal();
+    }
+});
