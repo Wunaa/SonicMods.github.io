@@ -12,6 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    animation: fadeIn 1s ease;
 }
 
 .modal {
@@ -24,6 +25,7 @@ body {
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+    animation: fadeIn 0.5s ease;
 }
 
 .modal-content {
@@ -34,11 +36,11 @@ body {
     width: 80%; /* Could be more or less, depending on screen size */
     text-align: center;
     border-radius: 10px;
-    animation: fadeIn 0.5s ease;
 }
 
 .modal-content h2 {
     margin-top: 0;
+    font-size: 1.5em;
 }
 
 .btn {
@@ -66,6 +68,7 @@ header {
     position: absolute;
     top: 0;
     left: 0;
+    animation: fadeIn 1s ease;
 }
 
 header h1 {
