@@ -7,16 +7,17 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: red; /* Background color */
-    background-image: url('https://sonicxshadowgenerations.com/img/features/shadow-section-bg.png'); /* Background image */
+    background-color: red;
+    background-image: url('https://sonicxshadowgenerations.com/img/features/shadow-section-bg.png');
     background-size: cover;
     background-position: center;
-    animation: zoomInOut 20s infinite alternate; /* Zoom animation */
+    animation: zoomInOut 20s infinite alternate;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    overflow-x: hidden;
 }
 
 @keyframes zoomInOut {
@@ -77,6 +78,8 @@ nav ul li a:hover {
     width: 80%;
     border-radius: 10px;
     display: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1s ease-in-out;
 }
 
 .content-section.active {
@@ -117,6 +120,7 @@ footer p {
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .modal-content {
@@ -170,4 +174,11 @@ footer p {
     background-color: #0056b3;
 }
 
-/* Add your additional styling as needed */
+/* Additional styling */
+body {
+    transition: background 0.5s ease-in-out;
+}
+
+header, footer {
+    transition: background 0.5s ease-in-out;
+}
