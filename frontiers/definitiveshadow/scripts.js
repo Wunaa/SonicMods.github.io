@@ -22,4 +22,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Show the home section by default
     showSection('home');
+
+    // Fetch GitHub releases and display in the download section
+    fetch('https://api.github.com/repos/Wunaa/DefinitiveShadow/releases')
+        .then(response => response.json())
+        .then(data => {
+            const releasesDiv = document.getElementById('releases');
+            if (data.length > 0) {
+                data.forEach(release => {
+                    const releaseElement = document.createElement('div');
+                    releaseElement.classList.add('release');
+                    releaseElement.innerHTML = `
+                        <h3>${release.name}</h3>
+                        <p>${release.body}</p>
+                        <a href="${release.html_url}" target="_blank">Download</a>
+                    `;
+                    releasesDiv.appendChild(releaseElement);
+                });
+            } else {
+                releasesDiv.innerHTML = '<p>No releases found.</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching releases:', error);
+            document.getElementById('releases').innerHTML = '<p>Error fetching releases.</p>';
+        });
 });
