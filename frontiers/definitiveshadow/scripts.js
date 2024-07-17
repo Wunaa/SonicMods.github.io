@@ -5,7 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewPreviousReleasesButton = document.getElementById('view-previous-releases');
     const sections = document.querySelectorAll('.content-section');
     const navLinks = document.querySelectorAll('nav ul li a');
+    const musicModal = document.getElementById('musicModal');
+    const musicYesBtn = document.getElementById('musicYes');
+    const musicNoBtn = document.getElementById('musicNo');
+    const bgMusic = document.getElementById('bgMusic');
 
+    // Function to show section and play background music if selected
     function showSection(sectionId) {
         sections.forEach(section => {
             if (section.id === sectionId) {
@@ -14,8 +19,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 section.classList.remove('active');
             }
         });
+
+        // Check if music should play
+        if (localStorage.getItem('playMusic') === 'true') {
+            bgMusic.play();
+        } else {
+            bgMusic.pause();
+        }
     }
 
+    // Show music popup modal
+    function showMusicModal() {
+        musicModal.style.display = 'block';
+    }
+
+    // Hide music popup modal
+    function hideMusicModal() {
+        musicModal.style.display = 'none';
+    }
+
+    // Event listener for music selection
+    musicYesBtn.addEventListener('click', () => {
+        localStorage.setItem('playMusic', 'true');
+        bgMusic.play();
+        hideMusicModal();
+    });
+
+    musicNoBtn.addEventListener('click', () => {
+        localStorage.setItem('playMusic', 'false');
+        bgMusic.pause();
+        hideMusicModal();
+    });
+
+    // Event listeners for navigation links
     navLinks.forEach(link => {
         link.addEventListener('click', function(event) {
             event.preventDefault();
@@ -110,4 +146,9 @@ document.addEventListener('DOMContentLoaded', () => {
             viewPreviousReleasesButton.textContent = 'View Previous Releases';
         }
     });
+
+    // Show music modal on page load
+    setTimeout(() => {
+        showMusicModal();
+    }, 2000); // Adjust delay as needed
 });
