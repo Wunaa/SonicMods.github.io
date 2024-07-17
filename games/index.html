@@ -5,88 +5,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sonic Games Hub</title>
     <style>
+        @charset "utf-8";
+
+        /* Paste the provided CSS styles here */
+
+        /* Custom styles for Sonic Games Hub */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
-        .header {
-            background-color: #0033cc;
-            color: white;
-            padding: 10px;
+            background: #FFFFFF;
+            color: #111111;
+            font-family: Arial, Helvetica, Courier New, Sans-Serif;
+            font-size: 16px;
             text-align: center;
         }
-        .header img {
-            max-width: 500px;
-        }
+
         .container {
-            max-width: 800px;
+            width: 945px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .games-wrapper {
+            background: #FFFFFF;
+            width: 880px;
+            padding-left: 6px;
             margin: 20px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            grid-gap: 20px;
-        }
-        .game-item {
-            border: 1px solid #ccc;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             text-align: center;
         }
-        .game-item img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
+
+        .games-unit li {
+            background: #FFFFFF;
+            list-style-type: none;
+            position: relative;
+            float: left;
+            display: inline;
+            width: 290px;
+            padding: 5px 0;
+            margin: 0 auto;
         }
-        .game-item h3 {
-            margin: 10px 0;
-            font-size: 18px;
-            color: #0033cc;
+
+        .games-unit a img {
+            width: 224px;
+            height: 149px;
+            border: solid 1px #333333;
+            border-radius: 8px;
+            box-shadow: 5px 7px 10px -5px #111111;
         }
-        .game-item p {
-            margin: 0;
+
+        .games-unit a:hover img {
+            border: solid 1px #0000FF;
+        }
+
+        .g-title {
+            width: 235px;
+            height: 18px;
+            margin: 0 auto;
+            padding-top: 1px;
+            text-align: center;
+        }
+
+        .g-desc {
+            width: 235px;
+            height: 50px;
+            margin: 0 auto;
+            text-align: center;
+            overflow: hidden;
             font-size: 14px;
-            color: #666666;
-        }
-        .footer {
-            background-color: #0033cc;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <img src="https://sonicmod.com/games/Playfree.png" alt="Sonic Games Hub">
-        <h1>Sonic Games Hub</h1>
-        <p>Your source for free Sonic games!</p>
-    </div>
-    <div class="container">
-        <div class="game-item">
-            <img src="path_to_sonic_game_thumbnail.jpg" alt="Sonic Game">
-            <h3>Sonic Adventure</h3>
-            <p>Play as Sonic in this thrilling adventure!</p>
-            <a href="sonic_adventure.html">Play Now</a>
+    <div id="wrapper">
+        <div class="header-wrapper">
+            <div class="header-image">
+                <img src="header_image.png" alt="Header Image">
+            </div>
+            <div class="header-title">
+                <h1>Sonic Games Hub</h1>
+            </div>
+            <div class="header-search">
+                <form action="#">
+                    <input type="text" name="search" placeholder="Search...">
+                    <input type="submit" value="Search">
+                </form>
+            </div>
         </div>
-        <div class="game-item">
-            <img src="path_to_another_sonic_game_thumbnail.jpg" alt="Another Sonic Game">
-            <h3>Sonic Dash</h3>
-            <p>Run as Sonic in this endless runner!</p>
-            <a href="sonic_dash.html">Play Now</a>
+
+        <div class="divider-bar"></div>
+
+        <div class="games-wrapper">
+            <h2>Featured Games</h2>
+            <ul class="games-unit">
+                <li>
+                    <a href="https://github.com/EmulatorJS/EmulatorJS">
+                        <img src="emulatorjs_logo.png" alt="EmulatorJS">
+                    </a>
+                    <div class="g-title">
+                        <a href="https://github.com/EmulatorJS/EmulatorJS">EmulatorJS</a>
+                    </div>
+                    <div class="g-desc">
+                        An open-source emulator platform. Play retro games!
+                    </div>
+                </li>
+                <!-- Add more game items as needed -->
+            </ul>
         </div>
-        <!-- Repeat game items as needed -->
     </div>
-    <div class="footer">
-        &copy; 2024 Sonic Games Hub. All rights reserved.
+
+    <div id="footer-wrapper">
+        <div class="footer-bottom-wrapper">
+            &copy; 2024 Sonic Games Hub. All rights reserved.
+        </div>
     </div>
 </body>
 </html>
