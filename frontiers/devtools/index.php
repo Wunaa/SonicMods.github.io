@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevTools Mod - Sonic Frontiers</title>
+    <title>Mod Name - Sonic Frontiers</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,8 +27,8 @@
 </head>
 <body>
     <div class="mod-info">
-        <h2>DevTools Mod - Sonic Frontiers</h2>
-        <p>Description: Your description of the DevTools mod goes here.</p>
+        <h2>Mod Name - Sonic Frontiers</h2>
+        <p>Description: Your description of the mod goes here.</p>
         <p>Features:</p>
         <ul>
             <li>Feature 1</li>
