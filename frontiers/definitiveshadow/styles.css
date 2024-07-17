@@ -1,171 +1,173 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #ff0000; /* Red background */
-    background-image: url('https://sonicxshadowgenerations.com/img/features/shadow-section-bg.png'); /* Overlay image */
-    background-size: cover;
-    color: #f5f5f5;
+/* Reset default styles */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: red; /* Background color */
+    background-image: url('https://sonicxshadowgenerations.com/img/features/shadow-section-bg.png'); /* Background image */
+    background-size: cover;
+    background-position: center;
+    animation: zoomInOut 20s infinite alternate; /* Zoom animation */
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    height: 100vh;
-    animation: fadeIn 1s ease;
 }
 
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
-    animation: fadeIn 0.5s ease;
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 10% auto; /* Center modal vertically */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-    text-align: center;
-    border-radius: 10px;
-}
-
-.modal-content h2 {
-    margin-top: 0;
-    font-size: 1.5em;
-}
-
-.btn {
-    background-color: #ff0000;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 10px;
-    font-size: 1em;
-    transition: background-color 0.3s;
-}
-
-.btn:hover {
-    background-color: #cc0000;
+@keyframes zoomInOut {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.05);
+    }
 }
 
 header {
-    background-color: #000;
-    color: #ff0000;
-    padding: 20px;
-    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
     width: 100%;
-    position: absolute;
+    padding: 10px 0;
+    position: fixed;
     top: 0;
     left: 0;
-    animation: fadeIn 1s ease;
+    z-index: 1000;
 }
 
 header h1 {
-    margin: 0;
-    font-size: 2.5em;
-    text-shadow: 2px 2px #000;
+    color: white;
+    font-size: 2em;
+    text-align: center;
+}
+
+nav {
+    text-align: center;
 }
 
 nav ul {
     list-style-type: none;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    margin: 10px 0 0 0;
 }
 
 nav ul li {
-    margin: 0 15px;
+    display: inline;
+    margin: 0 10px;
 }
 
 nav ul li a {
-    color: #ff0000;
     text-decoration: none;
+    color: white;
     font-weight: bold;
     font-size: 1.2em;
-    transition: color 0.3s;
+    transition: all 0.3s ease;
 }
 
 nav ul li a:hover {
-    color: #fff;
+    color: #007bff;
 }
 
 .content-section {
-    display: none;
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
-    margin: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
+    margin-top: 80px;
+    width: 80%;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-    animation: fadeIn 1s ease;
+    display: none;
 }
 
 .content-section.active {
     display: block;
 }
 
-.download-button {
-    display: inline-block;
-    padding: 10px 15px;
-    background-image: url('https://sonicxshadowgenerations.com/img/features/shadow-header-textbox.png');
-    background-size: cover;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 10px;
-    transition: background-color 0.3s;
+.content-section h2 {
+    color: #007bff;
+    margin-bottom: 10px;
 }
 
-.download-button:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+.content-section p {
+    line-height: 1.6;
 }
 
 footer {
-    background-color: #000;
-    color: #ff0000;
-    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
     padding: 10px 0;
     position: fixed;
     bottom: 0;
+    left: 0;
+    text-align: center;
+}
+
+footer p {
+    color: white;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
     width: 100%;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.7);
-}
-
-button#view-previous-releases {
-    background-image: url('https://sonicxshadowgenerations.com/img/features/shadow-header-textbox.png');
-    background-size: cover;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s;
-}
-
-button#view-previous-releases:hover {
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
 }
 
-/* Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+.modal-content .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content .btn:hover {
+    background-color: #0056b3;
+}
+
+#download-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#download-list li {
+    margin-bottom: 10px;
+}
+
+.download-button {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.download-button:hover {
+    background-color: #0056b3;
+}
+
+/* Add your additional styling as needed */
