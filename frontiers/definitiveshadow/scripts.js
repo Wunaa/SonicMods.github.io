@@ -70,8 +70,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
 
                     const downloadList = document.getElementById('download-list');
-                    downloadList.innerHTML = '';
+                    downloadList.innerHTML = ''; // Clear previous list
 
+                    // Add previous releases to download list
                     data.slice(1).forEach(release => {
                         const li = document.createElement('li');
                         li.innerHTML = `
@@ -96,53 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch release information initially
     fetchReleaseInfo();
 
-    // Function to fetch update log information
-    const fetchUpdateLog = () => {
-        const updateList = document.getElementById('update-list');
-        fetch('https://api.github.com/repos/Wunaa/DefinitiveShadow/releases')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                updateList.innerHTML = '';
-                data.forEach(release => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `
-                        <strong>${release.name}</strong>
-                        <p>${release.body}</p>
-                    `;
-                    updateList.appendChild(li);
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching update log information:', error);
-                const li = document.createElement('li');
-                li.textContent = 'Error fetching update information.';
-                updateList.appendChild(li);
-            });
-    };
-
-    // Fetch update log information initially
-    fetchUpdateLog();
-
-    // Toggle visibility of previous releases list
-    const viewPreviousReleasesButton = document.getElementById('view-previous-releases');
-    const downloadList = document.getElementById('download-list');
-
-    viewPreviousReleasesButton.addEventListener('click', () => {
-        if (downloadList.style.display === 'none') {
-            downloadList.style.display = 'block';
-            viewPreviousReleasesButton.textContent = 'Hide Previous Releases';
-        } else {
-            downloadList.style.display = 'none';
-            viewPreviousReleasesButton.textContent = 'View Previous Releases';
-        }
-    });
-
-    // Show or hide sections based on navigation
+    // Function to show a specific section and hide others
     function showSection(sectionId) {
         const sections = document.querySelectorAll('.content-section');
         sections.forEach(section => {
@@ -154,11 +109,43 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Check local storage for music preference
-    const playMusic = localStorage.getItem('playMusic');
-    if (playMusic === 'true') {
-        bgMusic.play();
-    } else {
-        showMusicModal();
-    }
+    // Event listener for "View Previous Releases" button
+    const viewPreviousReleasesButton = document.getElementById('view-previous-releases');
+    viewPreviousReleasesButton.addEventListener('click', () => {
+        const downloadList = document.getElementById('download-list');
+        if (downloadList.style.display === 'none') {
+            downloadList.style.display = 'block';
+            viewPreviousReleasesButton.textContent = 'Hide Previous Releases';
+        } else {
+            downloadList.style.display = 'none';
+            viewPreviousReleasesButton.textContent = 'View Previous Releases';
+        }
+    });
+
+    // Function to fetch and display update log information
+    const updateList = document.getElementById('update-list');
+    fetch('https://api.github.com/repos/Wunaa/DefinitiveShadow/releases')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            updateList.innerHTML = ''; // Clear previous update log items
+            data.forEach(release => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <strong>${release.name}</strong>
+                    <p>${release.body}</p>
+                `;
+                updateList.appendChild(li);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching update log information:', error);
+            const li = document.createElement('li');
+            li.textContent = 'Error fetching update information.';
+            updateList.appendChild(li);
+        });
 });
