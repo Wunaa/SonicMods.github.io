@@ -24,7 +24,16 @@
 </head>
 <body>
     <h1>Sonic Frontiers Mods</h1>
-    <a href="devtools/">DevTools Mod</a>
-    <!-- Add more links for other mods as needed -->
+    <?php
+    // Scan directory for subdirectories (mods)
+    $modsDir = glob('*', GLOB_ONLYDIR);
+    if ($modsDir) {
+        foreach ($modsDir as $mod) {
+            echo '<a href="' . htmlspecialchars($mod) . '/index.php" class="mod-link">' . htmlspecialchars($mod) . '</a>';
+        }
+    } else {
+        echo '<p>No mods found.</p>';
+    }
+    ?>
 </body>
 </html>
