@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Show music modal on page load
+    // Show music modal on page load with delay
     setTimeout(() => {
         showMusicModal();
     }, 2000); // Adjust delay as needed
