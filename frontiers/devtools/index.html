@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonic Frontiers DevTools</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Sonic Frontiers DevTools</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#download">Download</a></li>
+                <li><a href="#update-log">Update Log</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#controls">Controls</a></li>
+                <li><a href="#issues">Issues</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home">
+            <h2>Welcome</h2>
+            <p>This is an in-engine toolkit that aspires to eventually become a full featured game editor. This tool is currently in rapid development. Check back soon for more features.</p>
+        </section>
+
+        <section id="download">
+            <h2>Download</h2>
+            <div id="latest-release">
+                <h3>Latest Release</h3>
+                <p id="latest-release-info">Fetching latest release...</p>
+            </div>
+            <button id="view-previous-releases">View Previous Releases</button>
+            <ul id="download-list" style="display:none;">
+                <!-- Downloads will be inserted here by JavaScript -->
+            </ul>
+        </section>
+
+        <section id="about">
+            <h2>About</h2>
+            <p>This is an in-engine modding toolkit for the SEGA game Sonic Frontiers. Releases can be found on <a href="https://github.com/angryzor/sonic-frontiers-devtools/releases" target="_blank">GitHub</a> or on <a href="https://gamebanana.com/tools/15218" target="_blank">the project's GameBanana page</a>. A HMM update server is also available.</p>
+            <img src="https://github.com/angryzor/sonic-frontiers-devtools/raw/main/.github/editor.png" alt="The level editor" class="screenshot">
+            
+            <h3>Setting up the development environment</h3>
+            <h4>Using Visual Studio 2022's CMake integration</h4>
+            <p>You will need to have the following prerequisites installed:</p>
+            <ul>
+                <li>Visual Studio 2022</li>
+            </ul>
+            <p>Check out the project and make sure to also check out its submodules:</p>
+            <pre><code>git clone --recurse-submodules https://github.com/angryzor/sonic-frontiers-devtools.git</code></pre>
+            <p>Simply open the project folder in Visual Studio 2022 (File > Open > CMake...) and it should automatically detect the CMakeLists.txt file.</p>
+            <p>The following presets are available:</p>
+            <ul>
+                <li>x64 Debug: Debug build.</li>
+                <li>x64 Debug ImGui Demo: Debug build with ImGui demo window enabled (for editing themes etc.).</li>
+                <li>x64 Release: Release build.</li>
+                <li>x64 RelWithDebInfo: Release build with debug information.</li>
+            </ul>
+            
+            <h4>Using CMake with the Visual Studio 2022 generator</h4>
+            <p>You will need to have the following prerequisites installed:</p>
+            <ul>
+                <li>Visual Studio 2022</li>
+                <li>CMake 3.28 or higher</li>
+            </ul>
+            <p>Check out the project and make sure to also check out its submodules:</p>
+            <pre><code>git clone --recurse-submodules https://github.com/angryzor/sonic-frontiers-devtools.git</code></pre>
+            <p>Now let CMake do its thing:</p>
+            <pre><code>cmake -B build</code></pre>
+            <p>If you have Sonic Frontiers installed in a non-standard location, you can specify that location with the <code>DEVTOOLS_GAME_FOLDER</code> variable:</p>
+            <pre><code>cmake -B build -DDEVTOOLS_GAME_FOLDER="C:\ShadowFrontiers"</code></pre>
+            <p>Once CMake is finished, navigate to the build directory and open <code>devtools.sln</code> with VS2022. You should have a fully working environment available.</p>
+            <p>Building the INSTALL project will install the mod into HedgeModManager's <code>Mods</code> directory.</p>
+            
+            <h3>Screenshots</h3>
+            <p>DevTools has a builtin level editor complete with rendering of debug visualizations such as volumes and colliders:</p>
+            <img src="https://github.com/angryzor/sonic-frontiers-devtools/raw/main/.github/editor.png" alt="The level editor" class="screenshot">
+            <p>As well as debug information left in the game's binary:</p>
+            <img src="https://github.com/angryzor/sonic-frontiers-devtools/raw/main/.github/debugv.jpg" alt="Rendering of debug visuals" class="screenshot">
+            <p>DevTools is able to manipulate datastructures and resources inside the game's memory through reflection:</p>
+            <img src="https://github.com/angryzor/sonic-frontiers-devtools/raw/main/.github/rfl.jpg" alt="RFL editing" class="screenshot">
+            <p>DevTools has a resource browser where you can see the game's currently loaded resources, edit them and hot reload them while the game is running:</p>
+            <img src="https://github.com/angryzor/sonic-frontiers-devtools/raw/main/.github/resource-browser.jpg" alt="Resource browser" class="screenshot">
+            <p>DevTools can edit NeedleFXSceneData graphics parameters in realtime, giving you instant feedback when modding postprocessing and lighting parameters:</p>
+            <img src="https://github.com/angryzor/sonic-frontiers-devtools/raw/main/.github/lighting.jpg" alt="NeedleFxSceneData editing" class="screenshot">
+            <p>DevTools provides inspectors for a variety of game systems, such as the memory allocation system:</p>
+            <img src="https://github.com/angryzor/sonic-frontiers-devtools/raw/main/.github/memory-inspector.png" alt="The memory inspector" class="screenshot">
+        </section>
+
+        <section id="roadmap">
+            <h2>Roadmap</h2>
+            <p>This section outlines the future developments and features planned for Sonic Frontiers DevTools.</p>
+            <ul>
+                <li>Inspectors for all GOComponents. See what's going on inside your game objects.</li>
+                <li>Lua console - Interactively test your Lua scripts.</li>
+                <li>DvScene editor - build your own cinematics.</li>
+                <li>UI editor - Edit SWIF UIs in-engine. Test your new UI designs and export them to a SWIF project to be used in your mod.</li>
+            </ul>
+        </section>
+
+        <section id="controls">
+            <h2>Controls</h2>
+            <p>This section provides a list of important hotkeys and controls for using Sonic Frontiers DevTools effectively.</p>
+            <ul>
+                <li>F8: Bring up the devtools</li>
+                <li>F7: While devtools are open, toggle passthrough of mouse events to the game</li>
+                <li>F6: Toggle debug camera (hover the toolbar toggle to see the controls)</li>
+                <li>F3: Object pause</li>
+                <li>F4: Debug pause</li>
+                <li>F5: Step frame-by-frame</li>
+                <li>Holding ALT while left clicking will bring up a selection menu with all the objects under your cursor instead of selecting directly, for more fine grained selection.</li>
+                <li>In level editor mode:</li>
+                <ul>
+                    <li>Escape: deselect object</li>
+                    <li>Delete: remove object</li>
+                    <li>Shift+Click: place object</li>
+                    <li>Caps Lock: toggle place mode</li>
+                </ul>
+                <li>While a gizmo is active:</li>
+                <ul>
+                    <li>G: Move</li>
+                    <li>R: Rotate</li>
+                    <li>S: Scale</li>
+                    <li>Alt+Space: Toggle local/world coordinate system</li>
+                    <li>X/Y/Z: Restrict transformations along X/Y/Z axis</li>
+                    <li>Shift+X/Y/Z: Restrict transformation along everything but X/Y/Z axis</li>
+                </ul>
+            </ul>
+        </section>
+
+        <section id="issues">
+            <h2>Issues</h2>
+            <p>This section lists known issues and troubleshooting tips for using Sonic Frontiers DevTools.</p>
+            <ul>
+                <li>There is something wrong with the mouse hook. It only starts blocking mouse events once you alt-tab, I will have to take a good look at it in the future. So, if something is wrong with your mouse, press F7 a few times until it goes away.</li>
+            </ul>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
