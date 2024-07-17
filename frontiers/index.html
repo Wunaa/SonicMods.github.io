@@ -24,16 +24,24 @@
 </head>
 <body>
     <h1>Sonic Frontiers Mods</h1>
-    <?php
-    // Scan directory for subdirectories (mods)
-    $modsDir = glob('*', GLOB_ONLYDIR);
-    if ($modsDir) {
-        foreach ($modsDir as $mod) {
-            echo '<a href="' . htmlspecialchars($mod) . '/index.php" class="mod-link">' . htmlspecialchars($mod) . '</a>';
-        }
-    } else {
-        echo '<p>No mods found.</p>';
-    }
-    ?>
+    <div id="modsList">
+        <!-- JavaScript will populate this -->
+    </div>
+
+    <script>
+        // JavaScript to dynamically load mod links
+        document.addEventListener('DOMContentLoaded', function() {
+            var modsList = document.getElementById('modsList');
+            var mods = ['devtools', 'definitiveshadow', 'mod3']; // Replace with actual mod folder names
+
+            mods.forEach(function(mod) {
+                var modLink = document.createElement('a');
+                modLink.href = mod + '/index.html'; // Adjust for your file structure
+                modLink.classList.add('mod-link');
+                modLink.textContent = mod;
+                modsList.appendChild(modLink);
+            });
+        });
+    </script>
 </body>
 </html>
