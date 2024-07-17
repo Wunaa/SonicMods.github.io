@@ -1,43 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const latestReleaseInfo = document.getElementById('latest-release-info');
-    const downloadList = document.getElementById('download-list');
-    const updateList = document.getElementById('update-list');
-    const viewPreviousReleasesButton = document.getElementById('view-previous-releases');
-    const sections = document.querySelectorAll('.content-section');
-    const navLinks = document.querySelectorAll('nav ul li a');
-    const musicModal = document.getElementById('musicModal');
-    const musicYesBtn = document.getElementById('musicYes');
-    const musicNoBtn = document.getElementById('musicNo');
     const bgMusic = document.getElementById('bgMusic');
+    bgMusic.volume = 0.5; // Set volume to 50%
 
-    // Function to show section and play background music if selected
-    function showSection(sectionId) {
-        sections.forEach(section => {
-            if (section.id === sectionId) {
-                section.classList.add('active');
-            } else {
-                section.classList.remove('active');
-            }
-        });
+    // Optional: If you want to start playing the music automatically
+    // bgMusic.play();
 
-        // Check if music should play
-        if (localStorage.getItem('playMusic') === 'true') {
-            bgMusic.play();
-        } else {
-            bgMusic.pause();
-        }
-    }
-
-    // Show music popup modal with animation
+    // Function to show music modal
     function showMusicModal() {
-        musicModal.style.display = 'flex'; // Display as flex for centering
+        const musicModal = document.getElementById('musicModal');
+        musicModal.style.display = 'block';
         setTimeout(() => {
             musicModal.classList.add('show-modal');
-        }, 50); // Small delay for smooth animation
+        }, 50); // Delay for smoother animation
     }
 
-    // Hide music popup modal with animation
+    // Function to hide music modal with animation
     function hideMusicModal() {
+        const musicModal = document.getElementById('musicModal');
         musicModal.classList.remove('show-modal');
         setTimeout(() => {
             musicModal.style.display = 'none';
@@ -45,6 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Event listener for music modal buttons
+    const musicYesBtn = document.getElementById('musicYes');
+    const musicNoBtn = document.getElementById('musicNo');
+
     musicYesBtn.addEventListener('click', () => {
         localStorage.setItem('playMusic', 'true');
         bgMusic.play();
@@ -58,6 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Event listeners for navigation links
+    const navLinks = document.querySelectorAll('nav ul li a');
+
     navLinks.forEach(link => {
         link.addEventListener('click', function(event) {
             event.preventDefault();
@@ -81,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.length > 0) {
                     const latestRelease = data[0];
+                    const latestReleaseInfo = document.getElementById('latest-release-info');
                     latestReleaseInfo.innerHTML = `
                         <strong>${latestRelease.name}</strong>
                         <p>${latestRelease.body}</p>
@@ -88,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
 
                     // Clear previous download list items
+                    const downloadList = document.getElementById('download-list');
                     downloadList.innerHTML = '';
 
                     // Add previous releases to download list
@@ -101,11 +87,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         downloadList.appendChild(li);
                     });
                 } else {
+                    const latestReleaseInfo = document.getElementById('latest-release-info');
                     latestReleaseInfo.textContent = 'No releases found.';
                 }
             })
             .catch(error => {
                 console.error('Error fetching release information:', error);
+                const latestReleaseInfo = document.getElementById('latest-release-info');
                 latestReleaseInfo.textContent = 'Error fetching release information.';
             });
     };
@@ -114,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchReleaseInfo();
 
     // Fetch update log information
+    const updateList = document.getElementById('update-list');
     fetch('https://api.github.com/repos/Wunaa/DefinitiveShadow/releases')
         .then(response => {
             if (!response.ok) {
@@ -143,6 +132,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     // Toggle visibility of previous releases list
+    const viewPreviousReleasesButton = document.getElementById('view-previous-releases');
+    const downloadList = document.getElementById('download-list');
+    
     viewPreviousReleasesButton.addEventListener('click', () => {
         if (downloadList.style.display === 'none') {
             downloadList.style.display = 'block';
@@ -151,10 +143,3 @@ document.addEventListener('DOMContentLoaded', () => {
             downloadList.style.display = 'none';
             viewPreviousReleasesButton.textContent = 'View Previous Releases';
         }
-    });
-
-    // Show music modal on page load with delay
-    setTimeout(() => {
-        showMusicModal();
-    }, 2000); // Adjust delay as needed
-});
