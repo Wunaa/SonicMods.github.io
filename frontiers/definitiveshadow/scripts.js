@@ -28,17 +28,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Show music popup modal
+    // Show music popup modal with animation
     function showMusicModal() {
-        musicModal.style.display = 'block';
+        musicModal.style.display = 'flex'; // Display as flex for centering
+        setTimeout(() => {
+            musicModal.classList.add('show-modal');
+        }, 50); // Small delay for smooth animation
     }
 
-    // Hide music popup modal
+    // Hide music popup modal with animation
     function hideMusicModal() {
-        musicModal.style.display = 'none';
+        musicModal.classList.remove('show-modal');
+        setTimeout(() => {
+            musicModal.style.display = 'none';
+        }, 500); // Duration of animation
     }
 
-    // Event listener for music selection
+    // Event listener for music modal buttons
     musicYesBtn.addEventListener('click', () => {
         localStorage.setItem('playMusic', 'true');
         bgMusic.play();
