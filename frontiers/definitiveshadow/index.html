@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Music Popup Modal -->
+    <div id="musicModal" class="modal">
+        <div class="modal-content">
+            <h2>Do you want to play background music?</h2>
+            <button id="musicYes" class="btn">Yes</button>
+            <button id="musicNo" class="btn">No</button>
+        </div>
+    </div>
+
     <header>
         <h1>Definitive Shadow Mod</h1>
         <nav>
@@ -52,6 +61,7 @@
         <p>&copy; 2024 Definitive Shadow Mod Team. All rights reserved.</p>
     </footer>
 
+    <audio id="bgMusic" src="/assets/music/shadow.mp3" loop></audio>
     <script src="scripts.js"></script>
 </body>
 </html>
