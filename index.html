@@ -3,70 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sonic Mods Homepage</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            padding: 20px;
-        }
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .game {
-            text-align: center;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        .game:hover {
-            transform: scale(1.05);
-        }
-        .game img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-        .game a {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-            padding: 10px;
-            background-color: #ffffff;
-            border: 1px solid #cccccc;
-        }
-    </style>
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Welcome to Sonic Mods!</h1>
-    <div class="grid-container">
-        <div class="game">
-            <a href="/generations/">
-                <img src="https://live.staticflickr.com/7196/6966291193_2d882a2808_z.jpg" alt="Sonic Generations">
-                <p>Sonic Generations</p>
-            </a>
+    <div class="desktop">
+        <header class="taskbar">
+            <div class="start-menu">
+                <button id="start-button">Start</button>
+            </div>
+            <div class="taskbar-items">
+                <button class="taskbar-item">My Computer</button>
+                <button class="taskbar-item">Documents</button>
+                <button class="taskbar-item">Settings</button>
+            </div>
+        </header>
+
+        <div class="window" id="about-window">
+            <div class="window-titlebar">
+                <span class="window-title">About Me</span>
+                <button class="close-btn" onclick="closeWindow('about-window')">X</button>
+            </div>
+            <div class="window-content">
+                <p>Welcome to my portfolio website. I am a web developer with a passion for creating innovative and engaging web experiences.</p>
+            </div>
         </div>
-        <div class="game">
-            <a href="/forces/">
-                <img src="https://images.launchbox-app.com/753c6627-e6b0-486c-be7e-07cf089e415e.jpg" alt="Sonic Forces">
-                <p>Sonic Forces</p>
-            </a>
+        
+        <div class="window" id="projects-window">
+            <div class="window-titlebar">
+                <span class="window-title">Projects</span>
+                <button class="close-btn" onclick="closeWindow('projects-window')">X</button>
+            </div>
+            <div class="window-content">
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h3>Project 1</h3>
+                        <p>A description of Project 1.</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>Project 2</h3>
+                        <p>A description of Project 2.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="game">
-            <a href="/unleashed/">
-                <img src="https://cdn2.steamgriddb.com/thumb/7d7cd22be13a06a5ac711feb6b2698ac.jpg" alt="Sonic Unleashed">
-                <p>Sonic Unleashed</p>
-            </a>
-        </div>
-        <div class="game">
-            <a href="/frontiers/">
-                <img src="https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/ncom/software/switch/70010000040331/96118506c3829370249225b8e82f1ae061036bdcf337b0265258efe1f8cf3bd9" alt="Sonic Frontiers">
-                <p>Sonic Frontiers</p>
-            </a>
+        
+        <div class="window" id="contact-window">
+            <div class="window-titlebar">
+                <span class="window-title">Contact</span>
+                <button class="close-btn" onclick="closeWindow('contact-window')">X</button>
+            </div>
+            <div class="window-content">
+                <p>Feel free to reach out to me via email at <a href="mailto:example@example.com">example@example.com</a>.</p>
+            </div>
         </div>
     </div>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
