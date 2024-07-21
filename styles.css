@@ -135,6 +135,7 @@ body {
     overflow-y: auto;
     height: calc(100% - 40px);
     font-size: 12px;
+    text-align: left;
 }
 
 /* Project Grid */
