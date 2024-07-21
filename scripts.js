@@ -9,9 +9,9 @@ function closeWindow(id) {
 }
 
 // Add event listeners to taskbar items
-document.querySelector('.taskbar-items').addEventListener('click', function(e) {
-    if (e.target.classList.contains('taskbar-item')) {
-        let windowId = e.target.textContent.toLowerCase().replace(' ', '-') + '-window';
+document.querySelectorAll('.taskbar-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const windowId = this.getAttribute('data-window');
         openWindow(windowId);
-    }
+    });
 });
