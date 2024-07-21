@@ -26,21 +26,26 @@ document.getElementById('start-button').addEventListener('click', function() {
 document.querySelectorAll('.taskbar-item').forEach(item => {
     item.addEventListener('click', function() {
         const windowId = this.getAttribute('data-window');
-        openWindow(windowId);
+        const windowElement = document.getElementById(windowId);
+        if (windowElement.style.display === 'none' || windowElement.style.display === '') {
+            openWindow(windowId);
+        } else {
+            closeWindow(windowId);
+        }
     });
 });
 
-// Make windows draggable
+// Draggable windows functionality
 document.querySelectorAll('.window').forEach(windowElement => {
     let isDragging = false;
     let startX, startY, startLeft, startTop;
 
-    windowElement.querySelector('.window-titlebar').addEventListener('mousedown', (e) => {
+    windowElement.addEventListener('mousedown', (e) => {
         isDragging = true;
         startX = e.clientX;
         startY = e.clientY;
-        startLeft = windowElement.offsetLeft;
-        startTop = windowElement.offsetTop;
+        startLeft = parseInt(windowElement.style.left, 10) || 0;
+        startTop = parseInt(windowElement.style.top, 10) || 0;
         e.preventDefault(); // Prevent text selection during drag
     });
 
