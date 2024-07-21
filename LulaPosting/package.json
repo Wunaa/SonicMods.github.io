@@ -1,0 +1,16 @@
+{
+  "name": "lula-posting",
+  "version": "1.0.0",
+  "description": "TikTok OAuth Integration for Lula Posting",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-fetch": "^3.2.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3"
+  }
+}
