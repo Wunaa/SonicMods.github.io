@@ -1,8 +1,8 @@
 /* Base styles */
 body {
     margin: 0;
-    font-family: 'Tahoma', sans-serif;
-    background-color: #0081c2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0081c2; /* Classic Windows 7 background color */
     color: #000;
     text-align: center;
 }
@@ -13,7 +13,7 @@ body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background: url('windows-xp-wallpaper.jpg') no-repeat center center fixed;
+    background: url('windows-7-wallpaper.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -23,14 +23,14 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: #003b6f;
+    background: #1d1d1d; /* Dark taskbar */
     color: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 10px;
     border-top: 1px solid #000000;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .start-menu {
@@ -38,9 +38,9 @@ body {
 }
 
 .start-menu button {
-    background: #003b6f;
+    background: #1d1d1d;
     color: #ffffff;
-    border: 1px solid #003b6f;
+    border: 1px solid #1d1d1d;
     padding: 4px 8px;
     font-size: 14px;
     cursor: pointer;
@@ -52,12 +52,13 @@ body {
     position: absolute;
     top: 30px;
     left: 0;
-    background: #c0c0c0;
+    background: #e0e0e0;
     border: 1px solid #000000;
     padding: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     z-index: 101;
     text-align: left;
+    border-radius: 3px;
 }
 
 .taskbar-items {
@@ -65,9 +66,9 @@ body {
 }
 
 .taskbar-item {
-    background: #003b6f;
+    background: #1d1d1d;
     color: #ffffff;
-    border: 1px solid #003b6f;
+    border: 1px solid #1d1d1d;
     padding: 4px 8px;
     margin: 0 5px;
     font-size: 14px;
@@ -82,26 +83,34 @@ body {
     left: 20px;
     width: 300px;
     height: 200px;
-    background: #c0c0c0;
-    border: 2px solid #000000;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    background: #f0f0f0;
+    border: 1px solid #000000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     display: none;
     z-index: 100;
     cursor: move;
-    border-radius: 3px;
+    border-radius: 4px;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.window.open {
+    transform: scale(1);
+    opacity: 1;
 }
 
 /* Window Titlebar */
 .window-titlebar {
-    background: #000080;
+    background: #0078d7; /* Windows 7 title bar color */
     color: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 4px;
-    border-bottom: 2px solid #000000;
+    padding: 5px;
+    border-bottom: 1px solid #000000;
     cursor: default;
-    border-radius: 3px 3px 0 0;
+    border-radius: 4px 4px 0 0;
 }
 
 .window-title {
