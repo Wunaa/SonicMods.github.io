@@ -1,11 +1,19 @@
-// Function to open a window
+// Function to open a window with animation
 function openWindow(id) {
-    document.getElementById(id).style.display = 'block';
+    const windowElement = document.getElementById(id);
+    windowElement.style.display = 'block';
+    setTimeout(() => {
+        windowElement.classList.add('open');
+    }, 10);
 }
 
-// Function to close a window
+// Function to close a window with animation
 function closeWindow(id) {
-    document.getElementById(id).style.display = 'none';
+    const windowElement = document.getElementById(id);
+    windowElement.classList.remove('open');
+    setTimeout(() => {
+        windowElement.style.display = 'none';
+    }, 300);
 }
 
 // Toggle Start menu visibility
@@ -38,10 +46,16 @@ document.querySelectorAll('.window').forEach(windowElement => {
 
     document.addEventListener('mousemove', (e) => {
         if (isDragging) {
-            const dx = e.clientX - startX;
-            const dy = e.clientY - startY;
-            windowElement.style.left = Math.min(window.innerWidth - windowElement.offsetWidth, Math.max(0, startLeft + dx)) + 'px';
-            windowElement.style.top = Math.min(window.innerHeight - windowElement.offsetHeight, Math.max(0, startTop + dy)) + 'px';
+            const newLeft = startLeft + (e.clientX - startX);
+            const newTop = startTop + (e.clientY - startY);
+            const windowWidth = windowElement.offsetWidth;
+            const windowHeight = windowElement.offsetHeight;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            // Constrain window within viewport
+            windowElement.style.left = `${Math.min(Math.max(newLeft, 0), viewportWidth - windowWidth)}px`;
+            windowElement.style.top = `${Math.min(Math.max(newTop, 0), viewportHeight - windowHeight)}px`;
         }
     });
 
