@@ -5,6 +5,38 @@ body {
     background-color: #0081c2; /* Classic Windows 7 background color */
     color: #000;
     text-align: center;
+    overflow: hidden;
+}
+
+/* Boot Screen */
+.boot-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeOut 2s forwards;
+}
+
+.boot-animation h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Fade out animation for boot screen */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
 
 /* Desktop area */
@@ -31,6 +63,7 @@ body {
     padding: 5px 10px;
     border-top: 1px solid #000000;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+    z-index: 100;
 }
 
 .start-menu {
@@ -76,6 +109,12 @@ body {
     border-radius: 3px;
 }
 
+/* Real-time Clock */
+.clock {
+    font-size: 14px;
+    color: #ffffff;
+}
+
 /* Windows */
 .window {
     position: absolute;
@@ -109,125 +148,60 @@ body {
     align-items: center;
     padding: 5px;
     border-bottom: 1px solid #000000;
-    cursor: default;
-    border-radius: 4px 4px 0 0;
+    cursor: move;
 }
 
 .window-title {
-    font-weight: bold;
     font-size: 14px;
+    font-weight: bold;
 }
 
-/* Close Button */
 .close-btn {
-    background: #ff0000;
+    background: #f44336;
     color: #ffffff;
     border: none;
-    padding: 4px 8px;
+    padding: 2px 6px;
     cursor: pointer;
-    font-size: 14px;
     border-radius: 3px;
 }
 
 /* Window Content */
 .window-content {
     padding: 10px;
-    overflow-y: auto;
-    height: calc(100% - 40px);
-    font-size: 12px;
-    text-align: left;
-}
-
-/* Project Grid */
-.project-grid {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.project-card {
-    background: #e0e0e0;
-    border: 1px solid #000000;
-    padding: 10px;
-    margin: 10px;
-    width: calc(50% - 40px);
-    box-sizing: border-box;
-    border-radius: 3px;
-    transition: transform 0.3s ease;
-}
-
-.project-card:hover {
-    transform: scale(1.02);
 }
 
 /* Desktop Icons */
 .desktop-icons {
     position: absolute;
-    top: 50px;
-    left: 10px;
+    bottom: 50px;
+    left: 20px;
     display: flex;
-    flex-wrap: wrap;
-    pointer-events: none;
+    flex-direction: column;
 }
 
 .desktop-icon {
-    width: 80px;
-    height: 100px;
-    margin: 10px;
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid #000000;
-    border-radius: 3px;
-    text-align: center;
-    line-height: 100px;
-    cursor: move;
-    position: absolute;
-    user-select: none;
-    pointer-events: auto;
+    margin-bottom: 10px;
 }
 
-.desktop-icon img {
+.icon-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.icon-button img {
     width: 50px;
     height: 50px;
-    margin-bottom: 5px;
 }
 
-.desktop-icon span {
+.icon-button span {
     display: block;
-    font-size: 12px;
+    color: #ffffff;
 }
 
-/* Taskbar Animation */
-@keyframes slideIn {
-    from {
-        transform: translateY(100%);
-    }
-    to {
-        transform: translateY(0);
-    }
-}
-
-.taskbar {
-    animation: slideIn 0.3s ease;
-}
-
-/* Window Animations */
-@keyframes windowOpen {
-    from {
-        transform: scale(0.8);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-@keyframes windowClose {
-    from {
-        transform: scale(1);
-        opacity: 1;
-    }
-    to {
-        transform: scale(0.8);
-        opacity: 0;
-    }
+/* Draggable Window Styling */
+.draggable {
+    position: absolute;
+    cursor: move;
 }
