@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontiers Animation Decompress</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        #content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            margin-bottom: 10px;
+        }
+        .section p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div class="section" id="repo-info">
+            <h2>Repository Information</h2>
+            <p id="description"></p>
+            <p><strong>Stars:</strong> <span id="stars"></span></p>
+            <p><strong>Forks:</strong> <span id="forks"></span></p>
+            <p><strong>Open Issues:</strong> <span id="issues"></span></p>
+        </div>
+        <div class="section" id="commits">
+            <h2>Latest Commits</h2>
+            <ul id="commit-list"></ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
