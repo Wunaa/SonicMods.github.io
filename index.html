@@ -7,7 +7,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Boot Screen -->
+    <div class="boot-screen">
+        <div class="boot-animation">
+            <h1>Loading...</h1>
+        </div>
+    </div>
+
+    <!-- Desktop Area -->
     <div class="desktop">
+        <!-- Taskbar -->
         <header class="taskbar">
             <div class="start-menu">
                 <button id="start-button">Start</button>
@@ -22,8 +31,10 @@
                 <button class="taskbar-item" data-window="projects-window">Projects</button>
                 <button class="taskbar-item" data-window="contact-window">Contact</button>
             </div>
+            <div id="clock" class="clock"></div>
         </header>
 
+        <!-- Windows -->
         <div class="window" id="about-window">
             <div class="window-titlebar">
                 <span class="window-title">About Me</span>
@@ -35,7 +46,7 @@
                 <p>There’s also a chance you might know me from back in the day of 2015. If so, that’s awesome! However, all my history from that time is long gone, so have fun finding me! :D</p>
             </div>
         </div>
-        
+
         <div class="window" id="projects-window">
             <div class="window-titlebar">
                 <span class="window-title">Projects</span>
@@ -54,7 +65,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="window" id="contact-window">
             <div class="window-titlebar">
                 <span class="window-title">Contact</span>
@@ -64,7 +75,7 @@
                 <p>Feel free to reach out to me via email at <a href="mailto:example@example.com">example@example.com</a>.</p>
             </div>
         </div>
-        
+
         <!-- Desktop Icons -->
         <div class="desktop-icons">
             <div class="desktop-icon" id="icon-about">
