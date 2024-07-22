@@ -1,0 +1,91 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: url('https://www.sonicstadium.org/wp-content/uploads/2019/05/sonic.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    margin: 0;
+    overflow: hidden;
+}
+
+header {
+    background: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+nav {
+    margin: 70px 0 20px 0;
+    text-align: center;
+}
+
+nav a {
+    color: #ff6b6b;
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+nav a:hover {
+    color: #ff4757;
+}
+
+.container {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 800px;
+    margin: 100px auto 20px auto;
+    display: none;
+    position: absolute;
+    left: 100%;
+    transition: left 0.5s ease-in-out;
+}
+
+.active {
+    display: block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.container h2 {
+    margin-top: 0;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    color: #fff;
+    background: #ff6b6b;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.button:hover {
+    background: #ff4757;
+}
+
+pre {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+code {
+    color: #ff6b6b;
+}
