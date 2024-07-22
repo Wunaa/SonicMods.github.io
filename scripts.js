@@ -8,8 +8,9 @@ document.getElementById('start-button').addEventListener('click', () => {
 document.querySelectorAll('.taskbar-item').forEach(item => {
     item.addEventListener('click', () => {
         const windowId = item.getAttribute('data-window');
-        document.getElementById(windowId).style.display = 'block';
-        document.getElementById(windowId).classList.add('open');
+        const windowElement = document.getElementById(windowId);
+        windowElement.style.display = 'block';
+        windowElement.classList.add('open');
     });
 });
 
@@ -21,15 +22,15 @@ function closeWindow(windowId) {
     }, 300); // Match this with CSS transition duration
 }
 
-// Drag and drop functionality
+// Drag and drop functionality for desktop icons
 document.querySelectorAll('.desktop-icon').forEach(icon => {
     icon.addEventListener('mousedown', function(e) {
         let offsetX = e.clientX - icon.getBoundingClientRect().left;
         let offsetY = e.clientY - icon.getBoundingClientRect().top;
 
         function onMouseMove(e) {
-            icon.style.left = `${e.clientX - offsetX}px`;
-            icon.style.top = `${e.clientY - offsetY}px`;
+            icon.style.left = `${Math.max(0, e.clientX - offsetX)}px`;
+            icon.style.top = `${Math.max(0, e.clientY - offsetY)}px`;
         }
 
         function onMouseUp() {
