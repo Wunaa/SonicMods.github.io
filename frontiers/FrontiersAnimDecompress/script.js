@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch(`${repoUrl}/releases/latest`)
         .then(response => response.json())
         .then(data => {
-            const downloadLink = data.assets[0].browser_download_url; // Assuming the first asset is the one to be downloaded
-            document.getElementById('download-link').href = downloadLink;
+            const latestReleaseUrl = data.assets[0].browser_download_url; // Link to the latest release asset
+            document.getElementById('download-link').href = latestReleaseUrl;
         })
         .catch(error => console.error('Error fetching latest release:', error));
 
