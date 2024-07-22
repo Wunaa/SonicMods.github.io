@@ -147,12 +147,11 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 5px;
-    border-bottom: 1px solid #000000;
-    cursor: move;
+    cursor: default;
+    border-radius: 4px 4px 0 0;
 }
 
 .window-title {
-    font-size: 14px;
     font-weight: bold;
 }
 
@@ -198,10 +197,4 @@ body {
 .icon-button span {
     display: block;
     color: #ffffff;
-}
-
-/* Draggable Window Styling */
-.draggable {
-    position: absolute;
-    cursor: move;
 }
