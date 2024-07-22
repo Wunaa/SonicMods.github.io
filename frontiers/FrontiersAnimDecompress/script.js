@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('stars').textContent = data.stargazers_count;
             document.getElementById('forks').textContent = data.forks_count;
             document.getElementById('issues').textContent = data.open_issues_count;
+            document.getElementById('download-link').href = data.html_url + '/archive/refs/heads/main.zip'; // Link to download the main branch as a zip file
         })
         .catch(error => console.error('Error fetching repository information:', error));
 
