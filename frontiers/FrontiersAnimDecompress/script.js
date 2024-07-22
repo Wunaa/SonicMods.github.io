@@ -9,9 +9,17 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('stars').textContent = data.stargazers_count;
             document.getElementById('forks').textContent = data.forks_count;
             document.getElementById('issues').textContent = data.open_issues_count;
-            document.getElementById('download-link').href = data.html_url + '/archive/refs/heads/main.zip'; // Link to download the main branch as a zip file
         })
         .catch(error => console.error('Error fetching repository information:', error));
+
+    // Fetch latest release
+    fetch(`${repoUrl}/releases/latest`)
+        .then(response => response.json())
+        .then(data => {
+            const downloadLink = data.assets[0].browser_download_url; // Assuming the first asset is the one to be downloaded
+            document.getElementById('download-link').href = downloadLink;
+        })
+        .catch(error => console.error('Error fetching latest release:', error));
 
     // Fetch latest commits
     fetch(`${repoUrl}/commits`)
