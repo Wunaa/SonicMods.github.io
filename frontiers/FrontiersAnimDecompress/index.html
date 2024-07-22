@@ -3,36 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frontiers Animation Decompress</title>
+    <title>Frontiers Animation Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background: url('https://www.sonicstadium.org/wp-content/uploads/2019/05/sonic.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        #content {
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        nav {
+            margin: 20px 0;
+        }
+        nav a {
+            color: #ff6b6b;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #ff4757;
+        }
+        .container {
             background: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             width: 90%;
             max-width: 800px;
-        }
-        .section {
             margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
         }
-        .section h2 {
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        .section p {
-            margin: 0 0 10px;
+        .container h2 {
+            margin-top: 0;
         }
         .button {
             display: inline-block;
@@ -57,22 +75,66 @@
             padding: 10px;
             border-radius: 5px;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 </head>
 <body>
-    <div id="content">
-        <div class="section" id="repo-info">
-            <h2>Repository Information</h2>
-            <p id="description"></p>
-            <p><strong>Stars:</strong> <span id="stars"></span></p>
-            <p><strong>Forks:</strong> <span id="forks"></span></p>
-            <p><strong>Open Issues:</strong> <span id="issues"></span></p>
-            <a id="download-link" href="#" class="button" target="_blank">Download Latest Release</a>
-        </div>
-        <div class="section" id="commits">
-            <h2>Latest Commits</h2>
-            <ul id="commit-list"></ul>
-        </div>
+    <header>
+        <h1>Frontiers Animation Tools</h1>
+    </header>
+    <nav>
+        <a href="#repo-info">Repository Info</a>
+        <a href="#about">About</a>
+        <a href="#commits">Latest Commits</a>
+    </nav>
+    <div id="repo-info" class="container">
+        <h2>Repository Information</h2>
+        <p id="description"></p>
+        <p><strong>Stars:</strong> <span id="stars"></span></p>
+        <p><strong>Forks:</strong> <span id="forks"></span></p>
+        <p><strong>Open Issues:</strong> <span id="issues"></span></p>
+        <a id="download-link" href="#" class="button" target="_blank">Download Latest Release</a>
+    </div>
+    <div id="about" class="container">
+        <h2>About</h2>
+        <p>Blender addon for importing and exporting compressed Hedgehog Engine 2 animations (.anm.pxd)</p>
+        <h3>Features:</h3>
+        <ul>
+            <li>PXD Skeleton import and export with bone reorientation</li>
+            <li>Batch import and export PXD animations as actions</li>
+            <li>Per-action FPS and frame range settings</li>
+            <li>Visual keying export</li>
+            <li>Root motion support as skeleton object transform</li>
+        </ul>
+        <h3>Documentation:</h3>
+        <p>*To-do: make this better*</p>
+        <p>In the meantime, just a couple notes:</p>
+        <ul>
+            <li>Batch exporting is found in the 3D viewports side menu under the "Animation" tab.</li>
+            <li>A skeleton needs to be selected before importing or exporting an animation.</li>
+            <li>Skeletons from ModelFBX outputs may differ from the .skl.pxd files. If you plan to export animations for an unmodified skeleton, consider importing the .skl.pxd file separately to replace the skeleton that came with the ModelFBX output.</li>
+            <li>Importing a skeleton with YX orientation will support mirroring in Blender. However, you will need to enable YX reorientation for any and all subsequent skeleton exports, animation imports and exports.</li>
+            <li>The skeleton's native orientation should be Y-up (lying on its back in Blender), and then rotated +90deg along X to make it upright with Blender's Z-up space. Root motion imports and exports will base it's transformation off this orientation.</li>
+            <li>This tool adds animation keys for every bone for every frame. Having many actions stored in Blender in this manner will make Blender less responsive and use *lots* of memory. Try to keep the total number of actions low and maybe think twice before importing every animation at once.</li>
+            <li>Batch export frame range and FPS settings are pulled from each action's settings in the action editor. These are set when importing an animation and can be changed before exporting.</li>
+            <li>When batch exporting, navigate to a folder you want each action to be exported to. Batch exports take the action name and add ".anm.pxd" to the end as the file name. Note that any existing animations in this folder with the same name will be overwritten without warning.</li>
+            <li>The UI may freeze while performing large batch operations, and this is unavoidable. It may look like Blender has crashed, but it is working in the background. It's recommended to open the Blender console window before performing a batch operation so you can see the progress of animations being imported/exported even while the UI is frozen (Window > Toggle System Console)</li>
+        </ul>
+        <h3>Credits:</h3>
+        <ul>
+            <li><a href="https://github.com/WistfulHopes" target="_blank">WistfulHopes</a>: Compression/decompression tool, skeleton export function</li>
+            <li><a href="https://github.com/AdelQue" target="_blank">AdelQue</a>: Animation import and export functions, UI</li>
+            <li><a href="https://github.com/Turk645" target="_blank">Turk645</a>: skeleton import function from <a href="https://github.com/Turk645/Hedgehog-Engine-2-Mesh-Blender-Importer" target="_blank">.model importer</a></li>
+            <li><a href="https://github.com/ik-01" target="_blank">ik-01</a>: PXD format spec</li>
+            <li><a href="https://github.com/nfrechette" target="_blank">nfrechette</a>: <a href="https://github.com/nfrechette/acl" target="_blank">acl</a> and <a href="https://github.com/nfrechette/rtm" target="_blank">rtm</a> libraries</li>
+        </ul>
+    </div>
+    <div id="commits" class="container">
+        <h2>Latest Commits</h2>
+        <ul id="commit-list"></ul>
     </div>
     <script src="script.js"></script>
 </body>
