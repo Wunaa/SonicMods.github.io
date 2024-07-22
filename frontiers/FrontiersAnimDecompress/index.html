@@ -76,15 +76,14 @@
         .button:hover {
             background: #ff4757;
         }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        ul li {
+        pre {
             background: rgba(255, 255, 255, 0.1);
-            margin: 5px 0;
-            padding: 10px;
+            padding: 20px;
             border-radius: 5px;
+            overflow: auto;
+        }
+        code {
+            color: #ff6b6b;
         }
     </style>
 </head>
@@ -97,9 +96,9 @@
         <a data-target="about">About</a>
         <a data-target="commits">Latest Commits</a>
     </nav>
-    <div id="repo-info" class="container active">
+    <div id="repo-info" class="container">
         <h2>Repository Information</h2>
-        <p id="description"></p>
+        <p id="repo-description"></p>
         <p><strong>Stars:</strong> <span id="stars"></span></p>
         <p><strong>Forks:</strong> <span id="forks"></span></p>
         <p><strong>Open Issues:</strong> <span id="issues"></span></p>
@@ -107,42 +106,62 @@
     </div>
     <div id="about" class="container">
         <h2>About</h2>
-        <p>Blender addon for importing and exporting compressed Hedgehog Engine 2 animations (.anm.pxd)</p>
-        <h3>Features:</h3>
-        <ul>
-            <li>PXD Skeleton import and export with bone reorientation</li>
-            <li>Batch import and export PXD animations as actions</li>
-            <li>Per-action FPS and frame range settings</li>
-            <li>Visual keying export</li>
-            <li>Root motion support as skeleton object transform</li>
-        </ul>
-        <h3>Documentation:</h3>
-        <p>*To-do: make this better*</p>
-        <p>In the meantime, just a couple notes:</p>
-        <ul>
-            <li>Batch exporting is found in the 3D viewports side menu under the "Animation" tab.</li>
-            <li>A skeleton needs to be selected before importing or exporting an animation.</li>
-            <li>Skeletons from ModelFBX outputs may differ from the .skl.pxd files. If you plan to export animations for an unmodified skeleton, consider importing the .skl.pxd file separately to replace the skeleton that came with the ModelFBX output.</li>
-            <li>Importing a skeleton with YX orientation will support mirroring in Blender. However, you will need to enable YX reorientation for any and all subsequent skeleton exports, animation imports and exports.</li>
-            <li>The skeleton's native orientation should be Y-up (lying on its back in Blender), and then rotated +90deg along X to make it upright with Blender's Z-up space. Root motion imports and exports will base it's transformation off this orientation.</li>
-            <li>This tool adds animation keys for every bone for every frame. Having many actions stored in Blender in this manner will make Blender less responsive and use *lots* of memory. Try to keep the total number of actions low and maybe think twice before importing every animation at once.</li>
-            <li>Batch export frame range and FPS settings are pulled from each action's settings in the action editor. These are set when importing an animation and can be changed before exporting.</li>
-            <li>When batch exporting, navigate to a folder you want each action to be exported to. Batch exports take the action name and add ".anm.pxd" to the end as the file name. Note that any existing animations in this folder with the same name will be overwritten without warning.</li>
-            <li>The UI may freeze while performing large batch operations, and this is unavoidable. It may look like Blender has crashed, but it is working in the background. It's recommended to open the Blender console window before performing a batch operation so you can see the progress of animations being imported/exported even while the UI is frozen (Window > Toggle System Console)</li>
-        </ul>
-        <h3>Credits:</h3>
-        <ul>
-            <li><a href="https://github.com/WistfulHopes" target="_blank">WistfulHopes</a>: Compression/decompression tool, skeleton export function</li>
-            <li><a href="https://github.com/AdelQue" target="_blank">AdelQue</a>: Animation import and export functions, UI</li>
-            <li><a href="https://github.com/Turk645" target="_blank">Turk645</a>: skeleton import function from <a href="https://github.com/Turk645/Hedgehog-Engine-2-Mesh-Blender-Importer" target="_blank">.model importer</a></li>
-            <li><a href="https://github.com/ik-01" target="_blank">ik-01</a>: PXD format spec</li>
-            <li><a href="https://github.com/nfrechette" target="_blank">nfrechette</a>: <a href="https://github.com/nfrechette/acl" target="_blank">acl</a> and <a href="https://github.com/nfrechette/rtm" target="_blank">rtm</a> libraries</li>
-        </ul>
+        <pre id="readme-content">Loading...</pre>
     </div>
     <div id="commits" class="container">
         <h2>Latest Commits</h2>
-        <ul id="commit-list"></ul>
+        <ul id="commits-list"></ul>
     </div>
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.container');
+            const navLinks = document.querySelectorAll('nav a');
+            let activeSection = document.querySelector('.container.active');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+
+                    if (activeSection !== targetSection) {
+                        activeSection.classList.remove('active');
+                        targetSection.classList.add('active');
+                        activeSection = targetSection;
+                    }
+                });
+            });
+
+            // Fetch repository info
+            fetch('https://api.github.com/repos/AdelQue/FrontiersAnimDecompress')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('repo-description').textContent = data.description;
+                    document.getElementById('stars').textContent = data.stargazers_count;
+                    document.getElementById('forks').textContent = data.forks_count;
+                    document.getElementById('issues').textContent = data.open_issues_count;
+                    document.getElementById('download-link').href = data.html_url + '/releases/latest';
+                });
+
+            // Fetch README.md
+            fetch('https://raw.githubusercontent.com/AdelQue/FrontiersAnimDecompress/main/README.md')
+                .then(response => response.text())
+                .then(text => {
+                    document.getElementById('readme-content').textContent = text;
+                });
+
+            // Fetch latest commits
+            fetch('https://api.github.com/repos/AdelQue/FrontiersAnimDecompress/commits')
+                .then(response => response.json())
+                .then(commits => {
+                    const commitsList = document.getElementById('commits-list');
+                    commitsList.innerHTML = commits.slice(0, 5).map(commit => `
+                        <li>
+                            <strong>${commit.commit.author.name}</strong>: ${commit.commit.message}
+                            <br><small>${new Date(commit.commit.author.date).toLocaleString()}</small>
+                        </li>
+                    `).join('');
+                });
+        });
+    </script>
 </body>
 </html>
