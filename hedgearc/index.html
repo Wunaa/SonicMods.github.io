@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main.cpp Code Interface</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2e2e2e;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .button {
+            background-color: #008cba;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #005f6b;
+        }
+        pre {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 5px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>main.cpp Code Interface</h1>
+        <p>Use the interface below to simulate packing and extracting archives:</p>
+        <label for="inputPath">Input Path:</label>
+        <input type="text" id="inputPath" placeholder="Enter input path" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+        
+        <label for="outputPath">Output Path:</label>
+        <input type="text" id="outputPath" placeholder="Enter output path" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+        
+        <label for="archiveType">Archive Type:</label>
+        <select id="archiveType" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+            <option value="pacx">PACX</option>
+            <option value="forces">Forces</option>
+            <option value="tokyo1">Tokyo 1</option>
+            <option value="tokyo2">Tokyo 2</option>
+            <option value="sakura">Sakura</option>
+            <option value="ppt2">PPT2</option>
+            <option value="frontiers">Frontiers</option>
+        </select>
+        
+        <button class="button" onclick="pack()">Pack</button>
+        <button class="button" onclick="extract()">Extract</button>
+        
+        <h2>Code Output:</h2>
+        <pre id="codeOutput"><code class="language-cpp">// Code output will be displayed here</code></pre>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-cpp.min.js"></script>
+    <script>
+        function pack() {
+            const inputPath = document.getElementById('inputPath').value;
+            const outputPath = document.getElementById('outputPath').value;
+            const archiveType = document.getElementById('archiveType').value;
+
+            // Simulate the packing process (this is a mock-up)
+            const output = `Packing...\nInput Path: ${inputPath}\nOutput Path: ${outputPath}\nArchive Type: ${archiveType}`;
+            document.getElementById('codeOutput').textContent = output;
+            Prism.highlightAll();
+        }
+
+        function extract() {
+            const inputPath = document.getElementById('inputPath').value;
+            const outputPath = document.getElementById('outputPath').value;
+            const archiveType = document.getElementById('archiveType').value;
+
+            // Simulate the extraction process (this is a mock-up)
+            const output = `Extracting...\nInput Path: ${inputPath}\nOutput Path: ${outputPath}\nArchive Type: ${archiveType}`;
+            document.getElementById('codeOutput').textContent = output;
+            Prism.highlightAll();
+        }
+    </script>
+</body>
+</html>
