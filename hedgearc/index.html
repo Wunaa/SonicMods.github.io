@@ -21,7 +21,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        input, textarea, button {
+        input, textarea, button, select {
             width: 100%;
             margin-bottom: 10px;
             padding: 10px;
@@ -42,13 +42,67 @@
 <body>
     <div class="container">
         <h1>Discord Webhook Sender</h1>
+        <select id="profileSelect" onchange="loadProfile()">
+            <option value="">Select a profile...</option>
+        </select>
+        <input type="text" id="profileName" placeholder="Profile Name">
         <input type="text" id="webhookUrl" placeholder="Webhook URL">
         <input type="text" id="username" placeholder="Username">
         <input type="text" id="avatarUrl" placeholder="Profile Picture URL">
         <textarea id="message" rows="5" placeholder="Message"></textarea>
+        <button onclick="saveProfile()">Save Profile</button>
         <button onclick="sendMessage()">Send Message</button>
     </div>
     <script>
+        document.addEventListener('DOMContentLoaded', loadProfiles);
+
+        function saveProfile() {
+            const profileName = document.getElementById('profileName').value;
+            const webhookUrl = document.getElementById('webhookUrl').value;
+            const username = document.getElementById('username').value;
+            const avatarUrl = document.getElementById('avatarUrl').value;
+
+            if (!profileName || !webhookUrl) {
+                alert('Profile Name and Webhook URL are required');
+                return;
+            }
+
+            const profiles = JSON.parse(localStorage.getItem('profiles')) || {};
+            profiles[profileName] = { webhookUrl, username, avatarUrl };
+            localStorage.setItem('profiles', JSON.stringify(profiles));
+
+            alert('Profile saved successfully');
+            loadProfiles();
+        }
+
+        function loadProfiles() {
+            const profiles = JSON.parse(localStorage.getItem('profiles')) || {};
+            const profileSelect = document.getElementById('profileSelect');
+
+            profileSelect.innerHTML = '<option value="">Select a profile...</option>';
+            for (const profileName in profiles) {
+                const option = document.createElement('option');
+                option.value = profileName;
+                option.textContent = profileName;
+                profileSelect.appendChild(option);
+            }
+        }
+
+        function loadProfile() {
+            const profileSelect = document.getElementById('profileSelect');
+            const profileName = profileSelect.value;
+
+            if (!profileName) return;
+
+            const profiles = JSON.parse(localStorage.getItem('profiles')) || {};
+            const profile = profiles[profileName];
+
+            document.getElementById('profileName').value = profileName;
+            document.getElementById('webhookUrl').value = profile.webhookUrl;
+            document.getElementById('username').value = profile.username;
+            document.getElementById('avatarUrl').value = profile.avatarUrl;
+        }
+
         function sendMessage() {
             const webhookUrl = document.getElementById('webhookUrl').value;
             const username = document.getElementById('username').value;
