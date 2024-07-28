@@ -51,7 +51,11 @@
         <input type="text" id="avatarUrl" placeholder="Profile Picture URL">
         <textarea id="message" rows="5" placeholder="Message"></textarea>
         <button onclick="saveProfile()">Save Profile</button>
+        <button onclick="removeProfile()">Remove Profile</button>
         <button onclick="sendMessage()">Send Message</button>
+        <button onclick="downloadProfiles()">Download Profiles</button>
+        <input type="file" id="fileInput" style="display:none" onchange="loadProfilesFromFile()">
+        <button onclick="document.getElementById('fileInput').click()">Load Profiles from File</button>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', loadProfiles);
@@ -103,6 +107,31 @@
             document.getElementById('avatarUrl').value = profile.avatarUrl;
         }
 
+        function removeProfile() {
+            const profileSelect = document.getElementById('profileSelect');
+            const profileName = profileSelect.value;
+
+            if (!profileName) {
+                alert('Please select a profile to remove');
+                return;
+            }
+
+            const profiles = JSON.parse(localStorage.getItem('profiles')) || {};
+            delete profiles[profileName];
+            localStorage.setItem('profiles', JSON.stringify(profiles));
+
+            alert('Profile removed successfully');
+            loadProfiles();
+            clearForm();
+        }
+
+        function clearForm() {
+            document.getElementById('profileName').value = '';
+            document.getElementById('webhookUrl').value = '';
+            document.getElementById('username').value = '';
+            document.getElementById('avatarUrl').value = '';
+        }
+
         function sendMessage() {
             const webhookUrl = document.getElementById('webhookUrl').value;
             const username = document.getElementById('username').value;
@@ -138,6 +167,33 @@
                 console.error('Error:', error);
                 alert('Error sending message');
             });
+        }
+
+        function downloadProfiles() {
+            const profiles = JSON.parse(localStorage.getItem('profiles')) || {};
+            const blob = new Blob([JSON.stringify(profiles, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'profiles.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function loadProfilesFromFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const profiles = JSON.parse(event.target.result);
+                    localStorage.setItem('profiles', JSON.stringify(profiles));
+                    alert('Profiles loaded successfully');
+                    loadProfiles();
+                };
+                reader.readAsText(file);
+            }
         }
     </script>
 </body>
