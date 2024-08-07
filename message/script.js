@@ -32,10 +32,13 @@ document.getElementById('messageForm').addEventListener('submit', async function
 
         if (response.ok) {
             document.getElementById('response').innerText = 'Message sent successfully!';
+            document.getElementById('response').style.color = 'green';
         } else {
             document.getElementById('response').innerText = 'Failed to send message.';
+            document.getElementById('response').style.color = 'red';
         }
     } catch (error) {
         document.getElementById('response').innerText = 'An error occurred.';
+        document.getElementById('response').style.color = 'red';
     }
 });
