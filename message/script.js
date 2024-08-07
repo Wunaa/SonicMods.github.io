@@ -33,6 +33,7 @@ document.getElementById('messageForm').addEventListener('submit', async function
         if (response.ok) {
             document.getElementById('response').innerText = 'Message sent successfully!';
             document.getElementById('response').style.color = 'green';
+            document.getElementById('response').classList.add('success');
         } else {
             document.getElementById('response').innerText = 'Failed to send message.';
             document.getElementById('response').style.color = 'red';
@@ -41,4 +42,14 @@ document.getElementById('messageForm').addEventListener('submit', async function
         document.getElementById('response').innerText = 'An error occurred.';
         document.getElementById('response').style.color = 'red';
     }
+});
+
+document.querySelectorAll('input, textarea').forEach(element => {
+    element.addEventListener('focus', () => {
+        element.classList.add('typing');
+    });
+
+    element.addEventListener('blur', () => {
+        element.classList.remove('typing');
+    });
 });
