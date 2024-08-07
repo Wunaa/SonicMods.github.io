@@ -10,17 +10,25 @@
     <div class="container">
         <h1>Send a Message to Discord</h1>
         <form id="messageForm">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+            <div class="input-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
 
-            <label for="profilePic">Profile Picture URL:</label>
-            <input type="text" id="profilePic" name="profilePic">
+            <div class="input-group">
+                <label for="profilePic">Profile Picture URL:</label>
+                <input type="text" id="profilePic" name="profilePic">
+            </div>
 
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
+            <div class="input-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+            </div>
 
-            <label for="image">Image URL:</label>
-            <input type="text" id="image" name="image">
+            <div class="input-group">
+                <label for="image">Image URL:</label>
+                <input type="text" id="image" name="image">
+            </div>
 
             <button type="submit">Send</button>
         </form>
