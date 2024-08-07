@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UwU Translator</title>
+    <meta name="description" content="Translate your text into cute UwU furry girl style!">
+    <meta name="keywords" content="UwU, furry, translator, cute, kawaii">
+    <meta name="author" content="UwU Translator Team">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="UwU Translator">
+    <meta name="twitter:description" content="Translate your text into cute UwU furry girl style!">
+    <meta name="twitter:image" content="https://example.com/uwu_translator_image.png">
+
+    <style>
+        body {
+            background-color: #fdf0e3;
+            color: #ff9eb5;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        header {
+            background-color: #ffecf0;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #ff9eb5;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 3.5em;
+            margin: 10px;
+            color: #ff7b95;
+        }
+        p {
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+        textarea {
+            width: 80%;
+            height: 150px;
+            font-size: 1.2em;
+            border-radius: 15px;
+            border: 3px solid #ff9eb5;
+            padding: 15px;
+            box-shadow: 0 0 10px #ff7b95;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #ff9eb5;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 5px #ff7b95;
+            margin: 20px;
+        }
+        .btn:hover {
+            background-color: #ff7b95;
+        }
+        .output {
+            background-color: #ffecf0;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px #ff9eb5;
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 1em;
+            color: #ff7b95;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>UwU Translator</h1>
+    </header>
+
+    <p>Type your text below and click "Translate" to see it in UwU style!</p>
+    
+    <textarea id="inputText" placeholder="Type your text here..."></textarea><br>
+    <button class="btn" onclick="translateText()">Translate</button>
+
+    <div id="outputText" class="output"></div>
+
+    <footer>
+        <p>&copy; 2024 UwU Translator. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function translateText() {
+            const input = document.getElementById('inputText').value;
+            const output = input
+                .replace(/r/g, 'w')
+                .replace(/l/g, 'w')
+                .replace(/R/g, 'W')
+                .replace(/L/g, 'W')
+                .replace(/you/g, 'u')
+                .replace(/You/g, 'U')
+                .replace(/the/g, 'da')
+                .replace(/The/g, 'Da')
+                .replace(/ove/g, 'uv')
+                .replace(/n/g, 'ny')
+                .replace(/N/g, 'Ny')
+                .replace(/!+/g, '!! >w<')
+                .replace(/\.+/g, '... UwU');
+            document.getElementById('outputText').textContent = output + " UwU";
+        }
+    </script>
+</body>
+</html>
