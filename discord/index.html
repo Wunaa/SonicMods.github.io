@@ -48,6 +48,19 @@
             background-color: #fff;
             color: #000;
         }
+        .form-group textarea {
+            resize: none;
+        }
+        .readonly {
+            background-color: #f9f9f9;
+            color: #333;
+            cursor: not-allowed;
+        }
+        .form-group span {
+            display: block;
+            margin-top: 0.5em;
+            color: #888;
+        }
         button {
             background-color: #0078D4;
             color: #fff;
@@ -98,12 +111,13 @@
             <h2>Step 3: Enter Replace Strings (JSON format)</h2>
             <div class="form-group">
                 <label for="replaceStrings">Replace Strings (JSON format):</label>
-                <textarea id="replaceStrings" rows="6">
+                <textarea id="replaceStrings" rows="6" class="readonly">
 {
   "PlayerSonic": "Shadow",
   "PlayerSuperSonic": "Super Shadow"
 }
                 </textarea>
+                <span>Change only the values "Shadow" and "Super Shadow". The keys should remain the same.</span>
             </div>
             <button onclick="generateFiles()">Generate Files</button>
         </div>
