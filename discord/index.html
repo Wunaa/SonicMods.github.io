@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Frontiers Quest Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1b1b1b;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0078D4;
+            padding: 1em;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            color: #fff;
+        }
+        .container {
+            padding: 2em;
+            max-width: 800px;
+            margin: auto;
+        }
+        .step {
+            display: none;
+            margin-bottom: 2em;
+        }
+        .step.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 1em;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background-color: #fff;
+            color: #000;
+        }
+        button {
+            background-color: #0078D4;
+            color: #fff;
+            border: none;
+            padding: 1em;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #005a9e;
+        }
+        .output {
+            margin-top: 2em;
+        }
+        pre {
+            background-color: #333;
+            padding: 1em;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Discord Frontiers Quest Guide</h1>
+    </header>
+    <div class="container">
+        <div id="step1" class="step active">
+            <h2>Step 1: Enter Custom Stage Name</h2>
+            <div class="form-group">
+                <label for="stageName">Custom Stage Name:</label>
+                <input type="text" id="stageName" placeholder="Enter the name field from stagedata.lua">
+            </div>
+            <button onclick="nextStep(2)">Next</button>
+        </div>
+        
+        <div id="step2" class="step">
+            <h2>Step 2: Enter Thumbnail URL</h2>
+            <div class="form-group">
+                <label for="thumbnailURL">Thumbnail URL:</label>
+                <input type="text" id="thumbnailURL" placeholder="Enter the URL for your thumbnail image">
+            </div>
+            <button onclick="nextStep(3)">Next</button>
+        </div>
+        
+        <div id="step3" class="step">
+            <h2>Step 3: Enter Replace Strings (JSON format)</h2>
+            <div class="form-group">
+                <label for="replaceStrings">Replace Strings (JSON format):</label>
+                <textarea id="replaceStrings" rows="6" placeholder='{"PlayerSonic": "Shadow", "PlayerSuperSonic": "Super Shadow"}'></textarea>
+            </div>
+            <button onclick="generateFiles()">Generate Files</button>
+        </div>
+        
+        <div id="output" class="output"></div>
+    </div>
+
+    <script>
+        function nextStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.getElementById(`step${stepNumber}`).classList.add('active');
+        }
+        
+        function generateFiles() {
+            const stageName = document.getElementById('stageName').value.trim();
+            const thumbnailURL = document.getElementById('thumbnailURL').value.trim();
+            const replaceStrings = document.getElementById('replaceStrings').value.trim();
+            
+            if (!stageName || !thumbnailURL) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+            
+            const discordFrontiersIniContent = `[Images]
+${stageName}="${thumbnailURL}"
+`;
+
+            let discordFrontiersJsonContent = '';
+            try {
+                JSON.parse(replaceStrings);
+                discordFrontiersJsonContent = JSON.stringify(JSON.parse(replaceStrings), null, 4);
+            } catch (e) {
+                alert('Invalid JSON format in Replace Strings.');
+                return;
+            }
+            
+            // Create and download DiscordFrontiers.ini
+            const iniBlob = new Blob([discordFrontiersIniContent], { type: 'text/plain' });
+            const iniUrl = URL.createObjectURL(iniBlob);
+            const iniLink = document.createElement('a');
+            iniLink.href = iniUrl;
+            iniLink.download = 'DiscordFrontiers.ini';
+            iniLink.textContent = 'Download DiscordFrontiers.ini';
+            iniLink.style.display = 'block';
+            
+            // Create and download DiscordFrontiers.json
+            const jsonBlob = new Blob([discordFrontiersJsonContent], { type: 'application/json' });
+            const jsonUrl = URL.createObjectURL(jsonBlob);
+            const jsonLink = document.createElement('a');
+            jsonLink.href = jsonUrl;
+            jsonLink.download = 'DiscordFrontiers.json';
+            jsonLink.textContent = 'Download DiscordFrontiers.json';
+            jsonLink.style.display = 'block';
+
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = '';
+            outputDiv.appendChild(iniLink);
+            outputDiv.appendChild(jsonLink);
+        }
+    </script>
+</body>
+</html>
