@@ -98,7 +98,12 @@
             <h2>Step 3: Enter Replace Strings (JSON format)</h2>
             <div class="form-group">
                 <label for="replaceStrings">Replace Strings (JSON format):</label>
-                <textarea id="replaceStrings" rows="6" placeholder='{"PlayerSonic": "Shadow", "PlayerSuperSonic": "Super Shadow"}'></textarea>
+                <textarea id="replaceStrings" rows="6">
+{
+  "PlayerSonic": "Shadow",
+  "PlayerSuperSonic": "Super Shadow"
+}
+                </textarea>
             </div>
             <button onclick="generateFiles()">Generate Files</button>
         </div>
