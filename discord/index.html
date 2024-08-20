@@ -54,7 +54,6 @@
         .readonly {
             background-color: #f9f9f9;
             color: #333;
-            cursor: not-allowed;
         }
         .form-group span {
             display: block;
@@ -113,11 +112,11 @@
                 <label for="replaceStrings">Replace Strings (JSON format):</label>
                 <textarea id="replaceStrings" rows="6" class="readonly">
 {
-  "PlayerSonic": "Shadow",
-  "PlayerSuperSonic": "Super Shadow"
+  "PlayerSonic": "PlaceHolder",
+  "PlayerSuperSonic": "Super PlaceHolder"
 }
                 </textarea>
-                <span>Change only the values "Shadow" and "Super Shadow". The keys should remain the same.</span>
+                <span>Change only the values "PlaceHolder" and "Super PlaceHolder". The keys should remain the same.</span>
             </div>
             <button onclick="generateFiles()">Generate Files</button>
         </div>
