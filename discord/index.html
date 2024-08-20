@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discord Frontiers Online Setup</title>
+    <meta name="description" content="Generate configuration files for Discord Frontiers, a mod for Sonic Frontiers that adds Discord rich presence support.">
+    <meta property="og:title" content="Discord Frontiers Online Setup">
+    <meta property="og:description" content="Generate configuration files for Discord Frontiers, a mod for Sonic Frontiers that adds Discord rich presence support.">
+    <meta property="og:image" content="https://example.com/your-image.jpg"> <!-- Replace with your image URL -->
+    <meta property="og:url" content="https://example.com/discord-frontiers-setup"> <!-- Replace with your URL -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Discord Frontiers Online Setup">
+    <meta name="twitter:description" content="Generate configuration files for Discord Frontiers, a mod for Sonic Frontiers that adds Discord rich presence support.">
+    <meta name="twitter:image" content="https://example.com/your-image.jpg"> <!-- Replace with your image URL -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -122,6 +131,10 @@
         </div>
         
         <div id="output" class="output"></div>
+        <div id="instructions" class="output" style="display:none;">
+            <h2>Instructions</h2>
+            <p>After generating the files, place the <strong>DiscordFrontiers.ini</strong> and <strong>DiscordFrontiers.json</strong> files in the root of your mods folder.</p>
+        </div>
     </div>
 
     <script>
@@ -175,6 +188,9 @@ ${stageName}="${thumbnailURL}"
             outputDiv.innerHTML = '';
             outputDiv.appendChild(iniLink);
             outputDiv.appendChild(jsonLink);
+            
+            // Show instructions
+            document.getElementById('instructions').style.display = 'block';
         }
     </script>
 </body>
