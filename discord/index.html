@@ -143,55 +143,59 @@
             document.getElementById(`step${stepNumber}`).classList.add('active');
         }
         
-        function generateFiles() {
-            const stageName = document.getElementById('stageName').value.trim();
-            const thumbnailURL = document.getElementById('thumbnailURL').value.trim();
-            const replaceStrings = document.getElementById('replaceStrings').value.trim();
-            
-            if (!stageName || !thumbnailURL) {
-                alert('Please fill out all required fields.');
-                return;
-            }
-            
-            const discordFrontiersIniContent = `[Images]
+function generateFiles() {
+    const stageName = document.getElementById('stageName').value.trim();
+    const thumbnailURL = document.getElementById('thumbnailURL').value.trim();
+    const replaceStrings = document.getElementById('replaceStrings').value.trim();
+
+    // Ensure that fields are not empty
+    if (stageName === '' || thumbnailURL === '' || replaceStrings === '') {
+        alert('Please fill out all required fields.');
+        return;
+    }
+    
+    // Generate content for DiscordFrontiers.ini
+    const discordFrontiersIniContent = `[Images]
 ${stageName}="${thumbnailURL}"
 `;
 
-            let discordFrontiersJsonContent = '';
-            try {
-                JSON.parse(replaceStrings);
-                discordFrontiersJsonContent = JSON.stringify(JSON.parse(replaceStrings), null, 4);
-            } catch (e) {
-                alert('Invalid JSON format in Replace Strings.');
-                return;
-            }
-            
-            // Create and download DiscordFrontiers.ini
-            const iniBlob = new Blob([discordFrontiersIniContent], { type: 'text/plain' });
-            const iniUrl = URL.createObjectURL(iniBlob);
-            const iniLink = document.createElement('a');
-            iniLink.href = iniUrl;
-            iniLink.download = 'DiscordFrontiers.ini';
-            iniLink.textContent = 'Download DiscordFrontiers.ini';
-            iniLink.style.display = 'block';
-            
-            // Create and download DiscordFrontiers.json
-            const jsonBlob = new Blob([discordFrontiersJsonContent], { type: 'application/json' });
-            const jsonUrl = URL.createObjectURL(jsonBlob);
-            const jsonLink = document.createElement('a');
-            jsonLink.href = jsonUrl;
-            jsonLink.download = 'DiscordFrontiers.json';
-            jsonLink.textContent = 'Download DiscordFrontiers.json';
-            jsonLink.style.display = 'block';
+    let discordFrontiersJsonContent = '';
+    try {
+        // Validate JSON format
+        const jsonObject = JSON.parse(replaceStrings);
+        discordFrontiersJsonContent = JSON.stringify(jsonObject, null, 4);
+    } catch (e) {
+        alert('Invalid JSON format in Replace Strings.');
+        return;
+    }
+    
+    // Create and download DiscordFrontiers.ini
+    const iniBlob = new Blob([discordFrontiersIniContent], { type: 'text/plain' });
+    const iniUrl = URL.createObjectURL(iniBlob);
+    const iniLink = document.createElement('a');
+    iniLink.href = iniUrl;
+    iniLink.download = 'DiscordFrontiers.ini';
+    iniLink.textContent = 'Download DiscordFrontiers.ini';
+    iniLink.style.display = 'block';
+    
+    // Create and download DiscordFrontiers.json
+    const jsonBlob = new Blob([discordFrontiersJsonContent], { type: 'application/json' });
+    const jsonUrl = URL.createObjectURL(jsonBlob);
+    const jsonLink = document.createElement('a');
+    jsonLink.href = jsonUrl;
+    jsonLink.download = 'DiscordFrontiers.json';
+    jsonLink.textContent = 'Download DiscordFrontiers.json';
+    jsonLink.style.display = 'block';
 
-            const outputDiv = document.getElementById('output');
-            outputDiv.innerHTML = '';
-            outputDiv.appendChild(iniLink);
-            outputDiv.appendChild(jsonLink);
-            
-            // Show instructions
-            document.getElementById('instructions').style.display = 'block';
-        }
+    const outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = '';
+    outputDiv.appendChild(iniLink);
+    outputDiv.appendChild(jsonLink);
+    
+    // Show instructions
+    document.getElementById('instructions').style.display = 'block';
+}
+
     </script>
 </body>
 </html>
