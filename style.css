@@ -1,14 +1,19 @@
 body {
     margin: 0;
     font-family: 'Trebuchet MS', sans-serif;
-    background: #c0c0c0;
+    background: #c0c0c0; /* Light gray background like XP */
     color: #000;
 }
 
 header {
-    background: #0078d7;
+    background: #0078d7; /* Windows XP blue */
     color: #fff;
     padding: 10px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 .header-content {
@@ -41,11 +46,11 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: #ff0;
+    color: #ff0; /* Highlight color on hover */
 }
 
 main {
-    padding: 20px;
+    padding: 70px 20px 20px; /* Padding adjusted for fixed header */
 }
 
 .xp-section {
@@ -54,7 +59,7 @@ main {
 
 .xp-window {
     background: #fff;
-    border: 2px solid #808080;
+    border: 2px solid #808080; /* Border color like XP windows */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     padding: 20px;
@@ -74,7 +79,7 @@ main {
 }
 
 .xp-item {
-    background: #e0e0e0;
+    background: #e0e0e0; /* Light gray background */
     border: 1px solid #808080;
     border-radius: 5px;
     padding: 10px;
