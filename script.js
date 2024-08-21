@@ -6,19 +6,21 @@ function showPage(pageId) {
     // Play click sound
     document.getElementById('click-sound').play();
 
-    // Hide all sections with animation
-    const sections = document.querySelectorAll('.page');
-    sections.forEach(section => {
-        section.classList.remove('show');
-        setTimeout(() => {
-            section.style.display = 'none';
-        }, 500); // Match the transition duration
-    });
+    // Get the current page and the new page
+    const currentPage = document.querySelector('.page.show');
+    const newPage = document.getElementById(pageId);
 
-    // Show the selected section with animation
-    const page = document.getElementById(pageId);
-    page.style.display = 'block';
+    if (currentPage) {
+        // Hide the current page with animation
+        currentPage.classList.remove('show');
+        setTimeout(() => {
+            currentPage.style.display = 'none';
+        }, 500); // Match the duration of the fade-out transition
+    }
+
+    // Show the new page
+    newPage.style.display = 'block';
     setTimeout(() => {
-        page.classList.add('show');
-    }, 10); // Delay to allow display to be applied
+        newPage.classList.add('show');
+    }, 10); // Short delay to ensure display is applied before animation starts
 }
