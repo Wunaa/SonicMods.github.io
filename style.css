@@ -19,24 +19,38 @@ header {
     text-align: center;
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
+nav {
+    margin-top: 20px;
 }
 
-nav ul li {
-    display: inline;
-    margin: 0 10px;
+nav button {
+    background: #c0c0c0; /* Windows XP button color */
+    border: 2px solid #000;
+    border-radius: 4px;
+    color: #000;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    outline: none;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
+nav button:hover {
+    background: #e0e0e0; /* Lighter button color on hover */
+    transform: scale(1.05);
 }
 
 .page {
     display: none; /* Hidden by default, shown with JavaScript */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.page.show {
+    display: block;
+    opacity: 1;
 }
 
 .xp-window {
