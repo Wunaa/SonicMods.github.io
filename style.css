@@ -1,8 +1,8 @@
 body {
-    font-family: 'Trebuchet MS', sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     margin: 0;
     padding: 0;
-    background: #c0c0c0; /* Windows XP light gray background */
+    background-color: #0033cc; /* Windows XP background color */
     color: #000;
 }
 
@@ -10,6 +10,7 @@ header {
     background: #0033cc; /* Windows XP header color */
     color: #fff;
     padding: 10px;
+    border-bottom: 2px solid #000; /* Windows XP border color */
 }
 
 .header-content {
@@ -31,6 +32,7 @@ nav ul li {
 nav ul li a {
     color: #fff;
     text-decoration: none;
+    font-weight: bold;
 }
 
 .page {
@@ -39,9 +41,10 @@ nav ul li a {
 
 .xp-window {
     border: 2px solid #000;
-    background: #fff;
-    padding: 10px;
-    margin: 10px;
+    background: #c0c0c0; /* Windows XP window background */
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 .xp-gallery {
@@ -52,12 +55,14 @@ nav ul li a {
 .xp-item {
     margin: 10px;
     text-align: center;
+    border: 1px solid #000;
+    padding: 10px;
+    background: #fff;
 }
 
 .xp-item img {
     width: 200px;
     height: 150px;
-    border: 1px solid #000;
 }
 
 footer {
@@ -65,4 +70,5 @@ footer {
     padding: 10px;
     background: #0033cc;
     color: #fff;
+    border-top: 2px solid #000; /* Windows XP footer border */
 }
