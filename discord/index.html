@@ -104,10 +104,10 @@
     </header>
     <div class="container">
         <div id="step1" class="step active">
-            <h2>Step 1: Enter Stage Value</h2>
+            <h2>Step 1: Enter Custom Stage IDs</h2>
             <div class="form-group">
-                <label for="stageName">Stage Value:</label>
-                <input type="text" id="stageName" placeholder="Enter the name field from stagedata.lua for your custom stage (ex: wxdxx)">
+                <label for="stageIDs">Custom Stage IDs:</label>
+                <input type="text" id="stageIDs" placeholder='Enter custom stage IDs separated by commas (e.g., "wxd01, wxd02")'>
             </div>
             <div class="button-group">
                 <div></div>
@@ -133,11 +133,11 @@
                 <label for="replaceStrings">Replace Strings (JSON format):</label>
                 <textarea id="replaceStrings" rows="6" class="readonly">
 {
-  "PlayerSonic": "PlaceHolder",
-  "PlayerSuperSonic": "Super PlaceHolder"
+  "PlayerSonic":      "Shadow",
+  "PlayerSuperSonic": "Super Shadow"
 }
                 </textarea>
-                <span>Change only the values "PlaceHolder" and "Super PlaceHolder". The keys should remain the same.</span>
+                <span>Change only the values "Shadow" and "Super Shadow". The keys should remain the same.</span>
             </div>
             <div class="button-group">
                 <button onclick="previousStep(2)">Back</button>
@@ -164,16 +164,16 @@
         }
         
         function generateFiles() {
-            const stageName = document.getElementById('stageName').value.trim();
+            const stageIDs = document.getElementById('stageIDs').value.trim();
             const thumbnailURL = document.getElementById('thumbnailURL').value.trim();
             const replaceStrings = document.getElementById('replaceStrings').value.trim();
             
-            if (!stageName || !thumbnailURL) {
+            if (!stageIDs || !thumbnailURL) {
                 alert('Please fill out all required fields.');
                 return;
             }
 
-            const discordFrontiersIniContent = `[Images]\n${stageName}="${thumbnailURL}"\n`;
+            const discordFrontiersIniContent = `[General]\nCustom="${stageIDs}"\n\n[Images]\n${stageIDs.split(',')[0]}="${thumbnailURL}"\n`;
 
             let discordFrontiersJsonContent = '';
             try {
