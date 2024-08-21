@@ -1,9 +1,10 @@
+// Toggle Start Menu visibility
 document.getElementById('start-button').addEventListener('click', function() {
     const startMenu = document.getElementById('start-menu');
-    startMenu.style.display = startMenu.style.display === 'none' ? 'block' : 'none';
+    startMenu.classList.toggle('hidden');
 });
 
-// Function to make windows draggable
+// Make windows draggable
 function makeDraggable(el) {
     el.onmousedown = function(e) {
         let shiftX = e.clientX - el.getBoundingClientRect().left;
@@ -21,13 +22,32 @@ function makeDraggable(el) {
     };
 }
 
-// Example of creating a new window
-function openWindow(title) {
+// Create a new window
+function openWindow(title, content) {
     const newWindow = document.createElement('div');
     newWindow.classList.add('window');
-    newWindow.innerHTML = `<div class="window-title">${title}</div>`;
+    newWindow.innerHTML = `
+        <div class="title-bar">
+            <span>${title}</span>
+            <div class="title-bar-buttons">
+                <div class="button minimize">_</div>
+                <div class="button close">X</div>
+            </div>
+        </div>
+        <div class="window-content">
+            ${content}
+        </div>
+    `;
     document.getElementById('windows').appendChild(newWindow);
     makeDraggable(newWindow);
+
+    // Close button functionality
+    newWindow.querySelector('.close').addEventListener('click', () => {
+        newWindow.remove();
+    });
 }
 
-// Add more JavaScript to handle additional features
+// Example usage: open a window when a desktop icon is clicked
+document.querySelector('.desktop-icon').addEventListener('click', function() {
+    openWindow('My Computer', '<p>This is my computer content.</p>');
+});
