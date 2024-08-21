@@ -1,138 +1,133 @@
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: url('/assets/windows7-background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    overflow: hidden;
+    font-family: 'Trebuchet MS', sans-serif;
+    background: #c0c0c0;
+    color: #000;
 }
 
-#desktop {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-}
-
-#taskbar {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 40px;
-    background-color: #1c1c1c;
-    display: flex;
-    align-items: center;
-}
-
-#start-button {
-    background: url('/assets/start-button.png') no-repeat center;
-    width: 40px;
-    height: 40px;
-    margin: 0 10px;
-    cursor: pointer;
-}
-
-#taskbar-icons {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-}
-
-#system-tray {
-    display: flex;
-    align-items: center;
-    color: white;
-    padding-right: 10px;
-}
-
-#clock {
-    font-size: 14px;
-}
-
-#desktop-icons {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.desktop-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    cursor: pointer;
-}
-
-.desktop-icon img {
-    width: 48px;
-    height: 48px;
-}
-
-.desktop-icon span {
-    color: white;
-    text-shadow: 1px 1px 2px black;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 5px;
-}
-
-#start-menu {
-    position: absolute;
-    bottom: 40px;
-    left: 0;
-    width: 300px;
-    height: 400px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    display: none;
-}
-
-.window {
-    width: 400px;
-    height: 300px;
-    background-color: #f0f0f0;
-    border: 1px solid #c0c0c0;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-}
-
-.window .title-bar {
-    background-color: #0078d7;
-    padding: 5px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: move;
-}
-
-.window .title-bar-buttons {
-    display: flex;
-    align-items: center;
-}
-
-.window .title-bar-buttons .button {
-    width: 20px;
-    height: 20px;
-    margin-left: 5px;
-    background-color: #f0f0f0;
-    border: 1px solid #0078d7;
-    text-align: center;
-    line-height: 18px;
-    cursor: pointer;
-}
-
-.window-content {
-    flex-grow: 1;
+header {
+    background: #0078d7;
+    color: #fff;
     padding: 10px;
 }
 
-/* Hide elements using .hidden class */
-.hidden {
-    display: none;
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Add more styles for additional elements */
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ff0;
+}
+
+main {
+    padding: 20px;
+}
+
+.xp-section {
+    margin-bottom: 20px;
+}
+
+.xp-window {
+    background: #fff;
+    border: 2px solid #808080;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.xp-window h2 {
+    font-size: 20px;
+    color: #0078d7;
+}
+
+.xp-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.xp-item {
+    background: #e0e0e0;
+    border: 1px solid #808080;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.xp-item img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #808080;
+}
+
+.xp-item h3 {
+    font-size: 16px;
+    margin: 10px 0 5px;
+}
+
+.xp-item p {
+    font-size: 14px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form input,
+form textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #808080;
+    border-radius: 5px;
+}
+
+form button {
+    padding: 10px;
+    background: #0078d7;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background: #0056a0;
+}
+
+footer {
+    background: #0078d7;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
