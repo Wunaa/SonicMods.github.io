@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: url('windows7-background.jpg') no-repeat center center fixed;
+    background: url('/assets/windows7-background.jpg') no-repeat center center fixed;
     background-size: cover;
     overflow: hidden;
 }
@@ -23,7 +23,7 @@ body {
 }
 
 #start-button {
-    background: url('start-button.png') no-repeat center;
+    background: url('/assets/start-button.png') no-repeat center;
     width: 40px;
     height: 40px;
     margin: 0 10px;
