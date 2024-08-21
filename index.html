@@ -3,35 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows 7 Portfolio</title>
+    <title>My Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="desktop">
-        <div id="taskbar">
-            <div id="start-button"></div>
-            <div id="taskbar-icons">
-                <!-- Taskbar items -->
+    <header>
+        <div class="header-content">
+            <h1>My Portfolio</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#animations">Animations</a></li>
+                    <li><a href="#game-mods">Game Mods</a></li>
+                    <li><a href="#websites">Websites</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="xp-section">
+            <div class="xp-window">
+                <h2>Welcome to My Portfolio</h2>
+                <p>Explore my work in animations, game mods, and web development.</p>
             </div>
-            <div id="system-tray">
-                <div id="clock">12:00 PM</div>
+        </section>
+
+        <section id="animations" class="xp-section">
+            <div class="xp-window">
+                <h2>Animations</h2>
+                <div class="xp-gallery">
+                    <!-- Animation items -->
+                    <div class="xp-item">
+                        <img src="assets/animation1.jpg" alt="Animation 1">
+                        <h3>Animation Title 1</h3>
+                        <p>Short description of the animation.</p>
+                    </div>
+                    <!-- Add more items -->
+                </div>
             </div>
-        </div>
-        <div id="start-menu" class="hidden">
-            <!-- Start menu content -->
-        </div>
-        <div id="desktop-icons">
-            <div class="desktop-icon">
-                <img src="icon.png" alt="My Computer">
-                <span>My Computer</span>
+        </section>
+
+        <section id="game-mods" class="xp-section">
+            <div class="xp-window">
+                <h2>Game Mods</h2>
+                <div class="xp-gallery">
+                    <!-- Game mod items -->
+                    <div class="xp-item">
+                        <img src="assets/gamemod1.jpg" alt="Game Mod 1">
+                        <h3>Game Mod Title 1</h3>
+                        <p>Short description of the game mod.</p>
+                    </div>
+                    <!-- Add more items -->
+                </div>
             </div>
-            <!-- More icons -->
-        </div>
-        <div id="windows">
-            <!-- Windows will be dynamically created here -->
-        </div>
-    </div>
+        </section>
+
+        <section id="websites" class="xp-section">
+            <div class="xp-window">
+                <h2>Websites</h2>
+                <div class="xp-gallery">
+                    <!-- Website items -->
+                    <div class="xp-item">
+                        <img src="assets/website1.jpg" alt="Website 1">
+                        <h3>Website Title 1</h3>
+                        <p>Short description of the website.</p>
+                    </div>
+                    <!-- Add more items -->
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="xp-section">
+            <div class="xp-window">
+                <h2>About Me</h2>
+                <p>Information about your background, skills, and experience.</p>
+            </div>
+        </section>
+
+        <section id="contact" class="xp-section">
+            <div class="xp-window">
+                <h2>Contact</h2>
+                <form action="#" method="post">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Your Name. All rights reserved.</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
