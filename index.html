@@ -5,21 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Windows 7 Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="desktop">
         <div id="taskbar">
-            <div id="start-button">Start</div>
+            <div id="start-button"></div>
             <div id="taskbar-icons">
-                <!-- Taskbar items go here -->
+                <!-- Taskbar items -->
             </div>
-            <div id="clock">12:00 PM</div>
+            <div id="system-tray">
+                <div id="clock">12:00 PM</div>
+            </div>
         </div>
-        <div id="start-menu">
+        <div id="start-menu" class="hidden">
             <!-- Start menu content -->
         </div>
         <div id="desktop-icons">
-            <!-- Desktop icons -->
+            <div class="desktop-icon">
+                <img src="icon.png" alt="My Computer">
+                <span>My Computer</span>
+            </div>
+            <!-- More icons -->
         </div>
         <div id="windows">
             <!-- Windows will be dynamically created here -->
