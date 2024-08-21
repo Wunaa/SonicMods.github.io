@@ -13,26 +13,28 @@
             <h1>My Portfolio</h1>
             <nav>
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#animations">Animations</a></li>
-                    <li><a href="#game-mods">Game Mods</a></li>
-                    <li><a href="#websites">Websites</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('animations')">Animations</a></li>
+                    <li><a href="#" onclick="showPage('game-mods')">Game Mods</a></li>
+                    <li><a href="#" onclick="showPage('websites')">Websites</a></li>
+                    <li><a href="#" onclick="showPage('about')">About</a></li>
+                    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main>
-        <section id="home" class="xp-section">
+    <main id="main-content">
+        <!-- Home Page -->
+        <section id="home" class="page">
             <div class="xp-window">
                 <h2>Welcome to My Portfolio</h2>
                 <p>Explore my work in animations, game mods, and web development.</p>
             </div>
         </section>
 
-        <section id="animations" class="xp-section">
+        <!-- Animations Page -->
+        <section id="animations" class="page" style="display:none;">
             <div class="xp-window">
                 <h2>Animations</h2>
                 <div class="xp-gallery">
@@ -51,7 +53,8 @@
             </div>
         </section>
 
-        <section id="game-mods" class="xp-section">
+        <!-- Game Mods Page -->
+        <section id="game-mods" class="page" style="display:none;">
             <div class="xp-window">
                 <h2>Game Mods</h2>
                 <div class="xp-gallery">
@@ -70,7 +73,8 @@
             </div>
         </section>
 
-        <section id="websites" class="xp-section">
+        <!-- Websites Page -->
+        <section id="websites" class="page" style="display:none;">
             <div class="xp-window">
                 <h2>Websites</h2>
                 <div class="xp-gallery">
@@ -89,22 +93,19 @@
             </div>
         </section>
 
-        <section id="about" class="xp-section">
+        <!-- About Page -->
+        <section id="about" class="page" style="display:none;">
             <div class="xp-window">
-                <h2>About Me</h2>
-                <p>Information about your background, skills, and experience.</p>
+                <h2>About</h2>
+                <p>Information about yourself and your work.</p>
             </div>
         </section>
 
-        <section id="contact" class="xp-section">
+        <!-- Contact Page -->
+        <section id="contact" class="page" style="display:none;">
             <div class="xp-window">
                 <h2>Contact</h2>
-                <form action="#" method="post">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <textarea name="message" placeholder="Your Message" required></textarea>
-                    <button type="submit">Send</button>
-                </form>
+                <p>Contact details or a contact form.</p>
             </div>
         </section>
     </main>
