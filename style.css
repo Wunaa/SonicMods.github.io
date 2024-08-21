@@ -1,138 +1,68 @@
 body {
-    margin: 0;
     font-family: 'Trebuchet MS', sans-serif;
-    background: #c0c0c0; /* Light gray background like XP */
+    margin: 0;
+    padding: 0;
+    background: #c0c0c0; /* Windows XP light gray background */
     color: #000;
 }
 
 header {
-    background: #0078d7; /* Windows XP blue */
+    background: #0033cc; /* Windows XP header color */
     color: #fff;
     padding: 10px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
 }
 
 .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 nav ul {
     list-style: none;
-    margin: 0;
     padding: 0;
-    display: flex;
 }
 
 nav ul li {
-    margin-left: 20px;
+    display: inline;
+    margin: 0 10px;
 }
 
 nav ul li a {
     color: #fff;
     text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s;
 }
 
-nav ul li a:hover {
-    color: #ff0; /* Highlight color on hover */
-}
-
-main {
-    padding: 70px 20px 20px; /* Padding adjusted for fixed header */
-}
-
-.xp-section {
-    margin-bottom: 20px;
+.page {
+    display: none; /* Hidden by default, shown with JavaScript */
 }
 
 .xp-window {
+    border: 2px solid #000;
     background: #fff;
-    border: 2px solid #808080; /* Border color like XP windows */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    padding: 20px;
-    margin: 0 auto;
-    max-width: 800px;
-}
-
-.xp-window h2 {
-    font-size: 20px;
-    color: #0078d7;
+    padding: 10px;
+    margin: 10px;
 }
 
 .xp-gallery {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
 }
 
 .xp-item {
-    background: #e0e0e0; /* Light gray background */
-    border: 1px solid #808080;
-    border-radius: 5px;
-    padding: 10px;
-    width: 200px;
+    margin: 10px;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .xp-item img {
-    width: 100%;
-    height: auto;
-    border-bottom: 1px solid #808080;
-}
-
-.xp-item h3 {
-    font-size: 16px;
-    margin: 10px 0 5px;
-}
-
-.xp-item p {
-    font-size: 14px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-form input,
-form textarea {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #808080;
-    border-radius: 5px;
-}
-
-form button {
-    padding: 10px;
-    background: #0078d7;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-form button:hover {
-    background: #0056a0;
+    width: 200px;
+    height: 150px;
+    border: 1px solid #000;
 }
 
 footer {
-    background: #0078d7;
-    color: #fff;
     text-align: center;
     padding: 10px;
+    background: #0033cc;
+    color: #fff;
 }
