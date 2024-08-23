@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DDS Map Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+        }
+        button {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>DDS Map Converter</h1>
+    <p>Select your DDS map file:</p>
+    <input type="file" id="ddsFile" accept=".dds">
+    <p>Select DDS type:</p>
+    <select id="ddsType">
+        <option value="standard">Standard DDS</option>
+        <option value="mcommon">MCommon DDS</option>
+    </select>
+    <button onclick="convertDDS()">Convert</button>
+    <p id="status"></p>
+    <a id="downloadLink" style="display:none;">Download Converted File</a>
+
+    <script src="converter.js"></script>
+</body>
+</html>
