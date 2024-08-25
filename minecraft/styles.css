@@ -1,17 +1,17 @@
 body {
-    margin: 0;
-    padding: 0;
     font-family: 'Minecraft', sans-serif;
     background: url('minecraft/assets/Dirt.png') repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: white;
 }
 
 .container {
-    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .logo {
@@ -33,8 +33,16 @@ body {
     color: white;
     font-size: 16px;
     text-decoration: none;
+    border: none;
+    font-family: 'Minecraft', sans-serif;
+    transition: background 0.3s ease;
 }
 
 .button:hover {
     background-image: url('minecraft/assets/button_hover.png');
+}
+
+@font-face {
+    font-family: 'Minecraft';
+    src: url('minecraft/assets/MinecraftFont.ttf') format('truetype');
 }
