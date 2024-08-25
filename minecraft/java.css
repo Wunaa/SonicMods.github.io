@@ -1,0 +1,142 @@
+@font-face {
+  font-family: mojangles;
+  src: url("/files/mojangles.ttf");
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  image-rendering: pixelated;
+  font-family: mojangles;
+  overflow: hidden;
+
+  /* background: rgb(0, 0, 0);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background: -moz-linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(153, 153, 153, 1) 50%, rgba(255, 255, 255, 1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(153, 153, 153, 1) 50%, rgba(255, 255, 255, 1) 100%);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(153, 153, 153, 1) 50%, rgba(255, 255, 255, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000", endColorstr="#ffffff", GradientType=1); */
+  /* background-image: url("/files/background/bg1.png");
+    background-repeat: no-repeat;
+    background-size: cover; */
+}
+
+.btn {
+  height: 40px;
+  width: 400px;
+  background-image: url("/files/button.png");
+  background-size: 400px;
+  background-repeat: no-repeat;
+
+  color: #e0e0e0;
+  font-size: 14px;
+  text-shadow: 2px 2px #383838;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding-bottom: 8px;
+
+  cursor: pointer;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  left: 18px;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+.btn:hover {
+  background-image: url("/files/button_hover.png");
+  color: #ffffa0;
+}
+
+.wrap {
+  /* background-color: red; */
+  width: 818px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.logo {
+  display: block;
+  margin: -100px auto 0; /* Adjust the top margin to move the logo closer to the top */
+  width: auto; /* Set width to auto to maintain aspect ratio */
+  height: 150px; /* Set a fixed height */
+  -webkit-filter: drop-shadow(5px 5px 5px #222);
+  filter: drop-shadow(5px 5px 5px #222);
+  image-rendering: auto;
+  background-image: url("java360edition/360logo.png"); /* Add the logo image */
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: breathe 1s infinite alternate; /* Apply the breathing animation */
+}
+
+@keyframes breathe {
+  0% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1.55);
+  }
+}
+
+.footer {
+  color: #e0e0e0;
+  font-size: 14px;
+  text-shadow: 2px 2px #383838;
+
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 30px;
+  width: 100%;
+  text-align: center;
+}
+
+.footer a,
+.footer a:visited,
+.announcement a,
+.announcement a:visited {
+  color: rgb(202, 202, 202);
+}
+
+.footer a:hover {
+  color: #ffffa0;
+}
+
+.announcement {
+  color: white;
+  text-shadow: 1px 1px black;
+  /* background-image: url("dirt.png"); */
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  height: 23px;
+  width: 100%;
+  font-size: 18px;
+  text-align: center;
+  /* border: 2px rgb(255, 196, 87) solid; */
+}
+
+#bgimage {
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
