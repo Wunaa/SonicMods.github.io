@@ -3,18 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Title Screen</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>SMW Font Text to Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #text-input, #color-picker, #effect-picker {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        #canvas-container {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <img src="minecraft/assets/360logo.png" alt="Minecraft Logo" class="logo">
-        <div class="menu">
-            <a href="#" class="button">Singleplayer</a>
-            <a href="#" class="button">Multiplayer</a>
-            <a href="#" class="button">Options</a>
-            <a href="#" class="button">Quit Game</a>
-        </div>
+    <h1>SMW Font Text to Image</h1>
+    <p>Type your text below:</p>
+    <input type="text" id="text-input" placeholder="Enter your text here" />
+    
+    <p>Select a solid color:</p>
+    <input type="color" id="color-picker" value="#000000">
+    
+    <p>Or select an effect:</p>
+    <select id="effect-picker">
+        <option value="solid">Solid Color</option>
+        <option value="gradient">Gradient</option>
+        <option value="rainbow">Rainbow</option>
+    </select>
+    
+    <div id="canvas-container">
+        <canvas id="text-canvas"></canvas>
     </div>
+    <button id="download-button">Download Image</button>
+
+    <script>
+        window.onload = function () {
+            const input = document.getElementById('text-input');
+            const canvas = document.getElementById('text-canvas');
+            const ctx = canvas.getContext('2d');
+            const downloadButton = document.getElementById('download-button');
+
+            const colorPicker = document.getElementById('color-picker');
+            const effectPicker = document.getElementById('effect-picker');
+
+            // Load the font from your hosted location
+            const font = new FontFace('SMW', 'url(https://sonicmod.com/smw/SMW.otf)');
+
+            font.load().then(function(loadedFont) {
+                document.fonts.add(loadedFont);
+
+                input.addEventListener('input', drawText);
+                colorPicker.addEventListener('input', drawText);
+                effectPicker.addEventListener('input', drawText);
+
+                function drawText() {
+                    const text = input.value;
+                    const fontSize = 72; // Increased font size for better visibility
+                    ctx.font = `${fontSize}px SMW`;
+                    const textWidth = ctx.measureText(text).width;
+
+                    // Set canvas width to fit the text, with more padding
+                    canvas.width = textWidth + 40;
+                    canvas.height = fontSize + 40;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    // Determine the color effect
+                    let colorEffect = effectPicker.value;
+                    let gradient;
+
+                    if (colorEffect === 'gradient') {
+                        gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+                        gradient.addColorStop(0, '#ff0000');
+                        gradient.addColorStop(1, '#0000ff');
+                        ctx.fillStyle = gradient;
+                    } else if (colorEffect === 'rainbow') {
+                        gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+                        gradient.addColorStop(0, '#FF0000'); // Red
+                        gradient.addColorStop(0.16, '#FF7F00'); // Orange
+                        gradient.addColorStop(0.33, '#FFFF00'); // Yellow
+                        gradient.addColorStop(0.49, '#00FF00'); // Green
+                        gradient.addColorStop(0.66, '#0000FF'); // Blue
+                        gradient.addColorStop(0.82, '#4B0082'); // Indigo
+                        gradient.addColorStop(1, '#9400D3'); // Violet
+                        ctx.fillStyle = gradient;
+                    } else {
+                        ctx.fillStyle = colorPicker.value; // Solid color
+                    }
+
+                    // Draw the text
+                    ctx.fillText(text, 20, fontSize + 20);
+                }
+
+                downloadButton.addEventListener('click', () => {
+                    const link = document.createElement('a');
+                    link.download = 'SMW-Text.png';
+                    link.href = canvas.toDataURL();
+                    link.click();
+                });
+
+                // Initial draw
+                drawText();
+            });
+        };
+    </script>
 </body>
 </html>
