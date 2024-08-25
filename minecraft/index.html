@@ -1,115 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMW Font Text to Image</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        #text-input, #color-picker, #effect-picker {
-            width: 300px;
-            padding: 10px;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-        #canvas-container {
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft Legacy Edition</title>
+  <meta property="og:title" content="Legacy Edition Java port">
+  <meta property="og:description" content="Download Legacy Minecraft for Java here!">
+  <meta property="og:image" content="https://preview.redd.it/made-a-pixel-art-version-of-the-fnaf-movie-sign-for-a-v0-3abgn6jchlma1.png?auto=webp&s=c292d7c99b6eea860c031f57aeaeb4770cadaa7b">
+  <meta property="og:url" content="https://trixielulamoonz.neocities.org/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Legacy Edition Java port">
+  <meta name="twitter:description" content="Download Legacy Minecraft for Java here!">
+  <meta name="twitter:image" content="https://preview.redd.it/made-a-pixel-art-version-of-the-fnaf-movie-sign-for-a-v0-3abgn6jchlma1.png?auto=webp&s=c292d7c99b6eea860c031f57aeaeb4770cadaa7b">
+  <link rel="stylesheet" href="java.css">
+  <!-- Favicon -->
+  <link rel="icon" href="/java360edition/java360.ico" type="image/x-icon">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url("https://static.planetminecraft.com/files/image/minecraft/project/2021/499/14523947_xl.webp");
+      background-size: cover; /* Changed to cover to fit the screen */
+      background-position: center; /* Centered the background image */
+      position: relative;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Semi-transparent overlay */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .logo {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px;
+      background-color: #555;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: #777;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
-    <h1>SMW Font Text to Image</h1>
-    <p>Type your text below:</p>
-    <input type="text" id="text-input" placeholder="Enter your text here" />
-    
-    <p>Select a solid color:</p>
-    <input type="color" id="color-picker" value="#000000">
-    
-    <p>Or select an effect:</p>
-    <select id="effect-picker">
-        <option value="solid">Solid Color</option>
-        <option value="gradient">Gradient</option>
-        <option value="rainbow">Rainbow</option>
-    </select>
-    
-    <div id="canvas-container">
-        <canvas id="text-canvas"></canvas>
-    </div>
-    <button id="download-button">Download Image</button>
+  <div class="wrap">
+    <img src="/java360edition/360logo.png" alt="Logo" class="logo">
+    <a href="https://files.gamebanana.com/bitpit/mce.zip" download>
+      <div class="btn center download-btn" id="download-btn">
+        Download
+      </div>
+    </a>
+    <a href="about.html" class="btn center about-btn" id="about-btn">
+      Install Guide
+    </a>
+    <a href="https://trixielulamoonz.neocities.org/Desktop" class="btn center quit-btn" id="quit-btn">
+      Quit
+    </a>
+  </div>
+  <div class="footer">
+    &copy; Site by MidNight Luna
+  </div>
 
-    <script>
-        window.onload = function () {
-            const input = document.getElementById('text-input');
-            const canvas = document.getElementById('text-canvas');
-            const ctx = canvas.getContext('2d');
-            const downloadButton = document.getElementById('download-button');
+  <!-- Add the audio elements for the sounds -->
+  <audio id="click-sound">
+    <source src="https://www.myinstants.com/media/sounds/minecraft_click.mp3#t=0.5" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <audio id="hover-sound">
+    <source src="https://files.catbox.moe/c7ieie.ogg" type="audio/ogg">
+    Your browser does not support the audio element.
+  </audio>
 
-            const colorPicker = document.getElementById('color-picker');
-            const effectPicker = document.getElementById('effect-picker');
+  <script>
+    // JavaScript to play the sound when any button is clicked
+    var buttons = document.querySelectorAll('.btn');
+    buttons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        var audio = document.getElementById('click-sound');
+        audio.currentTime = 0.5;
+        audio.play();
+      });
 
-            // Load the font from your hosted location
-            const font = new FontFace('SMW', 'url(https://sonicmod.com/smw/SMW.otf)');
-
-            font.load().then(function(loadedFont) {
-                document.fonts.add(loadedFont);
-
-                input.addEventListener('input', drawText);
-                colorPicker.addEventListener('input', drawText);
-                effectPicker.addEventListener('input', drawText);
-
-                function drawText() {
-                    const text = input.value;
-                    const fontSize = 72; // Increased font size for better visibility
-                    ctx.font = `${fontSize}px SMW`;
-                    const textWidth = ctx.measureText(text).width;
-
-                    // Set canvas width to fit the text, with more padding
-                    canvas.width = textWidth + 40;
-                    canvas.height = fontSize + 40;
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                    // Determine the color effect
-                    let colorEffect = effectPicker.value;
-                    let gradient;
-
-                    if (colorEffect === 'gradient') {
-                        gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-                        gradient.addColorStop(0, '#ff0000');
-                        gradient.addColorStop(1, '#0000ff');
-                        ctx.fillStyle = gradient;
-                    } else if (colorEffect === 'rainbow') {
-                        gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-                        gradient.addColorStop(0, '#FF0000'); // Red
-                        gradient.addColorStop(0.16, '#FF7F00'); // Orange
-                        gradient.addColorStop(0.33, '#FFFF00'); // Yellow
-                        gradient.addColorStop(0.49, '#00FF00'); // Green
-                        gradient.addColorStop(0.66, '#0000FF'); // Blue
-                        gradient.addColorStop(0.82, '#4B0082'); // Indigo
-                        gradient.addColorStop(1, '#9400D3'); // Violet
-                        ctx.fillStyle = gradient;
-                    } else {
-                        ctx.fillStyle = colorPicker.value; // Solid color
-                    }
-
-                    // Draw the text
-                    ctx.fillText(text, 20, fontSize + 20);
-                }
-
-                downloadButton.addEventListener('click', () => {
-                    const link = document.createElement('a');
-                    link.download = 'SMW-Text.png';
-                    link.href = canvas.toDataURL();
-                    link.click();
-                });
-
-                // Initial draw
-                drawText();
-            });
-        };
-    </script>
+      button.addEventListener('mouseenter', function() {
+        var audio = document.getElementById('hover-sound');
+        audio.play();
+      });
+    });
+  </script>
 </body>
 </html>
