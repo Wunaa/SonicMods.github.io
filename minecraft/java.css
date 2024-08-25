@@ -29,7 +29,7 @@ body {
 .btn {
   height: 40px;
   width: 400px;
-  background-image: url("/files/button.png");
+  background-image: url("minecraft/assets/button.png");
   background-size: 400px;
   background-repeat: no-repeat;
 
