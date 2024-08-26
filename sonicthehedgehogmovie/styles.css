@@ -22,14 +22,14 @@ body {
     position: absolute;
     bottom: 20px;
     left: 20px;
-    max-width: 10%;
+    max-width: 3%;
 }
 
 .paramount-logo {
     position: absolute;
     bottom: 20px;
     right: 20px;
-    max-width: 10%;
+    max-width: 3%;
 }
 
 audio {
