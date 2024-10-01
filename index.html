@@ -3,113 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet">
+    <title>Sonic x Shadow Countdown</title>
+
+    <!-- Link to the Impact font (many systems have it preinstalled, but we can ensure it's used here) -->
+    <style>
+        @font-face {
+            font-family: 'Impact';
+            src: local('Impact'), url('https://fonts.cdnfonts.com/s/10262/Impact.woff') format('woff');
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Impact', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('oneweek.gif') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .countdown-container {
+            text-align: center;
+            color: white;
+            font-size: 80px;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 0px #000, -3px 3px 0px #000, 3px -3px 0px #000, -3px -3px 0px #000;
+        }
+
+        #countdown {
+            font-size: 100px;
+            margin-top: 20px;
+            text-shadow: 5px 5px 0px #000, -5px 5px 0px #000, 5px -5px 0px #000, -5px -5px 0px #000;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <h1>My Portfolio</h1>
-            <nav>
-                <button onclick="showPage('home')">Home</button>
-                <button onclick="showPage('animations')">Animations</button>
-                <button onclick="showPage('game-mods')">Game Mods</button>
-                <button onclick="showPage('websites')">Websites</button>
-                <button onclick="showPage('about')">About</button>
-                <button onclick="showPage('contact')">Contact</button>
-            </nav>
-        </div>
-    </header>
 
-    <main id="main-content">
-        <!-- Home Page -->
-        <section id="home" class="page">
-            <div class="xp-window">
-                <h2>Welcome to My Portfolio</h2>
-                <p>Explore my work in animations, game mods, and web development.</p>
-            </div>
-        </section>
+    <div class="countdown-container">
+        <div>Countdown to Sonic X Shadow Generations</div>
+        <div id="countdown"></div>
+    </div>
 
-        <!-- Animations Page -->
-        <section id="animations" class="page" style="display:none;">
-            <div class="xp-window">
-                <h2>Animations</h2>
-                <div class="xp-gallery">
-                    <div class="xp-item">
-                        <img src="https://via.placeholder.com/200x150" alt="Placeholder Animation">
-                        <h3>Animation Title 1</h3>
-                        <p>Description of the animation.</p>
-                    </div>
-                    <div class="xp-item">
-                        <img src="https://via.placeholder.com/200x150" alt="Placeholder Animation">
-                        <h3>Animation Title 2</h3>
-                        <p>Description of the animation.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <script>
+        // Set the target release date
+        const releaseDate = new Date("October 22, 2024 00:00:00").getTime();
 
-        <!-- Game Mods Page -->
-        <section id="game-mods" class="page" style="display:none;">
-            <div class="xp-window">
-                <h2>Game Mods</h2>
-                <div class="xp-gallery">
-                    <div class="xp-item">
-                        <img src="https://via.placeholder.com/200x150" alt="Placeholder Game Mod">
-                        <h3>Game Mod Title 1</h3>
-                        <p>Description of the game mod.</p>
-                    </div>
-                    <div class="xp-item">
-                        <img src="https://via.placeholder.com/200x150" alt="Placeholder Game Mod">
-                        <h3>Game Mod Title 2</h3>
-                        <p>Description of the game mod.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        // Function to update the countdown every second
+        const countdownFunction = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = releaseDate - now;
 
-        <!-- Websites Page -->
-        <section id="websites" class="page" style="display:none;">
-            <div class="xp-window">
-                <h2>Websites</h2>
-                <div class="xp-gallery">
-                    <div class="xp-item">
-                        <img src="https://via.placeholder.com/200x150" alt="Placeholder Website">
-                        <h3>Website Title 1</h3>
-                        <p>Description of the website.</p>
-                    </div>
-                    <div class="xp-item">
-                        <img src="https://via.placeholder.com/200x150" alt="Placeholder Website">
-                        <h3>Website Title 2</h3>
-                        <p>Description of the website.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            // Calculate time elements
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        <!-- About Page -->
-        <section id="about" class="page" style="display:none;">
-            <div class="xp-window">
-                <h2>About</h2>
-                <p>Information about yourself and your work.</p>
-            </div>
-        </section>
+            // Output the result in an element with id="countdown"
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
 
-        <!-- Contact Page -->
-        <section id="contact" class="page" style="display:none;">
-            <div class="xp-window">
-                <h2>Contact</h2>
-                <p>Contact details or a contact form.</p>
-            </div>
-        </section>
-    </main>
+            // If the countdown is over, write some text
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById("countdown").innerHTML = "IT'S TIME!";
+            }
+        }, 1000);
+    </script>
 
-    <footer>
-        <p>&copy; 2024 Your Name. All rights reserved.</p>
-    </footer>
-
-    <audio id="click-sound" src="click-sound.mp3" preload="auto"></audio>
-    <script src="script.js"></script>
 </body>
 </html>
