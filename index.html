@@ -16,34 +16,32 @@
             height: 100%;
             margin: 0;
             font-family: 'Impact', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             background: url('oneweek.gif') no-repeat center center fixed;
             background-size: cover;
         }
 
         .countdown-container {
+            position: absolute;
+            top: 10%;
+            width: 100%;
             text-align: center;
             color: white;
-            font-size: 60px;
+            font-size: 40px;
             text-transform: uppercase;
-            text-shadow: 3px 3px 0px #000, -3px 3px 0px #000, 3px -3px 0px #000, -3px -3px 0px #000;
+            text-shadow: 2px 2px 0px #000, -2px 2px 0px #000, 2px -2px 0px #000, -2px -2px 0px #000;
         }
 
         #countdown {
-            font-size: 80px;
-            margin-top: 20px;
-            text-shadow: 5px 5px 0px #000, -5px 5px 0px #000, 5px -5px 0px #000, -5px -5px 0px #000;
+            font-size: 50px;
+            margin-top: 10px;
+            text-shadow: 4px 4px 0px #000, -4px 4px 0px #000, 4px -4px 0px #000, -4px -4px 0px #000;
         }
     </style>
 </head>
 <body>
 
     <div class="countdown-container">
-        <div>Can you believe it guys? Sonic X Shadow Generations is just</div>
-        <div id="countdown"></div>
-        <div>away!</div>
+        <div>Can you believe it guys? <span id="countdown"></span> until Sonic X Shadow Generations! I'm so thrilled by this information</div>
     </div>
 
     <script>
@@ -70,8 +68,4 @@
                 clearInterval(countdownFunction);
                 document.getElementById("countdown").innerHTML = "IT'S TIME!";
             }
-        }, 1000);
-    </script>
-
-</body>
-</html>
+       
