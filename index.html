@@ -59,7 +59,7 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Output the result in an element with id="countdown"
+            // Output the result in the countdown
             document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
             + minutes + "m " + seconds + "s ";
 
@@ -68,4 +68,8 @@
                 clearInterval(countdownFunction);
                 document.getElementById("countdown").innerHTML = "IT'S TIME!";
             }
-       
+        }, 1000);
+    </script>
+
+</body>
+</html>
