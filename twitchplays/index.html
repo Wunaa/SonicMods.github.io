@@ -5,54 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Twitch Plays Controls</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-        }
-        h1 {
+        /* Reset some default styles */
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .game-links {
-            margin: 20px;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://motionbgs.com/media/1999/sonic.jpg') no-repeat center center fixed; /* Replace with your own background */
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
         }
-        .game-links a {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
-            background-color: #6200ea;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
+
+        header {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        p {
             font-size: 1.2em;
         }
-        .game-links a:hover {
-            background-color: #3700b3;
+
+        .game-links {
+            margin: 40px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
         }
+
+        .game-links a {
+            margin: 15px;
+            padding: 20px 40px;
+            background-color: #ff4081;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5em;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-links a:hover {
+            background-color: #e91e63;
+            transform: scale(1.05);
+        }
+
         footer {
-            margin-top: 30px;
-            color: #333;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            font-size: 0.9em;
+        }
+
+        footer p {
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>Twitch Plays Controls</h1>
+        <p>Choose a game to view the controls</p>
     </header>
 
     <section class="game-links">
-        <h2>Select a Game:</h2>
         <a href="mario64.html">Mario 64 Controls</a>
         <!-- Add more game control links as needed -->
     </section>
 
     <footer>
         <p>&copy; 2024 Twitch Plays | Created by Lulamoonz</p>
+        <p>Follow us on <a href="#" style="color: #ff4081;">Twitch</a> | <a href="#" style="color: #ff4081;">Twitter</a></p>
     </footer>
 </body>
 </html>
