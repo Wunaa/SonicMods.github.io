@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mario 64 Controls</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://i.redd.it/y0lf5hfq30v51.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            animation: slideDown 1s ease-out;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .controls ul {
+            list-style: none;
+        }
+
+        .controls li {
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #ff4081;
+            border-radius: 5px;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+
+        .controls li:hover {
+            background-color: #e91e63;
+        }
+
+        footer {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            font-size: 0.9em;
+        }
+
+        /* Keyframes */
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mario 64 Controls</h1>
+        <p>Use these commands to control Mario in the game!</p>
+    </header>
+
+    <section class="controls">
+        <ul>
+            <li><strong>Forward</strong> - Move forward</li>
+            <li><strong>Run</strong> - Move forward for 3 seconds</li>
+            <li><strong>Back</strong> - Move backwards</li>
+            <li><strong>Jump</strong> - Jump</li>
+            <li><strong>Punch</strong> - Punch</li>
+            <li><strong>Crouch</strong> - Crouch</li>
+            <li><strong>Fump</strong> - Jump forward</li>
+            <li><strong>Rump</strong> - Jump right</li>
+            <li><strong>Bump</strong> - Jump backwards</li>
+            <li><strong>Lump</strong> - Jump left</li>
+            <li><strong>Forward Left</strong> - Move forward and left</li>
+            <li><strong>Forward Right</strong> - Move forward and right</li>
+            <li><strong>Back Left</strong> - Move backwards and left</li>
+            <li><strong>Back Right</strong> - Move backwards and right</li>
+            <li><strong>Triple Jump</strong> - Do a triple jump</li>
+            <li><strong>Backflip</strong> - Do a backflip</li>
+            <li><strong>Longjump</strong> - Perform a long jump</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Twitch Plays | Created by Lulamoonz</p>
+        <p>Back to <a href="index.html" style="color: #ff4081;">Home</a></p>
+    </footer>
+</body>
+</html>
