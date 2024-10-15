@@ -35,6 +35,21 @@
             margin-top: 10px;
             text-shadow: 4px 4px 0px #000, -4px 4px 0px #000, 4px -4px 0px #000, -4px -4px 0px #000;
         }
+
+        .switch-button {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #00AEEF;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -43,12 +58,13 @@
         <div>Can you believe it guys? <span id="countdown"></span> until Sonic X Shadow Generations! I'm so thrilled by this information</div>
     </div>
 
+    <button class="switch-button" onclick="switchToNormalRelease()">Switch to Normal Release Countdown</button>
+
     <script>
-        // Set the target release date to October 21st, 2024, 10:00 AM Mountain Time
-        const releaseDate = new Date("October 21, 2024 10:00:00 GMT-0600").getTime();
+        let releaseDate = new Date("October 21, 2024 22:00:00 GMT-0600").getTime(); // Digital Deluxe
 
         // Function to update the countdown every second
-        const countdownFunction = setInterval(function() {
+        const countdownFunction = setInterval(function () {
             const now = new Date().getTime();
             const distance = releaseDate - now;
 
@@ -59,8 +75,8 @@
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             // Output the result in the countdown
-            document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
-            + minutes + "m " + seconds + "s ";
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h " 
+                + minutes + "m " + seconds + "s ";
 
             // If the countdown is over, display "IT'S TIME!"
             if (distance < 0) {
@@ -68,6 +84,11 @@
                 document.getElementById("countdown").innerHTML = "IT'S TIME!";
             }
         }, 1000);
+
+        // Switch to the normal release date (October 24, 2024, 10:00 PM MT)
+        function switchToNormalRelease() {
+            releaseDate = new Date("October 24, 2024 22:00:00 GMT-0600").getTime();
+        }
     </script>
 
 </body>
