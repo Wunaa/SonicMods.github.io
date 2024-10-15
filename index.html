@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sonic x Shadow Countdown</title>
 
-    <!-- Link to the Impact font (many systems have it preinstalled, but we can ensure it's used here) -->
     <style>
         @font-face {
             font-family: 'Impact';
@@ -45,8 +44,8 @@
     </div>
 
     <script>
-        // Set the target release date
-        const releaseDate = new Date("October 22, 2024 00:00:00").getTime();
+        // Set the target release date to October 21st, 2024, 10:00 AM Mountain Time
+        const releaseDate = new Date("October 21, 2024 10:00:00 GMT-0600").getTime();
 
         // Function to update the countdown every second
         const countdownFunction = setInterval(function() {
@@ -63,7 +62,7 @@
             document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
             + minutes + "m " + seconds + "s ";
 
-            // If the countdown is over, write some text
+            // If the countdown is over, display "IT'S TIME!"
             if (distance < 0) {
                 clearInterval(countdownFunction);
                 document.getElementById("countdown").innerHTML = "IT'S TIME!";
