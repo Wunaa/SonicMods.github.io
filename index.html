@@ -74,39 +74,43 @@
     </div>
 
     <script>
-        // Initial release date set to Digital Deluxe (October 21, 2024, 10:00 PM MT)
-        let releaseDate = new Date("October 21, 2024 22:00:00 GMT-0600").getTime();
+        // Set release dates in UTC to avoid timezone inconsistencies
+        const deluxeReleaseDate = new Date(Date.UTC(2024, 9, 21, 4, 0, 0)).getTime(); // October 21, 12:00 AM EST
+        const normalReleaseDate = new Date(Date.UTC(2024, 9, 25, 4, 0, 0)).getTime(); // October 25, 12:00 AM EST
+
+        // Use Digital Deluxe release date by default
+        let releaseDate = deluxeReleaseDate;
 
         // Function to update the countdown every second
         const countdownFunction = setInterval(function () {
             const now = new Date().getTime();
             const distance = releaseDate - now;
 
-            // Calculate time elements
+            // Calculate days, hours, minutes, and seconds
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const seconds = Math.floor((distance % 1000) / 1000);
 
-            // Output the result in the countdown
-            document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
-                + minutes + "m " + seconds + "s ";
+            // Display the result
+            document.getElementById("countdown").innerHTML =
+                `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-            // If the countdown is over, display "IT'S TIME!"
+            // If the countdown is finished, display "IT'S TIME!"
             if (distance < 0) {
                 clearInterval(countdownFunction);
                 document.getElementById("countdown").innerHTML = "IT'S TIME!";
             }
         }, 1000);
 
-        // Switch to the normal release date (October 24, 2024, 10:00 PM MT)
+        // Switch to the normal release date
         function switchToNormalRelease() {
-            releaseDate = new Date("October 24, 2024 22:00:00 GMT-0600").getTime();
+            releaseDate = normalReleaseDate;
         }
 
-        // Switch back to the digital deluxe release date (October 21, 2024, 10:00 PM MT)
+        // Switch back to the digital deluxe release date
         function switchToDeluxeRelease() {
-            releaseDate = new Date("October 21, 2024 22:00:00 GMT-0600").getTime();
+            releaseDate = deluxeReleaseDate;
         }
     </script>
 
