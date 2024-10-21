@@ -74,49 +74,51 @@
     </div>
 
     <script>
-        // Function to get the correct release date in Eastern Time (EST/EDT)
+        // Helper function to get Eastern Time dates
         function getEasternTimeDate(year, month, day) {
             return new Date(`${year}-${month}-${day}T00:00:00-04:00`).getTime();
         }
 
-        // Set the two release dates: October 22, 2024, and October 26, 2024, at 12:00 AM EDT
-        const deluxeReleaseDate = getEasternTimeDate(2024, 10, 22); // Oct 22, 12:00 AM EDT
-        const normalReleaseDate = getEasternTimeDate(2024, 10, 26); // Oct 26, 12:00 AM EDT
+        // Set the release dates
+        const deluxeReleaseDate = getEasternTimeDate(2024, 10, 22); // October 22, 12:00 AM EDT
+        const normalReleaseDate = getEasternTimeDate(2024, 10, 26); // October 26, 12:00 AM EDT
 
-        // Use the Digital Deluxe release date by default
+        // Default to Deluxe release
         let releaseDate = deluxeReleaseDate;
 
-        // Function to update the countdown every second
-        const countdownFunction = setInterval(function () {
+        // Countdown function to update the timer every second
+        function updateCountdown() {
             const now = new Date().getTime();
             const distance = releaseDate - now;
 
-            // Calculate time elements
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "IT'S TIME!";
+                return; // Stop updating once the countdown finishes
+            }
+
+            // Calculate remaining time components
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % 1000) / 1000);
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Display the result
+            // Display the countdown
             document.getElementById("countdown").innerHTML =
                 `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
 
-            // If the countdown is finished, display "IT'S TIME!"
-            if (distance < 0) {
-                clearInterval(countdownFunction);
-                document.getElementById("countdown").innerHTML = "IT'S TIME!";
-            }
-        }, 1000);
-
-        // Switch to the normal release date
+        // Switch to normal release date
         function switchToNormalRelease() {
             releaseDate = normalReleaseDate;
         }
 
-        // Switch back to the digital deluxe release date
+        // Switch back to deluxe release date
         function switchToDeluxeRelease() {
             releaseDate = deluxeReleaseDate;
         }
+
+        // Start the countdown and update it every second
+        setInterval(updateCountdown, 1000);
     </script>
 
 </body>
