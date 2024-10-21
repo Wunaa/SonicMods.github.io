@@ -74,11 +74,17 @@
     </div>
 
     <script>
-        // Set release dates in UTC to avoid timezone inconsistencies
-        const deluxeReleaseDate = new Date(Date.UTC(2024, 9, 21, 4, 0, 0)).getTime(); // October 21, 12:00 AM EST
-        const normalReleaseDate = new Date(Date.UTC(2024, 9, 25, 4, 0, 0)).getTime(); // October 25, 12:00 AM EST
+        // Function to create a Date object set to exactly 12:00 AM EST/EDT on a given date
+        function getESTDate(year, month, day) {
+            const date = new Date(Date.UTC(year, month - 1, day, 4, 0, 0)); // 12:00 AM EST = 4:00 AM UTC
+            return date.getTime();
+        }
 
-        // Use Digital Deluxe release date by default
+        // Set the two release dates: October 21, 2024 and October 25, 2024 at 12:00 AM EST
+        const deluxeReleaseDate = getESTDate(2024, 10, 21); // Oct 21, 12:00 AM EST
+        const normalReleaseDate = getESTDate(2024, 10, 25); // Oct 25, 12:00 AM EST
+
+        // Use the Digital Deluxe release date by default
         let releaseDate = deluxeReleaseDate;
 
         // Function to update the countdown every second
@@ -86,11 +92,11 @@
             const now = new Date().getTime();
             const distance = releaseDate - now;
 
-            // Calculate days, hours, minutes, and seconds
+            // Calculate time elements
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % 1000) / 1000);
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000)) / 1000);
 
             // Display the result
             document.getElementById("countdown").innerHTML =
