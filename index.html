@@ -36,6 +36,13 @@
             text-shadow: 4px 4px 0px #000, -4px 4px 0px #000, 4px -4px 0px #000, -4px -4px 0px #000;
         }
 
+        #its-time-image {
+            display: none;
+            margin-top: 20px;
+            width: 300px;
+            height: auto;
+        }
+
         .button-container {
             position: absolute;
             bottom: 10%;
@@ -66,6 +73,7 @@
 
     <div class="countdown-container">
         <div>Can you believe it guys? <span id="countdown"></span> until Sonic X Shadow Generations! I'm so thrilled by this information</div>
+        <img id="its-time-image" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/fd53abde-7f1f-4d84-ae60-ae7c1d43d1c8/d2gnec7-7dc4fff8-b310-4733-8333-525aacb4bae4.png" alt="It's Time!">
     </div>
 
     <div class="button-container">
@@ -93,6 +101,7 @@
 
             if (distance < 0) {
                 document.getElementById("countdown").innerHTML = "IT'S TIME!";
+                document.getElementById("its-time-image").style.display = "block"; // Show the image
                 return; // Stop updating once the countdown finishes
             }
 
