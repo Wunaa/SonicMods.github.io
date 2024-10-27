@@ -1,14 +1,9 @@
-/* Global Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
+/* General Styles */
 body {
-    background-color: #1a1a2e;
-    color: white;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    margin: 0;
+    color: #fff;
     overflow-x: hidden;
 }
 
@@ -16,12 +11,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
-    background-color: #0f3460;
-}
-
-.logo img {
-    height: 50px;
+    padding: 15px 50px;
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .nav-links {
@@ -32,21 +23,18 @@ header {
 
 .nav-links a {
     text-decoration: none;
-    color: white;
-    font-weight: 600;
+    color: #4caf50;
     transition: color 0.3s;
 }
 
-.nav-links a:hover, .nav-links .active {
-    color: #4caf50;
+.nav-links a:hover {
+    color: #f1c40f;
 }
 
 .hero {
     text-align: center;
     padding: 100px 20px;
-    background: url('../assets/sonic-bg.jpg') no-repeat center/cover;
-    color: #fff;
-    animation: fadeIn 2s ease-in-out;
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
 }
 
 .hero h1 {
@@ -56,66 +44,70 @@ header {
 
 .hero p {
     font-size: 1.2rem;
-    margin-bottom: 20px;
 }
 
-.download-btn {
-    background-color: #4caf50;
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    border-radius: 25px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    transition: transform 0.2s;
-}
-
-.download-btn:hover {
-    transform: scale(1.1);
-}
-
-.features, .planned-features {
-    max-width: 800px;
+/* About Section */
+.about-container {
+    max-width: 1000px;
     margin: 50px auto;
-    padding: 20px;
-    background-color: #16213e;
-    border-radius: 15px;
-    animation: slideUp 1s ease-out;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    animation: fadeIn 1.5s ease-in-out;
 }
 
-footer {
+.about-card, .story, .vision {
+    margin-bottom: 30px;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #f1c40f;
+}
+
+/* Team Section */
+.team-members {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.member {
     text-align: center;
-    padding: 10px;
-    background-color: #0f3460;
+    flex: 1;
+    margin: 15px;
+    transition: transform 0.3s ease;
+}
+
+.member img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.zoom-hover:hover {
+    transform: scale(1.1);
 }
 
 /* Animations */
 @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-@keyframes slideUp {
-    0% { transform: translateY(50px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2rem;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .download-btn {
-        width: 100%;
-        justify-content: center;
-    }
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-top: 20px;
 }
