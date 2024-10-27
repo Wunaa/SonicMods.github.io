@@ -1,0 +1,121 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #1a1a2e;
+    color: white;
+    overflow-x: hidden;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #0f3460;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover, .nav-links .active {
+    color: #4caf50;
+}
+
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: url('../assets/sonic-bg.jpg') no-repeat center/cover;
+    color: #fff;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.download-btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 25px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.2s;
+}
+
+.download-btn:hover {
+    transform: scale(1.1);
+}
+
+.features, .planned-features {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #16213e;
+    border-radius: 15px;
+    animation: slideUp 1s ease-out;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #0f3460;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+    0% { transform: translateY(50px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .download-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
