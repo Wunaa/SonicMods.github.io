@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Vinyl Player</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="player">
+        <div class="vinyl">
+            <div class="cover-art"></div>
+        </div>
+        <audio id="audio"></audio>
+        <div class="controls">
+            <button id="playPause">Play</button>
+            <input type="file" id="mp3Upload" accept="audio/mpeg">
+            <input type="file" id="coverUpload" accept="image/*">
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
