@@ -2,7 +2,6 @@ const audio = document.getElementById('audio');
 const playPauseBtn = document.getElementById('playPause');
 const mp3Upload = document.getElementById('mp3Upload');
 const coverUpload = document.getElementById('coverUpload');
-const vinyl = document.querySelector('.vinyl');
 const coverArt = document.querySelector('.cover-art');
 const rewindBtn = document.getElementById('rewind');
 const forwardBtn = document.getElementById('forward');
@@ -55,22 +54,26 @@ coverUpload.addEventListener('change', (event) => {
 // Rewind functionality
 rewindBtn.addEventListener('click', () => {
     audio.currentTime = Math.max(0, audio.currentTime - 5); // Rewind 5 seconds
+    console.log('Rewound 5 seconds');
 });
 
 // Forward functionality
 forwardBtn.addEventListener('click', () => {
     audio.currentTime = Math.min(audio.duration, audio.currentTime + 5); // Forward 5 seconds
+    console.log('Forwarded 5 seconds');
 });
 
 // Speed control
 speedDownBtn.addEventListener('click', () => {
     playbackRate = Math.max(0.5, playbackRate - 0.1); // Minimum speed: 0.5x
     audio.playbackRate = playbackRate;
+    console.log(`Playback speed decreased to ${playbackRate}`);
 });
 
 speedUpBtn.addEventListener('click', () => {
     playbackRate = Math.min(3, playbackRate + 0.1); // Maximum speed: 3x
     audio.playbackRate = playbackRate;
+    console.log(`Playback speed increased to ${playbackRate}`);
 });
 
 // Reverse playback
@@ -82,5 +85,6 @@ reverseBtn.addEventListener('click', () => {
         playbackRate = -Math.abs(playbackRate); // Set to negative rate
     }
     audio.playbackRate = playbackRate;
+    console.log(`Playback reversed: ${isReversed}`);
     isReversed = !isReversed;
 });
