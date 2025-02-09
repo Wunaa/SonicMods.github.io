@@ -7,9 +7,10 @@
     <style>
         body {
             background-color: #FFB347;
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             text-align: center;
             color: #fff;
+            overflow: hidden;
         }
         .container {
             max-width: 600px;
@@ -18,6 +19,8 @@
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: fadeIn 1.5s ease-in-out;
         }
         button {
             background: #fff;
@@ -28,12 +31,28 @@
             border-radius: 10px;
             cursor: pointer;
             margin-top: 10px;
+            transition: 0.3s;
         }
         button:hover {
             background: #FFD700;
+            transform: scale(1.1);
         }
         .hidden {
             display: none;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes floatHearts {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 30px;
+            animation: floatHearts 5s linear infinite;
         }
     </style>
 </head>
@@ -43,29 +62,29 @@
         <p>Take this fun little quiz! 😘</p>
         
         <div id="question1">
-            <p>What's the best way to spend Valentine's Day?</p>
-            <button onclick="nextQuestion(2)">A) Cuddling with a cat 🐱</button>
-            <button onclick="nextQuestion(2)">B) Reading a book 📖</button>
-            <button onclick="nextQuestion(2)">C) Baking something sweet 🍪</button>
+            <p>What's the most romantic Valentine's date?</p>
+            <button onclick="nextQuestion(2)">A) Cuddling with a cat under the stars 🌙🐱</button>
+            <button onclick="nextQuestion(2)">B) Reading poetry together by candlelight 📖🕯</button>
+            <button onclick="nextQuestion(2)">C) Baking heart-shaped cookies while dancing in the kitchen 🍪💕</button>
         </div>
         
         <div id="question2" class="hidden">
-            <p>Which character would be the best Valentine?</p>
-            <button onclick="nextQuestion(3)">A) Sonic the Hedgehog 💙</button>
-            <button onclick="nextQuestion(3)">B) Hello Kitty 🎀</button>
-            <button onclick="nextQuestion(3)">C) Me, of course! 😘</button>
+            <p>Which character is the best love story hero?</p>
+            <button onclick="nextQuestion(3)">A) Sonic the Hedgehog 🌀💙</button>
+            <button onclick="nextQuestion(3)">B) Hello Kitty 🎀🐱</button>
+            <button onclick="nextQuestion(3)">C) Me, your one true love 😘❤️</button>
         </div>
         
         <div id="question3" class="hidden">
             <p>Final question: Will you be my Valentine? 💕</p>
             <button onclick="showFinal()">A) YES!!! 😍</button>
             <button onclick="showFinal()">B) Absolutely! 💖</button>
-            <button onclick="showFinal()">C) OF COURSE, SWEETHEART! 💋</button>
+            <button onclick="showFinal()">C) OF COURSE, MY LOVE! 💋</button>
         </div>
         
         <div id="final" class="hidden">
             <h2>YAY! 🥰</h2>
-            <p>You’re the best, my angel! I love you! 💕</p>
+            <p>You’re my everything, my angel! I love you more than words can say! 💕</p>
             <img src="https://media.tenor.com/0z_ZM2Y_CcIAAAAC/cute-cat-love.gif" alt="Cute Cat Love">
         </div>
     </div>
@@ -79,6 +98,18 @@
             document.getElementById('question3').classList.add('hidden');
             document.getElementById('final').classList.remove('hidden');
         }
+        function createHearts() {
+            setInterval(() => {
+                let heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => { heart.remove(); }, 5000);
+            }, 300);
+        }
+        createHearts();
     </script>
 </body>
 </html>
