@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Sweetheart ❤️</title>
+    <style>
+        body {
+            background-color: #FFB347;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #fff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #FF914D;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        button {
+            background: #fff;
+            color: #FF914D;
+            padding: 10px 20px;
+            border: none;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #FFD700;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>For My Sweetheart, Angel 💖</h1>
+        <p>Take this fun little quiz! 😘</p>
+        
+        <div id="question1">
+            <p>What's the best way to spend Valentine's Day?</p>
+            <button onclick="nextQuestion(2)">A) Cuddling with a cat 🐱</button>
+            <button onclick="nextQuestion(2)">B) Reading a book 📖</button>
+            <button onclick="nextQuestion(2)">C) Baking something sweet 🍪</button>
+        </div>
+        
+        <div id="question2" class="hidden">
+            <p>Which character would be the best Valentine?</p>
+            <button onclick="nextQuestion(3)">A) Sonic the Hedgehog 💙</button>
+            <button onclick="nextQuestion(3)">B) Hello Kitty 🎀</button>
+            <button onclick="nextQuestion(3)">C) Me, of course! 😘</button>
+        </div>
+        
+        <div id="question3" class="hidden">
+            <p>Final question: Will you be my Valentine? 💕</p>
+            <button onclick="showFinal()">A) YES!!! 😍</button>
+            <button onclick="showFinal()">B) Absolutely! 💖</button>
+            <button onclick="showFinal()">C) OF COURSE, SWEETHEART! 💋</button>
+        </div>
+        
+        <div id="final" class="hidden">
+            <h2>YAY! 🥰</h2>
+            <p>You’re the best, my angel! I love you! 💕</p>
+            <img src="https://media.tenor.com/0z_ZM2Y_CcIAAAAC/cute-cat-love.gif" alt="Cute Cat Love">
+        </div>
+    </div>
+
+    <script>
+        function nextQuestion(num) {
+            document.getElementById('question' + (num - 1)).classList.add('hidden');
+            document.getElementById('question' + num).classList.remove('hidden');
+        }
+        function showFinal() {
+            document.getElementById('question3').classList.add('hidden');
+            document.getElementById('final').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
