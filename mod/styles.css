@@ -2,16 +2,33 @@
 body {
     background-color: #0a0a0a;
     color: cyan;
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     text-align: center;
     margin: 0;
     padding: 0;
 }
 
+/* Header */
 header {
     padding: 20px;
     font-size: 24px;
     font-weight: bold;
+    position: relative;
+}
+
+/* Back Button */
+.back-btn {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    text-decoration: none;
+    color: cyan;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.back-btn:hover {
+    color: #00ffaa;
 }
 
 /* Download Button */
@@ -22,41 +39,81 @@ header {
 .download-btn {
     background-color: cyan;
     color: #0a0a0a;
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-size: 18px;
+    font-weight: bold;
     text-decoration: none;
     border-radius: 5px;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 0 10px cyan;
 }
 
 .download-btn:hover {
     background-color: #00ffaa;
+    box-shadow: 0 0 15px #00ffaa;
 }
 
-/* Image & Video Showcase */
-.showcase {
-    margin: 20px;
-}
-
-.media-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.showcase-media {
-    max-width: 400px;
+/* Image & Video Showcase (Carousel) */
+.carousel {
+    position: relative;
+    width: 60%;
+    max-width: 600px;
+    margin: 20px auto;
+    overflow: hidden;
     border-radius: 8px;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    min-width: 100%;
+    border-radius: 8px;
+    max-height: 300px;
+}
+
+.carousel img, .carousel video {
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* Carousel Navigation */
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 255, 255, 0.7);
+    color: #0a0a0a;
+    border: none;
+    padding: 10px 15px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
+
+.prev-btn:hover, .next-btn:hover {
+    background: #00ffaa;
 }
 
 /* Description & Credits */
 .mod-description, .credits {
     margin: 20px;
-    padding: 10px;
-    background: #111;
+    padding: 15px;
+    background: rgba(0, 255, 255, 0.1);
     border-radius: 8px;
     display: inline-block;
     text-align: left;
     max-width: 600px;
+    box-shadow: 0 0 10px cyan;
+}
+
+h2 {
+    color: #00ffaa;
 }
