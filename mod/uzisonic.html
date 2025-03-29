@@ -8,6 +8,7 @@
 </head>
 <body>
     <header>
+        <a href="../index.html" class="back-btn">← Back</a>
         <h1 id="mod-title">Mod Title</h1>
     </header>
 
@@ -17,14 +18,19 @@
             <a href="your-download-link.zip" class="download-btn">Download Mod</a>
         </div>
 
-        <!-- Image & Video Showcase -->
+        <!-- Image & Video Showcase (Carousel) -->
         <section class="showcase">
-            <div class="media-container">
-                <img src="mod-image.jpg" alt="Mod Image" class="showcase-media">
-                <video controls class="showcase-media">
-                    <source src="mod-video.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+            <div class="carousel">
+                <div class="carousel-inner">
+                    <img src="mod-image1.jpg" class="carousel-item active" alt="Mod Image 1">
+                    <img src="mod-image2.jpg" class="carousel-item" alt="Mod Image 2">
+                    <video controls class="carousel-item">
+                        <source src="mod-video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <button class="prev-btn">‹</button>
+                <button class="next-btn">›</button>
             </div>
         </section>
 
@@ -43,5 +49,7 @@
             <p>Special thanks to: <strong>Other Contributors</strong></p>
         </section>
     </main>
+
+    <script src="../script.js"></script>
 </body>
 </html>
