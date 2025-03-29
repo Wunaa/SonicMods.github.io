@@ -1,0 +1,46 @@
+body {
+    background-color: #0a0a0a;
+    color: cyan;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    justify-items: center;
+}
+
+.mod-card {
+    width: 200px;
+    background: #111;
+    padding: 10px;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.mod-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px cyan;
+}
+
+.mod-card img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.mod-title {
+    margin-top: 10px;
+    font-size: 16px;
+}
