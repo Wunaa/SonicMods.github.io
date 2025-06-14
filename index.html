@@ -3,37 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cynessa's Personal Page</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="https://static.wikia.nocookie.net/sonic/images/2/26/Ring_Icon.png" />
+  <title>Cynessa's Retro Web Desktop</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="stars-bg"></div>
+  <div id="desktop">
+    <div class="icon">
+      <img src="https://i.imgur.com/VY5Fpa6.png" alt="User icon" />
+      <p>Cynessa</p>
+    </div>
 
-  <header>
-    <h1>✦ Cynessa's Cool Webzone ✦</h1>
-    <p class="subtitle">3D Animator | Sonic Modder | Video Editor | Game Dev</p>
-  </header>
+    <div class="window card" id="main-card">
+      <div class="title-bar">
+        <span>Welcome.html - Internet Explorer</span>
+        <div class="window-controls">
+          <button title="Minimize">_</button>
+          <button title="Close">X</button>
+        </div>
+      </div>
+      <div class="content">
+        <h1>🌀 Welcome to Cynessa's Zone!</h1>
+        <p>I'm <strong>Cyn</strong> — a 3D animator, Sonic modder, and game dev.</p>
+        <p>This is my totally retro personal homepage!</p>
 
-  <main class="card">
-    <img src="https://avatars.githubusercontent.com/u/137325766?v=4" class="avatar" alt="Cyn avatar" />
-    
-    <div class="info">
-      <p>Hey, I'm <strong>Cyn</strong>! I make 3D animations, mods, videos, and cool stuff in Godot.</p>
-      <p>This is my little corner of the web ✧｡ﾟ</p>
-
-      <div class="buttons">
-        <a href="http://github.com/wunaa/" target="_blank" class="btn">🌐 GitHub</a>
-        <a href="https://www.youtube.com/@ItzCyn" target="_blank" class="btn">📺 YouTube</a>
-        <a href="https://x.com/SxlverCyn" target="_blank" class="btn">🐦 Twitter</a>
+        <div class="links">
+          <a href="http://github.com/wunaa/" target="_blank">💻 GitHub</a>
+          <a href="https://www.youtube.com/@ItzCyn" target="_blank">📺 YouTube</a>
+          <a href="https://x.com/SxlverCyn" target="_blank">🐦 Twitter</a>
+        </div>
       </div>
     </div>
-  </main>
 
-  <footer>
-    <p>© 2003–2025 Cynessa. All Chaos Emeralds reserved.</p>
-  </footer>
-
-  <script src="script.js"></script>
+    <div class="window card" id="projects">
+      <div class="title-bar">
+        <span>MyProjects.html - Netscape</span>
+        <div class="window-controls">
+          <button title="Minimize">_</button>
+          <button title="Close">X</button>
+        </div>
+      </div>
+      <div class="content">
+        <h2>🗂️ Projects</h2>
+        <ul>
+          <li><a href="https://needleviewer.sonicmod.com" target="_blank">🧵 NeedleViewer</a></li>
+          <li><a href="https://shadowdefinitive.sonicmod.com" target="_blank">🌑 Definitive Shadow</a></li>
+          <li><a href="https://sonicmod.com/frontiersmods" target="_blank">💾 Sonic Frontiers Mods</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
