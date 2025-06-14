@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cynessa's Retro Web Desktop</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Cynessa's Web OS</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="desktop">
@@ -16,17 +16,18 @@
 
     <!-- Welcome Window -->
     <div class="window card" id="main-card">
-      <div class="title-bar">
+      <div class="title-bar" onmousedown="dragWindow(event, 'main-card')">
         <span>Welcome.html - Internet Explorer</span>
         <div class="window-controls">
           <button title="Minimize">_</button>
-          <button title="Close">X</button>
+          <button title="Close" onclick="document.getElementById('main-card').style.display='none'">X</button>
         </div>
       </div>
       <div class="content">
         <h1>🌀 Welcome to Cynessa's Zone!</h1>
-        <p>I'm <strong>Cyn</strong> — a 3D animator, Sonic modder, and game dev in Godot!</p>
-        <p>This is my totally retro personal homepage. Feel free to explore~</p>
+        <p>I'm <strong>Cyn</strong> — a 3D animator, Sonic modder, and Godot game dev.</p>
+        <p>This is my totally retro personal homepage. Explore around like it’s your desktop!</p>
+
         <div class="links">
           <a href="http://github.com/wunaa/" target="_blank">💻 GitHub</a>
           <a href="https://www.youtube.com/@ItzCyn" target="_blank">📺 YouTube</a>
@@ -37,11 +38,11 @@
 
     <!-- Projects Window -->
     <div class="window card" id="projects">
-      <div class="title-bar">
+      <div class="title-bar" onmousedown="dragWindow(event, 'projects')">
         <span>MyProjects.html - Netscape</span>
         <div class="window-controls">
           <button title="Minimize">_</button>
-          <button title="Close">X</button>
+          <button title="Close" onclick="document.getElementById('projects').style.display='none'">X</button>
         </div>
       </div>
       <div class="content">
@@ -51,9 +52,11 @@
           <li><a href="https://shadowdefinitive.sonicmod.com" target="_blank">🌑 Definitive Shadow</a></li>
           <li><a href="https://sonicmod.com/frontiersmods" target="_blank">💾 Sonic Frontiers Mods</a></li>
         </ul>
-        <p class="status">More projects coming soon...</p>
+        <p class="status">More coming soon...</p>
       </div>
     </div>
   </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
