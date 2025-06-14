@@ -1,89 +1,96 @@
 body {
-  background: url('https://i.imgur.com/KhqH7uE.gif');
-  font-family: 'Verdana', sans-serif;
-  font-size: 14px;
-  color: #000;
   margin: 0;
-  padding: 0;
+  font-family: 'Verdana', sans-serif;
+  background: url('https://i.imgur.com/LTQSK6Y.jpg') repeat;
+  color: black;
+  overflow: hidden;
 }
 
-#container {
-  width: 760px;
-  margin: auto;
-  background: #fff url('https://i.imgur.com/Yy1yYvP.png') top repeat-x;
-  border: 4px double #0000cc;
+#desktop {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
   padding: 20px;
-  box-shadow: 0 0 10px #000;
 }
 
-header {
+/* Fake desktop icon */
+.icon {
+  width: 64px;
   text-align: center;
-  background: linear-gradient(#ccf, #99f);
-  border: 2px inset #0000aa;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.icon img {
+  width: 48px;
+  height: 48px;
+}
+
+/* Retro window style */
+.window {
+  width: 350px;
+  background: #e0f0ff;
+  border: 2px solid #000080;
+  box-shadow: 4px 4px 0 #000;
+  margin: 30px;
+  position: relative;
+  animation: floatIn 0.5s ease;
+}
+
+.title-bar {
+  background: linear-gradient(to right, #003399, #6699ff);
+  color: white;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  border-bottom: 1px solid #000;
+}
+
+.window-controls button {
+  background: #ccc;
+  border: 1px solid #000;
+  margin-left: 2px;
+  width: 16px;
+  height: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.content {
   padding: 10px;
 }
 
-header h1 {
-  color: #0033cc;
-  font-size: 24px;
-  margin: 0;
-  text-shadow: 1px 1px #fff;
-}
-
-header p {
-  font-size: 14px;
-  color: #222;
-}
-
-.divider {
-  margin: 10px 0;
-}
-
-nav {
-  text-align: center;
-  margin: 15px 0;
-}
-
-nav a {
+.links a {
   display: inline-block;
-  padding: 6px 12px;
-  margin: 0 8px;
-  font-weight: bold;
-  color: #fff;
-  background: #0066ff;
-  border: 2px outset #003399;
-  text-decoration: none;
-}
-
-nav a:hover {
-  background: #00ccff;
+  margin: 0.3rem;
+  padding: 0.4rem 0.8rem;
+  background: #99ccff;
+  border: 2px outset #3366cc;
   color: #000;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-main {
-  background: #e0f0ff;
-  border: 2px dashed #0033cc;
-  padding: 15px;
+ul {
+  padding-left: 1rem;
 }
 
-main h2 {
-  font-size: 18px;
-  color: #0000cc;
-  text-decoration: underline;
+ul li {
+  margin: 0.5rem 0;
 }
 
-main ul {
-  list-style: square inside;
-}
-
-main ul li {
-  margin: 8px 0;
-}
-
-footer {
-  text-align: center;
-  font-size: 12px;
-  margin-top: 20px;
-  padding-top: 10px;
-  border-top: 2px solid #0000cc;
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
