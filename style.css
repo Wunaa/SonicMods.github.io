@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #cbeaff, #e0f7ff);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: float 12s linear infinite;
+  z-index: 0;
+}
+
+@keyframes float {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 100px; }
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 150, 255, 0.3);
+  padding: 2rem;
+  width: 320px;
+  text-align: center;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 8px #00caff;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #0059a5;
+}
+
+.tagline {
+  font-size: 0.95rem;
+  color: #333;
+  margin: 0.5rem 0 1rem;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.btn {
+  background: linear-gradient(145deg, #a3eaff, #d5f3ff);
+  border: 1px solid #85d7ff;
+  border-radius: 8px;
+  color: #005fa3;
+  padding: 0.6rem 1.2rem;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.btn:hover {
+  background: #e0faff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
