@@ -1,27 +1,18 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const modList = document.getElementById("mod-list");
+function dragWindow(e, windowId) {
+  const win = document.getElementById(windowId);
+  let offsetX = e.clientX - win.offsetLeft;
+  let offsetY = e.clientY - win.offsetTop;
 
-    // Example list of mod pages (replace this with a real folder fetch)
-    const mods = [
-        "mod1.html",
-        "mod2.html",
-        "mod3.html"
-    ];
+  function move(e) {
+    win.style.left = `${e.clientX - offsetX}px`;
+    win.style.top = `${e.clientY - offsetY}px`;
+  }
 
-    mods.forEach(mod => {
-        const modCard = document.createElement("div");
-        modCard.classList.add("mod-card");
-        
-        // Extract mod name (remove .html)
-        const modName = mod.replace(".html", "");
+  function stop() {
+    document.removeEventListener("mousemove", move);
+    document.removeEventListener("mouseup", stop);
+  }
 
-        modCard.innerHTML = `
-            <a href="mod/${mod}">
-                <img src="mod/default-thumbnail.png" alt="Mod Thumbnail">
-                <div class="mod-title">${modName}</div>
-            </a>
-        `;
-
-        modList.appendChild(modCard);
-    });
-});
+  document.addEventListener("mousemove", move);
+  document.addEventListener("mouseup", stop);
+}
