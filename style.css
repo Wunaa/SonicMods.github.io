@@ -1,8 +1,9 @@
 body {
   margin: 0;
   font-family: 'Verdana', sans-serif;
-  background: url('https://i.imgur.com/LTQSK6Y.jpg') repeat;
-  color: black;
+  background: url('https://m.media-amazon.com/images/M/MV5BMjI4ZjU4NGItMWJhNi00MGVhLTk3MTctOGExZGQ2MTNhZDEwXkEyXkFqcGc@._V1_.jpg') center center no-repeat;
+  background-size: cover;
+  color: #000;
   overflow: hidden;
 }
 
@@ -13,7 +14,7 @@ body {
   padding: 20px;
 }
 
-/* Fake desktop icon */
+/* Desktop Icon */
 .icon {
   width: 64px;
   text-align: center;
@@ -22,49 +23,60 @@ body {
   position: absolute;
   top: 20px;
   left: 20px;
+  cursor: pointer;
 }
 
 .icon img {
   width: 48px;
   height: 48px;
+  transition: transform 0.3s;
 }
 
-/* Retro window style */
+.icon:hover img {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Window Styling */
 .window {
-  width: 350px;
-  background: #e0f0ff;
+  width: 370px;
+  background: rgba(224, 240, 255, 0.95);
   border: 2px solid #000080;
-  box-shadow: 4px 4px 0 #000;
+  box-shadow: 5px 5px 0 #000;
   margin: 30px;
   position: relative;
   animation: floatIn 0.5s ease;
+  border-radius: 6px;
+  backdrop-filter: blur(2px);
 }
 
 .title-bar {
-  background: linear-gradient(to right, #003399, #6699ff);
+  background: linear-gradient(to right, #003399, #66aaff);
   color: white;
-  padding: 4px 8px;
+  padding: 4px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
   border-bottom: 1px solid #000;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 
 .window-controls button {
   background: #ccc;
   border: 1px solid #000;
-  margin-left: 2px;
-  width: 16px;
-  height: 16px;
+  margin-left: 4px;
+  width: 18px;
+  height: 18px;
   font-weight: bold;
   cursor: pointer;
 }
 
 .content {
-  padding: 10px;
+  padding: 12px 16px;
 }
 
+/* Links */
 .links a {
   display: inline-block;
   margin: 0.3rem;
@@ -74,8 +86,15 @@ body {
   color: #000;
   text-decoration: none;
   font-weight: bold;
+  transition: all 0.2s ease;
 }
 
+.links a:hover {
+  background: #cce6ff;
+  border: 2px inset #003399;
+}
+
+/* List */
 ul {
   padding-left: 1rem;
 }
@@ -84,13 +103,32 @@ ul li {
   margin: 0.5rem 0;
 }
 
+ul li a {
+  font-weight: bold;
+  color: #003399;
+  text-decoration: none;
+}
+
+ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Project Status Text */
+.status {
+  margin-top: 12px;
+  font-size: 12px;
+  color: #333;
+  font-style: italic;
+}
+
+/* Animation */
 @keyframes floatIn {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-20px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
