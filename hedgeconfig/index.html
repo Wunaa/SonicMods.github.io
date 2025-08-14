@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HedgeConfig – Config Maker</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #0ea5e9;
+      --accent-strong: #0284c7;
+      --border: #e5e7eb;
+      --chip: #eef2ff;
+      --chip-text: #3730a3;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1e1f24;
+      --panel: #24262b;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #60a5fa;
+      --accent-strong: #3b82f6;
+      --border: #2f323a;
+      --chip: #2f3651;
+      --chip-text: #c7d2fe;
+      --shadow: 0 10px 28px rgba(0,0,0,0.35);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      grid-template-rows: 64px 1fr;
+      grid-template-areas:
+        'sidebar topbar'
+        'sidebar main';
+    }
+
+    .sidebar { grid-area: sidebar; padding: 16px; border-right: 1px solid var(--border); background: var(--panel); box-shadow: var(--shadow); z-index: 2; }
+    .brand { display: flex; gap: 12px; align-items: center; font-weight: 700; margin-bottom: 16px; }
+    .brand .logo { width: 5px; height: 52px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent-strong)); }
+
+    .nav { display: grid; gap: 6px; margin-top: 8px; }
+    .nav button {
+      width: 100%; border: 1px solid var(--border); background: var(--panel); color: var(--text);
+      padding: 10px 12px; border-radius: 12px; text-align: left; cursor: pointer; transition: .15s ease;
+    }
+    .nav button:hover { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 25%, transparent); }
+    .nav button.active { border-color: var(--accent); background: color-mix(in oklab, var(--accent) 10%, var(--panel)); }
+
+    .spacer { height: 12px; }
+    .theme-toggle { display: flex; gap: 8px; align-items: center; justify-content: space-between; margin-top: 16px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 12px; }
+    .toggle {
+      appearance: none; width: 46px; height: 28px; border-radius: 999px; background: var(--border); position: relative; cursor: pointer; outline: none; transition: .2s;
+    }
+    .toggle:checked { background: var(--accent-strong); }
+    .toggle:before { content: ""; position: absolute; width: 22px; height: 22px; border-radius: 999px; background: var(--panel); top: 3px; left: 3px; transition: .2s; box-shadow: 0 2px 6px rgba(0,0,0,.25); }
+    .toggle:checked:before { left: 21px; }
+
+    .topbar { grid-area: topbar; display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--panel); position: sticky; top: 0; z-index: 1; }
+    .search { flex: 1; display: flex; align-items: center; gap: 8px; background: var(--bg); border: 1px solid var(--border); padding: 10px 12px; border-radius: 14px; }
+    .search input { flex: 1; border: none; outline: none; background: transparent; color: var(--text); font-size: 14px; }
+
+    .btn { border: 1px solid var(--border); background: var(--panel); color: var(--text); padding: 10px 14px; border-radius: 12px; cursor: pointer; transition: .15s ease; }
+    .btn:hover { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 25%, transparent); }
+    .btn.primary { background: linear-gradient(180deg, var(--accent), var(--accent-strong)); border: none; color: white; }
+    .btn.primary:hover { filter: brightness(1.05); }
+
+    .main { grid-area: main; display: grid; grid-template-columns: 1fr 1fr; height: calc(100vh - 64px); }
+
+    .left { border-right: 1px solid var(--border); overflow-y: auto; display: flex; flex-direction: column; min-width: 0; }
+    .left-header { padding: 12px 16px; display: flex; gap: 8px; }
+    .scroll { overflow-y: auto; padding: 16px; display: grid; gap: 12px; }
+
+    .group-card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); }
+    .group-head { padding: 12px 14px; display: flex; gap: 10px; align-items: center; border-bottom: 1px dashed var(--border); }
+    .group-head input { flex: 1; border: none; outline: none; background: transparent; color: var(--text); font-weight: 600; font-size: 14px; }
+    .group-actions { display: flex; gap: 6px; }
+
+    .option-list { padding: 10px; display: grid; gap: 6px; }
+    .option-chip { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border-radius: 12px; background: var(--bg); border: 1px solid var(--border); cursor: pointer; transition: .12s; }
+    .option-chip:hover { border-color: var(--accent); }
+    .option-chip.active { outline: 3px solid color-mix(in oklab, var(--accent) 30%, transparent); }
+    .chip-title { font-weight: 600; font-size: 14px; }
+    .chip-sub { color: var(--muted); font-size: 12px; }
+
+    .right { overflow-y: auto; padding: 16px; display: grid; gap: 16px; min-width: 0; }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 16px; }
+    .card h3 { margin: 0 0 12px; font-size: 16px; }
+
+    .field { display: grid; gap: 6px; margin-bottom: 10px; }
+    .label { font-size: 12px; color: var(--muted); }
+    .input, .select, .textarea { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; outline: none; }
+    .textarea { min-height: 64px; resize: vertical; }
+
+    .choices { display: grid; gap: 10px; }
+    .choice-row { display: grid; grid-template-columns: 1.2fr 1fr 1.2fr auto; gap: 8px; align-items: center; }
+    .mini-btn { border: 1px solid var(--border); background: var(--bg); color: var(--text); padding: 8px 10px; border-radius: 10px; cursor: pointer; }
+    .mini-btn:hover { border-color: var(--accent); }
+    .divider { height: 1px; background: var(--border); margin: 4px 0 8px; }
+
+    .hint { font-size: 12px; color: var(--muted); }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .tutorial-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+    .tutorial-card h3 { margin-top: 0; font-size: 16px; }
+    .tutorial-card p { margin: 8px 0; font-size: 14px; color: var(--muted); }
+
+    @media (max-width: 1100px) {
+      .main { grid-template-columns: 1fr; }
+      .left { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand"><div class="logo"></div> HedgeConfig</div>
+    <div class="nav">
+      <button class="active" id="nav-config">Config</button>
+      <button id="nav-import">Import JSON</button>
+      <button id="nav-export">Export JSON</button>
+      <!--<button id="nav-settings">Settings</button>-->
+    </div>
+    <div class="spacer"></div>
+    <div class="theme-toggle">
+      <span>Theme</span>
+      <label>
+        <input id="themeToggle" class="toggle" type="checkbox" checked>
+      </label>
+    </div>
+  </aside>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="search">
+      <span></span>
+      <input id="searchInput" placeholder="Search options… (by display name or type)" />
+    </div>
+    <button class="btn" id="btnAddGroup">＋ Group</button>
+    <button class="btn primary" id="btnAddOption">＋ Option</button>
+  </header>
+
+  <!-- Main area -->
+  <main class="main">
+    <!-- Left column: groups + options -->
+    <section class="left">
+      <div class="left-header hint">Groups & Options</div>
+      <div id="groupsCol" class="scroll"></div>
+    </section>
+
+    <!-- Right column: details of selected option -->
+    <section class="right">
+      <div class="tutorial-card" id="devWarning">
+    <h3>⚠️ Early Development Warning</h3>
+    <p>
+      This web app is in early development. You can create, edit, import, and export basic configuration files
+      that use <strong>item lists</strong>. 
+      Configs using <strong>boolean, integer, or string options</strong> are not yet supported.
+    </p>
+  </div>
+      <div class="card">
+        <h3 id="detailsTitle">No option selected</h3>
+        <div id="detailsBody" class="hint">Select or create an option to edit its fields and choices.</div>
+      </div>
+    </section>
+  </main>
+
+  <input id="fileInput" type="file" accept="application/json" style="display:none" />
+
+<script>
+  // ---------- State ----------
+  /** @typedef {{displayName:string, description:string, type:string, defaultValue:string, enums:Array<{displayName:string, value:string, description:string}>, includeIndex?:number}} Option */
+  /** @typedef {{name:string, displayName:string, elements: Option[]}} Group */
+
+  /** @type {Group[]} */
+  let groups = [
+    { name: 'New Group', displayName: 'Configuration', elements: [
+      { displayName: "New Option", description: "", type: "NewEnum", defaultValue: "", enums: [
+        { displayName: "Choice A", value: "", description: "" }
+      ]}
+    ]}
+  ];
+
+  let selected = { groupIndex: 0, optionIndex: 0 };
+
+  // ---------- Helpers ----------
+  const $ = sel => document.querySelector(sel);
+  const el = (tag, cls, html) => { const n = document.createElement(tag); if(cls) n.className = cls; if(html!==undefined) n.innerHTML = html; return n; };
+
+  function ensurePathFormat(v){
+    let val = (v||"").trim();
+    if (!val) return "./"; 
+    if (!val.startsWith('./')) val = './' + val.replace(/^\.\//,'');
+    if (!val.endsWith('/')) val += '/';
+    return val;
+  }
+
+  function optionDefault(option){
+    if (option.defaultValue) return ensurePathFormat(option.defaultValue).replace(/^\.\//,'').replace(/\/$/,'');
+    if (option.enums.length) return option.enums[0].value;
+    return '';
+  }
+
+  // ---------- Rendering: Left Column ----------
+  function renderLeft(){
+    const wrap = $('#groupsCol');
+    wrap.innerHTML = '';
+
+    groups.forEach((g, gi) => {
+      const card = el('div', 'group-card');
+      const head = el('div', 'group-head');
+      const nameInput = el('input'); nameInput.value = g.name; nameInput.placeholder = 'Group Name';
+      nameInput.oninput = () => g.name = nameInput.value;
+      const dispInput = el('input'); dispInput.value = g.displayName; dispInput.placeholder = 'Group Display Name';
+      dispInput.oninput = () => g.displayName = dispInput.value;
+      const actions = el('div','group-actions');
+      const delBtn = el('button','mini-btn','🗑️');
+      delBtn.title = 'Delete group';
+      delBtn.onclick = () => { 
+        if (confirm('Delete group and its options?')) { 
+          groups.splice(gi,1); 
+          if (!groups.length){ groups=[{name:'Main',displayName:'Options',elements:[]}]; } 
+          selected = {groupIndex:0, optionIndex: groups[0].elements[0]?0:-1}; 
+          renderAll(); 
+        } 
+      };
+      const addOptBtn = el('button','mini-btn','＋ Option');
+      addOptBtn.onclick = () => addOption(gi);
+      actions.append(addOptBtn, delBtn);
+      head.append(nameInput, dispInput, actions);
+
+      const list = el('div', 'option-list');
+      const q = ($('#searchInput').value||'').toLowerCase();
+
+      g.elements.forEach((opt, oi) => {
+        const chip = el('div','option-chip');
+        if (selected.groupIndex===gi && selected.optionIndex===oi) chip.classList.add('active');
+        chip.onclick = () => { selected={groupIndex:gi, optionIndex:oi}; renderAll(); };
+        const left = el('div');
+        left.append(
+          el('div','chip-title', opt.displayName || 'Untitled Option'),
+          el('div','chip-sub', `${opt.type || 'Type'} • ${opt.enums.length} choices`)
+        );
+        const right = el('div');
+        const del = el('button','mini-btn','✖'); del.title='Remove option';
+        del.onclick = (e)=>{ e.stopPropagation(); g.elements.splice(oi,1); if(selected.groupIndex===gi && selected.optionIndex===oi){ selected.optionIndex = Math.min(oi, g.elements.length-1); } renderAll(); };
+        right.append(del);
+        chip.append(left, right);
+
+        const searchable = `${opt.displayName} ${opt.type}`.toLowerCase();
+        if (!q || searchable.includes(q)) list.append(chip);
+      });
+
+      card.append(head, list);
+      wrap.append(card);
+    });
+  }
+
+  function addGroup(){
+    groups.push({ name: 'NewGroup', displayName: 'New Group', elements: [] });
+    selected = { groupIndex: groups.length-1, optionIndex: -1 };
+    renderAll();
+  }
+
+  function addOption(groupIndex){
+    const g = groups[groupIndex];
+    g.elements.push({ displayName: 'New Option', description: '', type: 'NewEnum', defaultValue: '', includeIndex: undefined, enums: [ { displayName: 'Choice A', value: 'folder_a', description: '' } ] });
+    selected = { groupIndex, optionIndex: g.elements.length-1 };
+    renderAll();
+  }
+
+  // ---------- Rendering: Right (Details) ----------
+  function renderRight(){
+    const body = $('#detailsBody');
+    const title = $('#detailsTitle');
+    const g = groups[selected.groupIndex];
+    if (!g || selected.optionIndex===-1 || !g.elements[selected.optionIndex]){
+      title.textContent = 'No option selected';
+      body.className = 'hint';
+      body.innerHTML = 'Select or create an option to edit its fields and choices.';
+      return;
+    }
+
+    const opt = g.elements[selected.optionIndex];
+    title.textContent = opt.displayName || 'Untitled Option';
+    body.className = '';
+    body.innerHTML = '';
+
+    const fields = el('div','card');
+    fields.append(
+      field('Display Name', input(opt.displayName, v => { opt.displayName = v; renderLeft(); })),
+      field('Description', textarea(opt.description, v => opt.description = v), 'Shown below the option title.'),
+      field('Type (Enum Name)', input(opt.type, v => { opt.type = v.replace(/\s+/g,''); renderLeft(); }), 'Used as key in Enums (no spaces).'),
+      field('Default Value (one of the choices)', input(opt.defaultValue, v => opt.defaultValue = v), 'If empty, exports to first choice automatically.'),
+      field('IncludeDir Number', input(opt.includeIndex !== undefined ? opt.includeIndex : '', v => {
+        const n = parseInt(v);
+        opt.includeIndex = isNaN(n) ? undefined : n;
+      }), 'Set manually for mods that require specific order')
+    );
+
+    const choicesCard = el('div','card');
+    choicesCard.append(el('h3',null,'Choices'));
+    const choices = el('div','choices');
+    opt.enums.forEach((c, idx) => {
+      const row = el('div','choice-row');
+      row.append(
+        input(c.displayName, v => c.displayName=v, 'Choice name…'),
+        input(c.value, v => c.value=v, 'Value (folder name)…'),
+        input(c.description, v => c.description=v, 'Description…'),
+        ( ()=>{ const b=el('button','mini-btn','🗑️'); b.title='Remove'; b.onclick=()=>{ opt.enums.splice(idx,1); renderRight(); }; return b; })()
+      );
+      choices.append(row);
+    });
+    const addBtn = el('button','mini-btn','＋ Add Choice');
+    addBtn.onclick = ()=>{ opt.enums.push({displayName:'New Choice', value:'folder', description:''}); renderRight(); };
+    choicesCard.append(choices, el('div','divider'), addBtn);
+
+    body.append(fields, choicesCard);
+  }
+
+  function field(label, control, hint){
+    const wrap = el('div','field');
+    wrap.append(el('div','label',label), control);
+    if(hint) wrap.append(el('div','hint',hint));
+    return wrap;
+  }
+  function input(value, onChange, placeholder=''){
+    const i = el('input','input'); i.value=value||''; i.placeholder=placeholder; i.oninput=()=>onChange(i.value); return i;
+  }
+  function textarea(value, onChange){
+    const t = el('textarea','textarea'); t.value=value||''; t.oninput=()=>onChange(t.value); return t;
+  }
+
+  // ---------- Search ----------
+  $('#searchInput').addEventListener('input', renderLeft);
+
+  // ---------- Topbar buttons ----------
+  $('#btnAddGroup').onclick = addGroup;
+  $('#btnAddOption').onclick = ()=>{ const gi = selected.groupIndex ?? 0; addOption(gi); };
+
+  // Sidebar actions
+  $('#nav-import').onclick = ()=> $('#fileInput').click();
+  $('#fileInput').addEventListener('change', handleImport, false);
+  $('#nav-export').onclick = exportJSON;
+
+  // Theme toggle
+  const themeToggle = $('#themeToggle');
+  function applyTheme(){ document.documentElement.setAttribute('data-theme', themeToggle.checked ? 'dark' : 'light'); }
+  themeToggle.onchange = ()=>{ localStorage.setItem('hc_theme', themeToggle.checked?'dark':'light'); applyTheme(); };
+  (function initTheme(){ const t = localStorage.getItem('hc_theme'); if(t){ themeToggle.checked = t==='dark'; } applyTheme(); })();
+
+  // ---------- Import/Export ----------
+  function handleImport(ev){
+    const file = ev.target.files[0]; if(!file) return; const r = new FileReader();
+    r.onload = e => {
+      try {
+        const data = JSON.parse(e.target.result);
+        groups = (data.Groups||[]).map(gr => ({
+          name: gr.Name || 'Group',
+          displayName: gr.DisplayName || gr.Name || 'Group',
+          elements: (gr.Elements||[]).map(elm => ({
+            displayName: elm.DisplayName || 'Option',
+            description: (elm.Description && elm.Description[0]) || '',
+            type: (elm.Type||'').replace(/\s+/g,''),
+            defaultValue: (elm.DefaultValue||'').replace(/^\.\//,'' ).replace(/\/$/,''),
+            includeIndex: parseInt(elm.Name.replace('IncludeDir','')) || undefined,
+            enums: ((data.Enums||{})[elm.Type]||[]).map(en => ({
+              displayName: en.DisplayName || 'Choice',
+              value: (en.Value||'').replace(/^\.\//,'' ).replace(/\/$/,'') ,
+              description: (en.Description && en.Description[0]) || ''
+            }))
+          }))
+        }));
+        selected = { groupIndex: 0, optionIndex: groups[0] && groups[0].elements[0] ? 0 : -1 };
+        renderAll();
+      } catch(err){
+        alert('Invalid JSON file.');
+        console.error(err);
+      }
+      ev.target.value = '';
+    };
+    r.readAsText(file);
+  }
+
+  function exportJSON(){
+    const Groups = [];
+    const Enums = {};
+    let autoIdx = 0;
+
+    groups.forEach(gr => {
+      const Elements = (gr.elements||[]).map(opt => {
+        const key = (opt.type||'').replace(/\s+/g,'');
+        if (!Enums[key]) Enums[key] = [];
+        (opt.enums||[]).forEach(entry => {
+          const val = ensurePathFormat(entry.value);
+          Enums[key].push({ DisplayName: entry.displayName||'', Value: val, Description: [entry.description||''] });
+        });
+
+        let def = opt.defaultValue ? ensurePathFormat(opt.defaultValue) : '';
+        if (!def){
+          if (opt.enums && opt.enums[0]) def = ensurePathFormat(opt.enums[0].value);
+          else def = './';
+        }
+
+        return {
+          Name: opt.includeIndex !== undefined ? `IncludeDir${opt.includeIndex}` : `IncludeDir${autoIdx++}`,
+          DisplayName: opt.displayName || 'Option',
+          Description: [ opt.description || '' ],
+          Type: key || 'Enum',
+          MinValue: null,
+          MaxValue: null,
+          DefaultValue: def
+        };
+      });
+
+      Groups.push({ Name: gr.name || 'Group', DisplayName: gr.displayName || gr.name || 'Group', Elements });
+    });
+
+    const root = { Groups, Enums, IniFile: 'mod.ini' };
+    const blob = new Blob([JSON.stringify(root, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'config.json'; a.click();
+    URL.revokeObjectURL(url);
+  }
+
+
+
+
+  // ---------- Initial render ----------
+  function renderAll(){ renderLeft(); renderRight(); }
+  renderAll();
+</script>
+
+</body>
+</html>
