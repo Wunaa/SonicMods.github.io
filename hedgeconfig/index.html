@@ -44,6 +44,27 @@
         'sidebar topbar'
         'sidebar main';
     }
+    
+    .credits {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .credits h4 {
+      margin: 0 0 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .credits a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .credits a:hover {
+      text-decoration: underline;
+    }
+    
 
     .sidebar { grid-area: sidebar; padding: 16px; border-right: 1px solid var(--border); background: var(--panel); box-shadow: var(--shadow); z-index: 2; }
     .brand { display: flex; gap: 12px; align-items: center; font-weight: 700; margin-bottom: 16px; }
@@ -144,7 +165,17 @@
         <input id="themeToggle" class="toggle" type="checkbox" checked>
       </label>
     </div>
+  
+    <!-- Credits -->
+    <div class="credits">
+      <h4>Credits</h4>
+      <p>
+        <a href="https://x.com/em20080" target="_blank">EM2008</a> — Original C# code<br>
+        <a href="https://x.com/SxlverCyn" target="_blank">Cyn</a> — HTML/JS port &amp; UI
+      </p>
+    </div>
   </aside>
+
 
   <!-- Top bar -->
   <header class="topbar">
