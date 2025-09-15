@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Discord Show Runner Webhook</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #2c2f33;
+      color: #fff;
+      padding: 20px;
+    }
+    h1 { text-align: center; }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #23272a;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    label { display: block; margin-top: 10px; }
+    input, textarea, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: none;
+    }
+    textarea { height: 100px; resize: vertical; }
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .send { background: #7289da; color: #fff; }
+    .save { background: #43b581; color: #fff; }
+    .quick { background: #faa61a; color: #000; margin-top: 5px; }
+    .row { display: flex; gap: 10px; }
+    .row > div { flex: 1; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎬 Show Runner Webhook</h1>
+    
+    <label>Webhook URL</label>
+    <input type="text" id="webhook" placeholder="Paste your Discord Webhook URL">
+
+    <label>Username Override</label>
+    <input type="text" id="username" placeholder="Optional username">
+
+    <label>Avatar URL Override</label>
+    <input type="text" id="avatar" placeholder="Optional avatar URL">
+
+    <label>Message</label>
+    <textarea id="content" placeholder="Type your announcement..."></textarea>
+    <small id="charCount">0 / 2000</small>
+
+    <h3>Embed Options</h3>
+    <div class="row">
+      <div>
+        <label>Title</label>
+        <input type="text" id="embedTitle">
+      </div>
+      <div>
+        <label>Color</label>
+        <input type="color" id="embedColor" value="#7289da">
+      </div>
+    </div>
+    <label>Description</label>
+    <textarea id="embedDescription"></textarea>
+
+    <label>Image URL</label>
+    <input type="text" id="embedImage">
+
+    <label>Footer</label>
+    <input type="text" id="embedFooter">
+
+    <label><input type="checkbox" id="embedTimestamp"> Include timestamp</label>
+
+    <button class="send" onclick="sendWebhook()">🚀 Send Message</button>
+    <button class="save" onclick="saveSettings()">💾 Save Settings</button>
+
+    <h3>Quick Announcements</h3>
+    <button class="quick" onclick="quickSend('🍿 Movie starting now! Join in!')">Movie Start</button>
+    <button class="quick" onclick="quickSend('📺 Show is starting! Get ready!')">Show Start</button>
+    <button class="quick" onclick="quickSend('✅ That’s a wrap! Thanks for watching!')">End Announcement</button>
+  </div>
+
+  <script>
+    const webhookInput = document.getElementById("webhook");
+    const contentInput = document.getElementById("content");
+    const charCount = document.getElementById("charCount");
+
+    // Character counter
+    contentInput.addEventListener("input", () => {
+      charCount.textContent = `${contentInput.value.length} / 2000`;
+    });
+
+    // Load saved settings
+    window.onload = () => {
+      const saved = JSON.parse(localStorage.getItem("webhookSettings"));
+      if (saved) {
+        webhookInput.value = saved.webhook || "";
+        document.getElementById("username").value = saved.username || "";
+        document.getElementById("avatar").value = saved.avatar || "";
+      }
+    };
+
+    function saveSettings() {
+      const settings = {
+        webhook: webhookInput.value,
+        username: document.getElementById("username").value,
+        avatar: document.getElementById("avatar").value,
+      };
+      localStorage.setItem("webhookSettings", JSON.stringify(settings));
+      alert("✅ Settings saved!");
+    }
+
+    async function sendWebhook() {
+      const url = webhookInput.value;
+      if (!url) return alert("Webhook URL required!");
+
+      const payload = {
+        content: contentInput.value || undefined,
+        username: document.getElementById("username").value || undefined,
+        avatar_url: document.getElementById("avatar").value || undefined,
+        embeds: []
+      };
+
+      const embed = {};
+      const title = document.getElementById("embedTitle").value;
+      const description = document.getElementById("embedDescription").value;
+      const color = document.getElementById("embedColor").value;
+      const image = document.getElementById("embedImage").value;
+      const footer = document.getElementById("embedFooter").value;
+      const timestamp = document.getElementById("embedTimestamp").checked;
+
+      if (title || description || image || footer || timestamp) {
+        if (title) embed.title = title;
+        if (description) embed.description = description;
+        if (color) embed.color = parseInt(color.slice(1), 16);
+        if (image) embed.image = { url: image };
+        if (footer) embed.footer = { text: footer };
+        if (timestamp) embed.timestamp = new Date();
+        payload.embeds.push(embed);
+      }
+
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          alert("✅ Message sent!");
+          contentInput.value = "";
+          charCount.textContent = "0 / 2000";
+        } else {
+          alert("❌ Error sending message. Check the webhook URL.");
+        }
+      } catch (e) {
+        alert("❌ Network error: " + e.message);
+      }
+    }
+
+    function quickSend(message) {
+      contentInput.value = message;
+      sendWebhook();
+    }
+  </script>
+</body>
+</html>
