@@ -5,111 +5,176 @@
   <title>Discord Show Runner Webhook</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
       background: #2c2f33;
       color: #fff;
       padding: 20px;
     }
-    h1 { text-align: center; }
+    h1 { 
+      text-align: center; 
+      margin-bottom: 20px;
+    }
     .container {
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
       background: #23272a;
       padding: 20px;
       border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    section {
+      margin-bottom: 25px;
+      padding: 15px;
+      background: #2c2f33;
+      border-radius: 10px;
+    }
+    section h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.2em;
+      border-bottom: 1px solid #444;
+      padding-bottom: 5px;
     }
     label { display: block; margin-top: 10px; }
-    input, textarea, select {
+    input, textarea {
       width: 100%;
       padding: 8px;
       margin-top: 5px;
       border-radius: 6px;
       border: none;
+      background: #99aab5;
+      color: #000;
     }
-    textarea { height: 100px; resize: vertical; }
+    textarea { height: 80px; resize: vertical; }
     button {
       margin-top: 10px;
       padding: 10px;
-      width: 100%;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
+      transition: 0.2s;
     }
-    .send { background: #7289da; color: #fff; }
-    .save { background: #43b581; color: #fff; }
-    .quick { background: #faa61a; color: #000; margin-top: 5px; }
+    button:hover { opacity: 0.9; }
+    .send { background: #7289da; color: #fff; width: 100%; }
+    .save { background: #43b581; color: #fff; width: 49%; }
+    .edit { background: #faa61a; color: #000; width: 49%; }
+    .quick { background: #5865f2; color: #fff; margin-top: 5px; width: 32%; }
     .row { display: flex; gap: 10px; }
     .row > div { flex: 1; }
+    .log {
+      max-height: 200px;
+      overflow-y: auto;
+      background: #202225;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+    .log-entry {
+      display: flex;
+      justify-content: space-between;
+      background: #2c2f33;
+      padding: 5px 8px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+      align-items: center;
+    }
+    .log-entry span {
+      flex: 1;
+      color: #ccc;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .log-entry button {
+      background: #faa61a;
+      color: #000;
+      font-size: 0.8em;
+      padding: 5px 10px;
+      width: auto;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>🎬 Show Runner Webhook</h1>
     
-    <label>Webhook URL</label>
-    <input type="text" id="webhook" placeholder="Paste your Discord Webhook URL">
+    <section>
+      <h2>Webhook Settings</h2>
+      <label>Webhook URL</label>
+      <input type="text" id="webhook" placeholder="Paste your Discord Webhook URL">
 
-    <label>Username Override</label>
-    <input type="text" id="username" placeholder="Optional username">
+      <label>Username Override</label>
+      <input type="text" id="username" placeholder="Optional username">
 
-    <label>Avatar URL Override</label>
-    <input type="text" id="avatar" placeholder="Optional avatar URL">
+      <label>Avatar URL Override</label>
+      <input type="text" id="avatar" placeholder="Optional avatar URL">
 
-    <label>Message</label>
-    <textarea id="content" placeholder="Type your announcement..."></textarea>
-    <small id="charCount">0 / 2000</small>
-
-    <h3>Embed Options</h3>
-    <div class="row">
-      <div>
-        <label>Title</label>
-        <input type="text" id="embedTitle">
+      <div class="row">
+        <button class="save" onclick="saveSettings()">💾 Save Settings</button>
+        <button class="edit" onclick="loadSettings()">📂 Load Settings</button>
       </div>
-      <div>
-        <label>Color</label>
-        <input type="color" id="embedColor" value="#7289da">
+    </section>
+
+    <section>
+      <h2>Message</h2>
+      <label>Content</label>
+      <textarea id="content" placeholder="Type your announcement..."></textarea>
+      <small id="charCount">0 / 2000</small>
+
+      <h3>Embed Options</h3>
+      <div class="row">
+        <div>
+          <label>Title</label>
+          <input type="text" id="embedTitle">
+        </div>
+        <div>
+          <label>Color</label>
+          <input type="color" id="embedColor" value="#7289da">
+        </div>
       </div>
-    </div>
-    <label>Description</label>
-    <textarea id="embedDescription"></textarea>
+      <label>Description</label>
+      <textarea id="embedDescription"></textarea>
 
-    <label>Image URL</label>
-    <input type="text" id="embedImage">
+      <label>Image URL</label>
+      <input type="text" id="embedImage">
 
-    <label>Footer</label>
-    <input type="text" id="embedFooter">
+      <label>Footer</label>
+      <input type="text" id="embedFooter">
 
-    <label><input type="checkbox" id="embedTimestamp"> Include timestamp</label>
+      <label><input type="checkbox" id="embedTimestamp"> Include timestamp</label>
 
-    <button class="send" onclick="sendWebhook()">🚀 Send Message</button>
-    <button class="save" onclick="saveSettings()">💾 Save Settings</button>
+      <button class="send" onclick="sendWebhook()">🚀 Send Message</button>
+    </section>
 
-    <h3>Quick Announcements</h3>
-    <button class="quick" onclick="quickSend('🍿 Movie starting now! Join in!')">Movie Start</button>
-    <button class="quick" onclick="quickSend('📺 Show is starting! Get ready!')">Show Start</button>
-    <button class="quick" onclick="quickSend('✅ That’s a wrap! Thanks for watching!')">End Announcement</button>
+    <section>
+      <h2>Quick Announcements</h2>
+      <div class="row">
+        <button class="quick" onclick="quickSend('🍿 Movie starting now! Join in!')">Movie Start</button>
+        <button class="quick" onclick="quickSend('📺 Show is starting! Get ready!')">Show Start</button>
+        <button class="quick" onclick="quickSend('✅ That’s a wrap! Thanks for watching!')">End Announcement</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Message Log</h2>
+      <div class="log" id="messageLog">
+        <p style="color:#666;">No messages sent yet.</p>
+      </div>
+    </section>
   </div>
 
   <script>
     const webhookInput = document.getElementById("webhook");
     const contentInput = document.getElementById("content");
     const charCount = document.getElementById("charCount");
+    const log = document.getElementById("messageLog");
+    let messages = [];
 
     // Character counter
     contentInput.addEventListener("input", () => {
       charCount.textContent = `${contentInput.value.length} / 2000`;
     });
-
-    // Load saved settings
-    window.onload = () => {
-      const saved = JSON.parse(localStorage.getItem("webhookSettings"));
-      if (saved) {
-        webhookInput.value = saved.webhook || "";
-        document.getElementById("username").value = saved.username || "";
-        document.getElementById("avatar").value = saved.avatar || "";
-      }
-    };
 
     function saveSettings() {
       const settings = {
@@ -121,10 +186,17 @@
       alert("✅ Settings saved!");
     }
 
-    async function sendWebhook() {
-      const url = webhookInput.value;
-      if (!url) return alert("Webhook URL required!");
+    function loadSettings() {
+      const saved = JSON.parse(localStorage.getItem("webhookSettings"));
+      if (saved) {
+        webhookInput.value = saved.webhook || "";
+        document.getElementById("username").value = saved.username || "";
+        document.getElementById("avatar").value = saved.avatar || "";
+        alert("📂 Settings loaded!");
+      }
+    }
 
+    function buildPayload() {
       const payload = {
         content: contentInput.value || undefined,
         username: document.getElementById("username").value || undefined,
@@ -149,15 +221,24 @@
         if (timestamp) embed.timestamp = new Date();
         payload.embeds.push(embed);
       }
+      return payload;
+    }
+
+    async function sendWebhook() {
+      const url = webhookInput.value;
+      if (!url) return alert("Webhook URL required!");
+      const payload = buildPayload();
 
       try {
-        const res = await fetch(url, {
+        const res = await fetch(url + "?wait=true", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
+
         if (res.ok) {
-          alert("✅ Message sent!");
+          const data = await res.json();
+          addToLog(data.id, payload.content || "[Embed]");
           contentInput.value = "";
           charCount.textContent = "0 / 2000";
         } else {
@@ -168,9 +249,54 @@
       }
     }
 
+    async function editMessage(id) {
+      const url = webhookInput.value;
+      if (!url) return alert("Webhook URL required!");
+      const payload = buildPayload();
+
+      try {
+        const res = await fetch(url + "/messages/" + id, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          alert("✏️ Message edited!");
+          updateLog(id, payload.content || "[Embed]");
+        } else {
+          alert("❌ Error editing message.");
+        }
+      } catch (e) {
+        alert("❌ Network error: " + e.message);
+      }
+    }
+
     function quickSend(message) {
       contentInput.value = message;
       sendWebhook();
+    }
+
+    function addToLog(id, content) {
+      if (log.querySelector("p")) log.innerHTML = ""; // remove "no messages yet"
+
+      const entry = document.createElement("div");
+      entry.className = "log-entry";
+      entry.innerHTML = `
+        <span>${content}</span>
+        <button onclick="editMessage('${id}')">✏️ Edit</button>
+      `;
+      log.prepend(entry); // newest first
+      messages.push({ id, content });
+    }
+
+    function updateLog(id, newContent) {
+      const entries = log.getElementsByClassName("log-entry");
+      for (let e of entries) {
+        if (e.innerHTML.includes(id)) {
+          e.querySelector("span").textContent = newContent;
+        }
+      }
     }
   </script>
 </body>
