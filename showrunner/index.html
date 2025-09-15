@@ -14,13 +14,82 @@
       text-align: center; 
       margin-bottom: 20px;
     }
+    .layout {
+      display: flex;
+      gap: 20px;
+    }
     .container {
-      max-width: 900px;
-      margin: auto;
+      flex: 2;
       background: #23272a;
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    .preview {
+      flex: 1;
+      background: #2c2f33;
+      padding: 15px;
+      border-radius: 12px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 1px solid #444;
+    }
+    .preview h2 {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 5px;
+    }
+    /* Discord message style */
+    .discord-message {
+      display: flex;
+      margin-bottom: 15px;
+    }
+    .discord-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      background: #555;
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+    .discord-content {
+      flex: 1;
+    }
+    .discord-username {
+      font-weight: bold;
+      color: #fff;
+    }
+    .discord-time {
+      font-size: 0.75em;
+      color: #888;
+      margin-left: 5px;
+    }
+    .discord-text {
+      margin-top: 2px;
+      white-space: pre-wrap;
+    }
+    .discord-embed {
+      background: #2f3136;
+      border-left: 4px solid #7289da;
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 8px;
+    }
+    .embed-title {
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+    .embed-desc {
+      color: #ccc;
+      font-size: 0.9em;
+    }
+    .embed-image {
+      margin-top: 8px;
+      max-width: 100%;
+      border-radius: 6px;
     }
     section {
       margin-bottom: 25px;
@@ -96,72 +165,92 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🎬 Show Runner Webhook</h1>
-    
-    <section>
-      <h2>Webhook Settings</h2>
-      <label>Webhook URL</label>
-      <input type="text" id="webhook" placeholder="Paste your Discord Webhook URL">
+  <h1>🎬 Show Runner Webhook</h1>
+  <div class="layout">
+    <div class="container">
+      <section>
+        <h2>Webhook Settings</h2>
+        <label>Webhook URL</label>
+        <input type="text" id="webhook" placeholder="Paste your Discord Webhook URL">
 
-      <label>Username Override</label>
-      <input type="text" id="username" placeholder="Optional username">
+        <label>Username Override</label>
+        <input type="text" id="username" placeholder="Optional username">
 
-      <label>Avatar URL Override</label>
-      <input type="text" id="avatar" placeholder="Optional avatar URL">
+        <label>Avatar URL Override</label>
+        <input type="text" id="avatar" placeholder="Optional avatar URL">
 
-      <div class="row">
-        <button class="save" onclick="saveSettings()">💾 Save Settings</button>
-        <button class="edit" onclick="loadSettings()">📂 Load Settings</button>
-      </div>
-    </section>
-
-    <section>
-      <h2>Message</h2>
-      <label>Content</label>
-      <textarea id="content" placeholder="Type your announcement..."></textarea>
-      <small id="charCount">0 / 2000</small>
-
-      <h3>Embed Options</h3>
-      <div class="row">
-        <div>
-          <label>Title</label>
-          <input type="text" id="embedTitle">
+        <div class="row">
+          <button class="save" onclick="saveSettings()">💾 Save Settings</button>
+          <button class="edit" onclick="loadSettings()">📂 Load Settings</button>
         </div>
-        <div>
-          <label>Color</label>
-          <input type="color" id="embedColor" value="#7289da">
+      </section>
+
+      <section>
+        <h2>Message</h2>
+        <label>Content</label>
+        <textarea id="content" placeholder="Type your announcement..."></textarea>
+        <small id="charCount">0 / 2000</small>
+
+        <h3>Embed Options</h3>
+        <div class="row">
+          <div>
+            <label>Title</label>
+            <input type="text" id="embedTitle">
+          </div>
+          <div>
+            <label>Color</label>
+            <input type="color" id="embedColor" value="#7289da">
+          </div>
+        </div>
+        <label>Description</label>
+        <textarea id="embedDescription"></textarea>
+
+        <label>Image URL</label>
+        <input type="text" id="embedImage">
+
+        <label>Footer</label>
+        <input type="text" id="embedFooter">
+
+        <label><input type="checkbox" id="embedTimestamp"> Include timestamp</label>
+
+        <button class="send" onclick="sendWebhook()">🚀 Send Message</button>
+      </section>
+
+      <section>
+        <h2>Quick Announcements</h2>
+        <div class="row">
+          <button class="quick" onclick="quickSend('🍿 Movie starting now! Join in!')">Movie Start</button>
+          <button class="quick" onclick="quickSend('📺 Show is starting! Get ready!')">Show Start</button>
+          <button class="quick" onclick="quickSend('✅ That’s a wrap! Thanks for watching!')">End Announcement</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Message Log</h2>
+        <div class="log" id="messageLog">
+          <p style="color:#666;">No messages sent yet.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="preview">
+      <h2>Preview</h2>
+      <div id="previewMessage" class="discord-message">
+        <img id="previewAvatar" class="discord-avatar" src="" alt="">
+        <div class="discord-content">
+          <div>
+            <span id="previewUsername" class="discord-username">Webhook Bot</span>
+            <span class="discord-time">Today at 12:00</span>
+          </div>
+          <div id="previewContent" class="discord-text">Your message will appear here...</div>
+          <div id="previewEmbed" class="discord-embed" style="display:none;">
+            <div id="embedPreviewTitle" class="embed-title"></div>
+            <div id="embedPreviewDesc" class="embed-desc"></div>
+            <img id="embedPreviewImage" class="embed-image" src="">
+          </div>
         </div>
       </div>
-      <label>Description</label>
-      <textarea id="embedDescription"></textarea>
-
-      <label>Image URL</label>
-      <input type="text" id="embedImage">
-
-      <label>Footer</label>
-      <input type="text" id="embedFooter">
-
-      <label><input type="checkbox" id="embedTimestamp"> Include timestamp</label>
-
-      <button class="send" onclick="sendWebhook()">🚀 Send Message</button>
-    </section>
-
-    <section>
-      <h2>Quick Announcements</h2>
-      <div class="row">
-        <button class="quick" onclick="quickSend('🍿 Movie starting now! Join in!')">Movie Start</button>
-        <button class="quick" onclick="quickSend('📺 Show is starting! Get ready!')">Show Start</button>
-        <button class="quick" onclick="quickSend('✅ That’s a wrap! Thanks for watching!')">End Announcement</button>
-      </div>
-    </section>
-
-    <section>
-      <h2>Message Log</h2>
-      <div class="log" id="messageLog">
-        <p style="color:#666;">No messages sent yet.</p>
-      </div>
-    </section>
+    </div>
   </div>
 
   <script>
@@ -169,12 +258,48 @@
     const contentInput = document.getElementById("content");
     const charCount = document.getElementById("charCount");
     const log = document.getElementById("messageLog");
+
+    // Preview elements
+    const previewUsername = document.getElementById("previewUsername");
+    const previewAvatar = document.getElementById("previewAvatar");
+    const previewContent = document.getElementById("previewContent");
+    const previewEmbed = document.getElementById("previewEmbed");
+    const embedPreviewTitle = document.getElementById("embedPreviewTitle");
+    const embedPreviewDesc = document.getElementById("embedPreviewDesc");
+    const embedPreviewImage = document.getElementById("embedPreviewImage");
+
     let messages = [];
 
     // Character counter
     contentInput.addEventListener("input", () => {
       charCount.textContent = `${contentInput.value.length} / 2000`;
+      updatePreview();
     });
+
+    // Update preview live
+    document.querySelectorAll("#username, #avatar, #embedTitle, #embedDescription, #embedImage").forEach(el => {
+      el.addEventListener("input", updatePreview);
+    });
+
+    function updatePreview() {
+      previewUsername.textContent = document.getElementById("username").value || "Webhook Bot";
+      previewAvatar.src = document.getElementById("avatar").value || "https://cdn.discordapp.com/embed/avatars/0.png";
+      previewContent.textContent = contentInput.value || "Your message will appear here...";
+
+      const title = document.getElementById("embedTitle").value;
+      const desc = document.getElementById("embedDescription").value;
+      const img = document.getElementById("embedImage").value;
+
+      if (title || desc || img) {
+        previewEmbed.style.display = "block";
+        embedPreviewTitle.textContent = title;
+        embedPreviewDesc.textContent = desc;
+        embedPreviewImage.src = img;
+        embedPreviewImage.style.display = img ? "block" : "none";
+      } else {
+        previewEmbed.style.display = "none";
+      }
+    }
 
     function saveSettings() {
       const settings = {
@@ -192,6 +317,7 @@
         webhookInput.value = saved.webhook || "";
         document.getElementById("username").value = saved.username || "";
         document.getElementById("avatar").value = saved.avatar || "";
+        updatePreview();
         alert("📂 Settings loaded!");
       }
     }
@@ -241,6 +367,7 @@
           addToLog(data.id, payload.content || "[Embed]");
           contentInput.value = "";
           charCount.textContent = "0 / 2000";
+          updatePreview();
         } else {
           alert("❌ Error sending message. Check the webhook URL.");
         }
@@ -274,6 +401,7 @@
 
     function quickSend(message) {
       contentInput.value = message;
+      updatePreview();
       sendWebhook();
     }
 
@@ -286,7 +414,7 @@
         <span>${content}</span>
         <button onclick="editMessage('${id}')">✏️ Edit</button>
       `;
-      log.prepend(entry); // newest first
+      log.prepend(entry);
       messages.push({ id, content });
     }
 
@@ -298,6 +426,9 @@
         }
       }
     }
+
+    // Init preview
+    updatePreview();
   </script>
 </body>
 </html>
