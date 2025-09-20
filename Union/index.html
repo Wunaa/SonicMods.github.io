@@ -15,7 +15,7 @@
     .cw-btn {
       display: inline-block;
       padding: 12px 28px;
-      margin: 6px 0;
+      margin: 6px;
       text-transform: uppercase;
       font-weight: bold;
       color: #fff;
@@ -34,21 +34,33 @@
       background: #111;
       border: 2px solid #00e0ff;
       padding: 20px;
-      margin-bottom: 20px;
-      text-align: center;
+      margin-bottom: 30px;
       transition: 0.2s;
     }
     .release-card:hover {
       border-color: #ffcc00;
       box-shadow: 0 0 15px #ffcc00;
     }
+    .release-body {
+      white-space: pre-wrap;
+      background: rgba(255,255,255,0.05);
+      border-left: 4px solid #00e0ff;
+      padding: 10px;
+      margin: 15px 0;
+      font-size: 0.9rem;
+      color: #ddd;
+    }
   </style>
 </head>
 <body class="py-20 px-6">
 
   <h1 class="text-5xl font-extrabold text-center mb-10">Union Mod Manager Downloads</h1>
+  <p class="text-center text-gray-400 max-w-2xl mx-auto mb-14">
+    A fan-made tool for managing mods in <span class="text-cyan-400">Sonic Racing Crossworlds</span>.  
+    This website is also fan-made and not affiliated with SEGA.
+  </p>
 
-  <div id="releases" class="max-w-3xl mx-auto"></div>
+  <div id="releases" class="max-w-4xl mx-auto"></div>
 
   <footer class="text-center mt-20 text-gray-500">
     <p>&copy; 2025 Union Mod Manager | Sonic Racing Crossworlds is owned by SEGA. Fans by fans.</p>
@@ -58,28 +70,34 @@
     async function loadReleases() {
       const container = document.getElementById('releases');
       try {
-        const res = await fetch("https://api.github.com/repos/Wunaa/Union-Mod-Manager/releases/latest");
-        const release = await res.json();
-        
-        const winAsset = release.assets.find(a => a.name.toLowerCase().includes("windows"));
-        const linuxAsset = release.assets.find(a => a.name.toLowerCase().includes("linux"));
+        const res = await fetch("https://api.github.com/repos/Wunaa/Union-Mod-Manager/releases");
+        const releases = await res.json();
 
-        let html = `<div class="release-card">
-          <h2 class="text-3xl font-bold text-cyan-400 mb-2">${release.name}</h2>
-          <p class="text-gray-400 mb-6">Released on ${new Date(release.published_at).toLocaleDateString()}</p>`;
-        
-        if (winAsset) {
-          html += `<a href="${winAsset.browser_download_url}" class="cw-btn">Download for Windows</a><br>`;
-        }
-        if (linuxAsset) {
-          html += `<a href="${linuxAsset.browser_download_url}" class="cw-btn">Download for Linux</a>`;
-        }
-        
-        html += `</div>`;
-        container.innerHTML = html;
+        releases.forEach(rel => {
+          const winAsset = rel.assets.find(a => a.name.toLowerCase().includes("windows"));
+          const linuxAsset = rel.assets.find(a => a.name.toLowerCase().includes("linux"));
+
+          const card = document.createElement('div');
+          card.className = "release-card";
+
+          card.innerHTML = `
+            <h2 class="text-3xl font-bold text-cyan-400 mb-2">${rel.name}</h2>
+            <p class="text-gray-400 mb-4">Released on ${new Date(rel.published_at).toLocaleDateString()}</p>
+
+            <div class="release-body">${rel.body ? rel.body : "No changelog provided."}</div>
+
+            <div class="flex flex-wrap gap-3 mt-4">
+              ${winAsset ? `<a href="${winAsset.browser_download_url}" class="cw-btn">Windows</a>` : ""}
+              ${linuxAsset ? `<a href="${linuxAsset.browser_download_url}" class="cw-btn">Linux</a>` : ""}
+              <a href="${rel.html_url}" class="cw-btn">View on GitHub</a>
+            </div>
+          `;
+
+          container.appendChild(card);
+        });
 
       } catch (err) {
-        container.innerHTML = "<p class='text-red-400 text-center'>Failed to load downloads from GitHub.</p>";
+        container.innerHTML = "<p class='text-red-400 text-center'>Failed to load releases from GitHub.</p>";
       }
     }
     loadReleases();
