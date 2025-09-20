@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Union Mod Manager Downloads</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #050510 0%, #0b0b2e 100%);
+      color: white;
+    }
+    .cw-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      margin: 6px 0;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(90deg, #00e0ff, #0077ff);
+      border: 2px solid #00e0ff;
+      box-shadow: 0 0 12px #00e0ff;
+      transition: all 0.25s ease-in-out;
+    }
+    .cw-btn:hover {
+      background: linear-gradient(90deg, #ffcc00, #ff8800);
+      border-color: #ffcc00;
+      box-shadow: 0 0 14px #ffcc00;
+      transform: translateY(-2px);
+    }
+    .release-card {
+      background: #111;
+      border: 2px solid #00e0ff;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      transition: 0.2s;
+    }
+    .release-card:hover {
+      border-color: #ffcc00;
+      box-shadow: 0 0 15px #ffcc00;
+    }
+  </style>
+</head>
+<body class="py-20 px-6">
+
+  <h1 class="text-5xl font-extrabold text-center mb-10">Union Mod Manager Downloads</h1>
+
+  <div id="releases" class="max-w-3xl mx-auto"></div>
+
+  <footer class="text-center mt-20 text-gray-500">
+    <p>&copy; 2025 Union Mod Manager | Sonic Racing Crossworlds is owned by SEGA. Fans by fans.</p>
+  </footer>
+
+  <script>
+    async function loadReleases() {
+      const container = document.getElementById('releases');
+      try {
+        const res = await fetch("https://api.github.com/repos/Wunaa/Union-Mod-Manager/releases/latest");
+        const release = await res.json();
+        
+        const winAsset = release.assets.find(a => a.name.toLowerCase().includes("windows"));
+        const linuxAsset = release.assets.find(a => a.name.toLowerCase().includes("linux"));
+
+        let html = `<div class="release-card">
+          <h2 class="text-3xl font-bold text-cyan-400 mb-2">${release.name}</h2>
+          <p class="text-gray-400 mb-6">Released on ${new Date(release.published_at).toLocaleDateString()}</p>`;
+        
+        if (winAsset) {
+          html += `<a href="${winAsset.browser_download_url}" class="cw-btn">Download for Windows</a><br>`;
+        }
+        if (linuxAsset) {
+          html += `<a href="${linuxAsset.browser_download_url}" class="cw-btn">Download for Linux</a>`;
+        }
+        
+        html += `</div>`;
+        container.innerHTML = html;
+
+      } catch (err) {
+        container.innerHTML = "<p class='text-red-400 text-center'>Failed to load downloads from GitHub.</p>";
+      }
+    }
+    loadReleases();
+  </script>
+</body>
+</html>
