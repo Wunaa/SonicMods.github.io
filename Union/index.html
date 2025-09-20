@@ -6,8 +6,6 @@
   <title>Union Mod Manager Downloads</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
-  <!-- Marked.js for markdown rendering -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     body {
       font-family: 'Orbitron', sans-serif;
@@ -46,6 +44,7 @@
       box-shadow: 0 0 12px #ffcc00;
     }
     .release-body {
+      white-space: pre-wrap;
       background: rgba(255,255,255,0.05);
       border-left: 4px solid #00e0ff;
       padding: 10px;
@@ -53,20 +52,6 @@
       font-size: 0.9rem;
       color: #ddd;
       display: none;
-    }
-    .release-body h1, .release-body h2, .release-body h3 {
-      color: #0ff;
-      margin-top: 10px;
-    }
-    .release-body ul {
-      list-style-type: disc;
-      margin-left: 20px;
-    }
-    .release-body code {
-      background: rgba(0,0,0,0.4);
-      padding: 2px 4px;
-      border-radius: 4px;
-      font-family: monospace;
     }
     .copy-btn {
       cursor: pointer;
@@ -94,7 +79,6 @@
     This website is also fan-made and not affiliated with SEGA.
   </p>
 
-  <!-- Dropdown Filter -->
   <div class="text-center mb-10">
     <label for="releaseSelect" class="mr-3 text-lg text-gray-300">Jump to Release:</label>
     <select id="releaseSelect" class="p-2 rounded bg-gray-800 text-white border border-cyan-400"></select>
@@ -115,7 +99,6 @@
         const res = await fetch("https://api.github.com/repos/Wunaa/Union-Mod-Manager/releases");
         const releases = await res.json();
 
-        // Populate dropdown
         releases.forEach(rel => {
           const option = document.createElement("option");
           option.value = rel.tag_name;
@@ -123,7 +106,6 @@
           dropdown.appendChild(option);
         });
 
-        // Handle dropdown jump
         dropdown.addEventListener("change", () => {
           const target = document.getElementById(dropdown.value);
           if (target) {
@@ -131,7 +113,6 @@
           }
         });
 
-        // Render release cards
         releases.forEach(rel => {
           const winAsset = rel.assets.find(a => a.name.toLowerCase().includes("windows"));
           const linuxAsset = rel.assets.find(a => a.name.toLowerCase().includes("linux"));
@@ -152,7 +133,7 @@
               </div>
             </div>
 
-            <div id="body-${rel.tag_name}" class="release-body"></div>
+            <div id="body-${rel.tag_name}" class="release-body">${rel.body ? rel.body : "No changelog provided."}</div>
 
             <div class="flex flex-wrap gap-3 mt-4">
               ${winAsset ? `<a href="${winAsset.browser_download_url}" class="cw-btn">Windows</a>` : ""}
@@ -161,11 +142,6 @@
             </div>
           `;
 
-          // Insert rendered markdown into body
-          const bodyDiv = card.querySelector(`#body-${rel.tag_name}`);
-          bodyDiv.innerHTML = rel.body ? marked.parse(rel.body) : "No changelog provided.";
-
-          // Clicking header toggles changelog
           card.querySelector("h2").addEventListener("click", () => toggleBody(rel.tag_name));
           container.appendChild(card);
         });
