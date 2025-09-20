@@ -34,7 +34,7 @@
       background: #111;
       border: 2px solid #00e0ff;
       padding: 20px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       transition: 0.2s;
     }
     .release-card:hover {
@@ -49,16 +49,33 @@
       margin: 15px 0;
       font-size: 0.9rem;
       color: #ddd;
+      display: none; /* collapsed by default */
+    }
+    .copy-btn {
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-left: 10px;
+      color: #00e0ff;
+      transition: 0.2s;
+    }
+    .copy-btn:hover {
+      color: #ffcc00;
     }
   </style>
 </head>
 <body class="py-20 px-6">
 
   <h1 class="text-5xl font-extrabold text-center mb-10">Union Mod Manager Downloads</h1>
-  <p class="text-center text-gray-400 max-w-2xl mx-auto mb-14">
+  <p class="text-center text-gray-400 max-w-2xl mx-auto mb-10">
     A fan-made tool for managing mods in <span class="text-cyan-400">Sonic Racing Crossworlds</span>.  
     This website is also fan-made and not affiliated with SEGA.
   </p>
+
+  <!-- Dropdown Filter -->
+  <div class="text-center mb-10">
+    <label for="releaseSelect" class="mr-3 text-lg text-gray-300">Jump to Release:</label>
+    <select id="releaseSelect" class="p-2 rounded bg-gray-800 text-white border border-cyan-400"></select>
+  </div>
 
   <div id="releases" class="max-w-4xl mx-auto"></div>
 
@@ -69,22 +86,46 @@
   <script>
     async function loadReleases() {
       const container = document.getElementById('releases');
+      const dropdown = document.getElementById('releaseSelect');
+
       try {
         const res = await fetch("https://api.github.com/repos/Wunaa/Union-Mod-Manager/releases");
         const releases = await res.json();
 
+        // Populate dropdown
+        releases.forEach((rel, index) => {
+          const option = document.createElement("option");
+          option.value = rel.tag_name;
+          option.textContent = rel.name || rel.tag_name;
+          dropdown.appendChild(option);
+        });
+
+        // Handle dropdown jump
+        dropdown.addEventListener("change", () => {
+          const target = document.getElementById(dropdown.value);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+
+        // Render release cards
         releases.forEach(rel => {
           const winAsset = rel.assets.find(a => a.name.toLowerCase().includes("windows"));
           const linuxAsset = rel.assets.find(a => a.name.toLowerCase().includes("linux"));
 
           const card = document.createElement('div');
           card.className = "release-card";
+          card.id = rel.tag_name;
 
           card.innerHTML = `
-            <h2 class="text-3xl font-bold text-cyan-400 mb-2">${rel.name}</h2>
-            <p class="text-gray-400 mb-4">Released on ${new Date(rel.published_at).toLocaleDateString()}</p>
+            <h2 class="text-2xl font-bold text-cyan-400 mb-2 flex items-center">
+              ${rel.name}
+              <span class="copy-btn" onclick="copyLink('${rel.tag_name}')">🔗</span>
+            </h2>
+            <p class="text-gray-400 mb-3">Released on ${new Date(rel.published_at).toLocaleDateString()}</p>
 
-            <div class="release-body">${rel.body ? rel.body : "No changelog provided."}</div>
+            <button onclick="toggleBody('${rel.tag_name}')" class="cw-btn">Toggle Changelog</button>
+            <div id="body-${rel.tag_name}" class="release-body">${rel.body ? rel.body : "No changelog provided."}</div>
 
             <div class="flex flex-wrap gap-3 mt-4">
               ${winAsset ? `<a href="${winAsset.browser_download_url}" class="cw-btn">Windows</a>` : ""}
@@ -100,6 +141,19 @@
         container.innerHTML = "<p class='text-red-400 text-center'>Failed to load releases from GitHub.</p>";
       }
     }
+
+    function toggleBody(tag) {
+      const body = document.getElementById("body-" + tag);
+      body.style.display = (body.style.display === "none" || body.style.display === "") ? "block" : "none";
+    }
+
+    function copyLink(tag) {
+      const url = window.location.origin + window.location.pathname + "#" + tag;
+      navigator.clipboard.writeText(url).then(() => {
+        alert("Copied link to clipboard: " + url);
+      });
+    }
+
     loadReleases();
   </script>
 </body>
