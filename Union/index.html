@@ -14,52 +14,60 @@
     }
     .cw-btn {
       display: inline-block;
-      padding: 12px 28px;
-      margin: 6px;
+      padding: 10px 22px;
       text-transform: uppercase;
       font-weight: bold;
+      font-size: 0.9rem;
       color: #fff;
       background: linear-gradient(90deg, #00e0ff, #0077ff);
       border: 2px solid #00e0ff;
-      box-shadow: 0 0 12px #00e0ff;
-      transition: all 0.25s ease-in-out;
+      box-shadow: 0 0 8px #00e0ff;
+      transition: all 0.2s ease-in-out;
+      border-radius: 8px;
     }
     .cw-btn:hover {
       background: linear-gradient(90deg, #ffcc00, #ff8800);
       border-color: #ffcc00;
-      box-shadow: 0 0 14px #ffcc00;
-      transform: translateY(-2px);
+      box-shadow: 0 0 10px #ffcc00;
     }
     .release-card {
       background: #111;
       border: 2px solid #00e0ff;
-      padding: 20px;
+      padding: 16px 20px;
       margin-bottom: 20px;
       transition: 0.2s;
+      border-radius: 10px;
+      cursor: pointer;
     }
     .release-card:hover {
       border-color: #ffcc00;
-      box-shadow: 0 0 15px #ffcc00;
+      box-shadow: 0 0 12px #ffcc00;
     }
     .release-body {
       white-space: pre-wrap;
       background: rgba(255,255,255,0.05);
       border-left: 4px solid #00e0ff;
       padding: 10px;
-      margin: 15px 0;
+      margin-top: 12px;
       font-size: 0.9rem;
       color: #ddd;
       display: none; /* collapsed by default */
     }
     .copy-btn {
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       margin-left: 10px;
       color: #00e0ff;
       transition: 0.2s;
     }
     .copy-btn:hover {
       color: #ffcc00;
+    }
+    .copy-msg {
+      font-size: 0.8rem;
+      color: #0ff;
+      margin-left: 8px;
+      display: none;
     }
   </style>
 </head>
@@ -93,7 +101,7 @@
         const releases = await res.json();
 
         // Populate dropdown
-        releases.forEach((rel, index) => {
+        releases.forEach(rel => {
           const option = document.createElement("option");
           option.value = rel.tag_name;
           option.textContent = rel.name || rel.tag_name;
@@ -118,13 +126,17 @@
           card.id = rel.tag_name;
 
           card.innerHTML = `
-            <h2 class="text-2xl font-bold text-cyan-400 mb-2 flex items-center">
-              ${rel.name}
-              <span class="copy-btn" onclick="copyLink('${rel.tag_name}')">🔗</span>
-            </h2>
-            <p class="text-gray-400 mb-3">Released on ${new Date(rel.published_at).toLocaleDateString()}</p>
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-2xl font-bold text-cyan-400 mb-1">${rel.name}</h2>
+                <p class="text-gray-400">Released on ${new Date(rel.published_at).toLocaleDateString()}</p>
+              </div>
+              <div class="flex items-center">
+                <span class="copy-btn" onclick="copyLink('${rel.tag_name}', this)">🔗</span>
+                <span class="copy-msg">Link copied</span>
+              </div>
+            </div>
 
-            <button onclick="toggleBody('${rel.tag_name}')" class="cw-btn">Toggle Changelog</button>
             <div id="body-${rel.tag_name}" class="release-body">${rel.body ? rel.body : "No changelog provided."}</div>
 
             <div class="flex flex-wrap gap-3 mt-4">
@@ -134,6 +146,8 @@
             </div>
           `;
 
+          // Clicking header toggles changelog
+          card.querySelector("h2").addEventListener("click", () => toggleBody(rel.tag_name));
           container.appendChild(card);
         });
 
@@ -147,10 +161,12 @@
       body.style.display = (body.style.display === "none" || body.style.display === "") ? "block" : "none";
     }
 
-    function copyLink(tag) {
+    function copyLink(tag, el) {
       const url = window.location.origin + window.location.pathname + "#" + tag;
       navigator.clipboard.writeText(url).then(() => {
-        alert("Copied link to clipboard: " + url);
+        const msg = el.nextElementSibling;
+        msg.style.display = "inline";
+        setTimeout(() => { msg.style.display = "none"; }, 1200);
       });
     }
 
